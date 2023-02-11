@@ -1,1 +1,16 @@
-/* Todo */
+:root {
+    --text: #111111;
+    --text-extend: #FBFBFB;
+    --text-accent: #1A98C0;
+    --text-accent-gray: #BBBBBB;
+
+    --background: #FBFBFB;
+    --background-accent: #1A98C0;
+    --background-extend: #111111;
+
+    /* Todo (Add a line colors) */
+}
+
+:root {
+    --padding: 1rem 5vw;
+}
