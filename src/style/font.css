@@ -1,1 +1,85 @@
-/* Todo */
+@font-face {
+    font-family: "Rubik Light";
+    src: url("/font/Rubik-Light.ttf");
+}
+
+@font-face {
+    font-family: "Rubik SemiBold";
+    src: url("/font/Rubik-SemiBold.ttf");
+}
+
+*:not(br):not(hr):not(img) {
+    font-family: "Rubik Light", sans-serif;
+    font-weight: 300;
+}
+
+h1 {
+    font-size: 52px;
+}
+
+h2 {
+    font-size: 28px;
+    line-height: 46px;
+}
+
+h3 {
+}
+
+h4 {
+    font-size: 21px;
+    line-height: 32px;
+}
+
+h5 {
+}
+
+h6 {
+}
+
+.text-heading {
+    font-family: "Rubik SemiBold", sans-serif;
+    font-weight: 600;
+}
+
+.text {
+    color: var(--text);
+}
+
+.text-active:hover {
+    cursor: pointer;
+    color: var(--text-accent);
+}
+
+.text-extend {
+    color: var(--text-extend);
+}
+
+.text-accent {
+    color: var(--text-accent);
+}
+
+@media screen and (min-width: 100px) and (max-width: 1140px) {
+    h1 {
+        font-size: 32px;
+    }
+
+    h2 {
+        font-size: 21px;
+        line-height: 26px;
+    }
+
+    h3 {
+    }
+
+    h4 {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    h5 {
+    }
+
+    h6 {
+
+    }
+}
