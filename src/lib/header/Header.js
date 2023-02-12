@@ -55,7 +55,8 @@ class Header {
 
     initTemplate() {
         const parser = new DOMParser();
-        const templateString = `<header>
+        const templateString = `
+        <header>
             <img class="logo" src="/assets/header_logo.svg" alt="logo of the 'Cani Sani'">
             <div class="account">
                 <a id="sign-in" href="">
