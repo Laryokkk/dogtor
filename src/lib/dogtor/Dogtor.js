@@ -1,0 +1,3 @@
+const initDogtor = (maxSize) => {
+    
+}

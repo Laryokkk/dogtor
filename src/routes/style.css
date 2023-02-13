@@ -45,6 +45,6 @@ button:hover {
 }
 
 button:active,
-button:hover > * {
+button:hover>* {
     color: var(--text-accent);
 }
