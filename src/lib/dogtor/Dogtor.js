@@ -1,3 +1,0 @@
-const initDogtor = (maxSize) => {
-    
-}
