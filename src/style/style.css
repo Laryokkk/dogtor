@@ -1,3 +1,8 @@
 @import url('./reset.css');
 @import url('./vars.css');
 @import url('./font.css');
+@import url('./dogtor.css');
+
+body {
+    background-color: var(--background);
+}
