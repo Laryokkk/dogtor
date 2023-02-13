@@ -3,7 +3,7 @@ function validateInput(value) {
     return value ? true : false;
 }
 
-const person = [
+const Person = [
     {
         key: crypto.randomUUID(),
         title: 'Nome',
@@ -44,7 +44,7 @@ const person = [
     },
 ];
 
-const animal = [
+const Animal = [
     {
         key: crypto.randomUUID(),
         title: 'Nome',
@@ -78,7 +78,7 @@ const animal = [
     },
 ];
 
-const doctor = [
+const Doctor = [
     {
         key: crypto.randomUUID(),
         title: 'Nome',
@@ -123,7 +123,7 @@ const doctor = [
     },
 ];
 
-const visits = [
+const Visit = [
     [
         {
             key: crypto.randomUUID(),
@@ -255,4 +255,4 @@ const visits = [
 ];
 
 
-export { person, animal, doctor, visits };
+export { Person, Animal, Doctor, Visit };
