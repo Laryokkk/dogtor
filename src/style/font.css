@@ -55,9 +55,6 @@ h6 {}
     color: var(--text-accent);
 }
 
-.text-light {
-    font-family: "Rubik Light";
-}
 
 @media screen and (min-width: 100px) and (max-width: 1140px) {
     h1 {

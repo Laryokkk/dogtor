@@ -1,8 +1,8 @@
 @import url('/src/lib/header/style.css');
 
 .wrapper-container {
-    width: 276px;
-    height: 261px;
+    width: 17.5rem;
+    height: 16.5rem;
 
 
     background: #EFEFEF;
@@ -42,7 +42,7 @@
     display: grid;
 
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 3.125rem;
+    grid-gap: 3rem;
 
     margin-left: 10rem;
     margin-top: 7rem;
