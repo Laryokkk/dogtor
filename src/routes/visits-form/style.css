@@ -42,4 +42,7 @@
 
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 3.125rem;
+
+    margin-left: 10.188rem;
+    margin-top: 7.188rem;
 }

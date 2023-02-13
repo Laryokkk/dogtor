@@ -1,30 +1,22 @@
 import Header from "../../lib/header/Header.js";
-import VisitsBlock from "../../lib/visits-block/visits-block.js";
+import VisitsContainer from "../../lib/visits-container/visits-container.js";
+import { visit } from "../../helpers/Data.js";
 
 const wrapper = {
     header: document.querySelector('section#header'),
-    visitsBlock :document.querySelector('section.container'),
+    visitsContainer: document.querySelector('section.container'),
 };
-
-console.log(wrapper.visitsBlock);
 
 const props = {
     header: {},
-    visitsBlock: {},
+    visitsContainer: {},
 };
 
-const header = new Header(wrapper.header, props.header);
-const visitsBlock = new VisitsBlock (wrapper.visitsBlock, props.visitsBlock);
-console.log(visitsBlock);
-console.log(header);
-visitsBlock.init();
-visitsBlock.init();
-visitsBlock.init();
-visitsBlock.init();
-visitsBlock.init();
-visitsBlock.init();
-visitsBlock.init();
-visitsBlock.init();
-visitsBlock.init();
+visit.forEach(element => {
+    const visitComp = new VisitsContainer(wrapper.visitsContainer, element);
+    visitComp.init();
+});
 
+
+const header = new Header(wrapper.header, props.header);
 header.init();
