@@ -47,12 +47,12 @@ const data = {
         numeroDiTelefonoSecondary: {
             value: "",
         },
-        email :{
-            value :"",
+        email: {
+            value: "",
         }
     },
     dottore: {
-        data : {
+        data: {
             value: "",
         },
         timeStart: {
