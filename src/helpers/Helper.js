@@ -123,7 +123,7 @@ const Doctor = [
     },
 ];
 
-const visit = [
+const Visit = [
     [
         {
             key: crypto.randomUUID(),
