@@ -1,3 +1,7 @@
 @import url('./reset.css');
 @import url('./vars.css');
 @import url('./font.css');
+
+body {
+    background-color: var(--background);
+}
