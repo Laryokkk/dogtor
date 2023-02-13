@@ -1,0 +1,45 @@
+@import url('/src/lib/header/style.css');
+
+.wrapper-container {
+    width: 276px;
+    height: 261px;
+
+
+    background: #EFEFEF;
+    border-radius: 10px;
+}
+
+.wrapper-content {
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    padding-top: 0.625rem;
+}
+
+.see-visit {
+    width: 9.563rem;
+    height: 2.875rem;
+
+    margin-top: 0.885rem;
+
+    background: #1A98C0;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.padding-line {
+    padding-top: 0.688rem;
+    padding-bottom: 0.688rem;
+}
+
+.padding-left {
+    padding-left: 0.588rem;
+}
+
+.container {
+    width: 25rem;
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 3.125rem;
+}
