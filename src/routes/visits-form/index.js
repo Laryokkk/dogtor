@@ -1,6 +1,6 @@
 import Header from "../../lib/header/Header.js";
 import VisitsContainer from "../../lib/visits-container/visits-container.js";
-import { visit } from "../../helpers/Data.js";
+import { visit } from "../../helpers/Helper.js";
 
 const wrapper = {
     header: document.querySelector('section#header'),
@@ -9,7 +9,6 @@ const wrapper = {
 
 const props = {
     header: {},
-    visitsContainer: {},
 };
 
 visit.forEach(element => {

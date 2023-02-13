@@ -44,7 +44,7 @@ const Person = [
     },
 ];
 
-const Animale = [
+const Animal = [
     {
         key: crypto.randomUUID(),
         title: 'Nome',
@@ -78,7 +78,7 @@ const Animale = [
     },
 ];
 
-const Dottore = [
+const Doctor = [
     {
         key: crypto.randomUUID(),
         title: 'Nome',
@@ -247,4 +247,4 @@ const visit = [
 ];
 
 
-export { Person, Animale, Dottore, visit };
+export { Person, Animal, Doctor, visit };
