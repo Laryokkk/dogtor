@@ -3,7 +3,7 @@ function validateInput(value) {
     return value ? true : false;
 }
 
-const Person = [
+const person = [
     {
         key: crypto.randomUUID(),
         title: 'Nome',
@@ -44,7 +44,7 @@ const Person = [
     },
 ];
 
-const Animal = [
+const animal = [
     {
         key: crypto.randomUUID(),
         title: 'Nome',
@@ -78,7 +78,7 @@ const Animal = [
     },
 ];
 
-const Doctor = [
+const doctor = [
     {
         key: crypto.randomUUID(),
         title: 'Nome',
@@ -123,13 +123,14 @@ const Doctor = [
     },
 ];
 
-const Visit = [
+const visits = [
     [
         {
             key: crypto.randomUUID(),
             title: 'Inizio',
             value: '12:12',
             inputType: 'text',
+            className: 'text-accent',
             validate: validateInput(),
         },
         {
@@ -137,6 +138,7 @@ const Visit = [
             title: 'Fine',
             value: '12:13',
             inputType: 'text',
+            className: 'text-accent',
             validate: validateInput(),
         },
         {
@@ -160,6 +162,7 @@ const Visit = [
             title: 'Inizio',
             value: '12:12',
             inputType: 'text',
+            className: 'text-accent',
             validate: validateInput(),
         },
         {
@@ -167,6 +170,7 @@ const Visit = [
             title: 'Fine',
             value: '12:13',
             inputType: 'text',
+            className: 'text-accent',
             validate: validateInput(),
         },
         {
@@ -190,6 +194,7 @@ const Visit = [
             title: 'Inizio',
             value: '12:12',
             inputType: 'text',
+            className: 'text-accent',
             validate: validateInput(),
         },
         {
@@ -197,6 +202,7 @@ const Visit = [
             title: 'Fine',
             value: '12:13',
             inputType: 'text',
+            className: 'text-accent',
             validate: validateInput(),
         },
         {
@@ -220,6 +226,7 @@ const Visit = [
             title: 'Inizio',
             value: '12:12',
             inputType: 'text',
+            className: 'text-accent',
             validate: validateInput(),
         },
         {
@@ -227,6 +234,7 @@ const Visit = [
             title: 'Fine',
             value: '12:13',
             inputType: 'text',
+            className: 'text-accent',
             validate: validateInput(),
         },
         {
@@ -247,4 +255,4 @@ const Visit = [
 ];
 
 
-export { Person, Animal, Doctor, visit };
+export { person, animal, doctor, visits };

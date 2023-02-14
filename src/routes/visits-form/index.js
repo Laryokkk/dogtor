@@ -1,6 +1,6 @@
 import Header from "../../lib/header/Header.js";
 import VisitsContainer from "../../lib/visits-container/visits-container.js";
-import { visit } from "../../helpers/Helper.js";
+import { visits } from "../../helpers/Helper.js";
 
 const wrapper = {
     header: document.querySelector('section#header'),
@@ -11,9 +11,9 @@ const props = {
     header: {},
 };
 
-visit.forEach(element => {
-    const visitComp = new VisitsContainer(wrapper.visitsContainer, element);
-    visitComp.init();
+visits.forEach(visitProps => {
+    const visitComponent = new VisitsContainer(wrapper.visitsContainer, visitProps);
+    visitComponent.init();
 });
 
 
