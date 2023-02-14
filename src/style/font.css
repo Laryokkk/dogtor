@@ -32,11 +32,9 @@ h4 {
     line-height: 32px;
 }
 
-h5 {
-}
+h5 {}
 
-h6 {
-}
+h6 {}
 
 .text-heading {
     font-family: "Rubik SemiBold", sans-serif;
@@ -60,6 +58,7 @@ h6 {
     color: var(--text-accent);
 }
 
+
 @media screen and (min-width: 100px) and (max-width: 1140px) {
     h1 {
         font-size: 32px;
@@ -70,18 +69,14 @@ h6 {
         line-height: 26px;
     }
 
-    h3 {
-    }
+    h3 {}
 
     h4 {
         font-size: 16px;
         line-height: 20px;
     }
 
-    h5 {
-    }
+    h5 {}
 
-    h6 {
-
-    }
+    h6 {}
 }
