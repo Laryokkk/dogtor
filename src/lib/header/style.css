@@ -16,5 +16,5 @@ div.account {
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
-    gap: 2rem;
+    gap: 1.5rem;
 }

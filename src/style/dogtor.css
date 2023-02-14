@@ -1,0 +1,19 @@
+div#dogtor {
+    position: absolute;
+
+    width: 30vw;
+
+    left: 75vw;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    margin: auto auto auto auto;
+
+    z-index: -100;
+
+    background-image: url('/assets/dogtor.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
