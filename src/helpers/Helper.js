@@ -254,5 +254,5 @@ const Visit = [
     ],
 ];
 
-
 export { Person, Animal, Doctor, Visit };
+
