@@ -22,9 +22,14 @@
 
     margin-top: 1rem;
 
-    background: #1A98C0;
+
     border-radius: 4px;
     text-align: center;
+
+    border: 2px solid var(--background-accent);
+    background-color: var(--background-accent);
+
+    cursor: pointer;
 }
 
 .padding-line {
@@ -46,4 +51,15 @@
 
     margin-left: 10rem;
     margin-top: 7rem;
+}
+
+
+button:active,
+button:hover {
+    background-color: var(--background);
+}
+
+button:active,
+button:hover>* {
+    color: var(--text-accent);
 }

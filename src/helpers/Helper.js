@@ -4,48 +4,56 @@ function validateInput(value) {
 }
 
 const Person = [
-    {
-        key: crypto.randomUUID(),
-        title: 'Nome',
-        inputType: 'text',
-        value: 'Hello',
-        validate: validateInput(),
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Cognome',
-        inputType: 'date',
-        value: '',
-        validate: validateInput(),
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Codice Fiscale',
-        inputType: 'text',
-        validate: validateInput(),
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Numero di Telefono',
-        inputType: 'text',
-        validate: validateInput(),
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Email',
-        inputType: 'text',
-        validate: validateInput(),
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Descrizione',
-        inputType: 'text',
-        validate: validateInput(),
-    },
+    [
+        {
+            key: crypto.randomUUID(),
+            title: 'Nome',
+            inputType: 'text',
+            value: 'Hello',
+            validate: validateInput(),
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Cognome',
+            inputType: 'date',
+            value: '',
+            validate: validateInput(),
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Codice Fiscale',
+            inputType: 'text',
+            validate: validateInput(),
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Numero di Telefono',
+            inputType: 'text',
+            placeHolder: '+39-123-45-678',
+            validate: validateInput(),
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Email',
+            inputType: 'text',
+            validate: validateInput(),
+        }
+    ],
 ];
 
+const Description = [
+    [
+        {
+            key: crypto.randomUUID(),
+            title: 'Descrizione',
+            inputType: 'textarea',
+            validate: validateInput(),
+        },
+    ]
+]
+
 const Animal = [
-    {
+    [{
         key: crypto.randomUUID(),
         title: 'Nome',
         inputType: 'text',
@@ -55,7 +63,6 @@ const Animal = [
         key: crypto.randomUUID(),
         title: 'Data di Nascita',
         inputType: 'date',
-        value: '',
         validate: validateInput(),
     },
     {
@@ -75,52 +82,54 @@ const Animal = [
         title: 'Chip Identificativo',
         inputType: 'text',
         validate: validateInput(),
-    },
+    }],
 ];
 
 const Doctor = [
-    {
-        key: crypto.randomUUID(),
-        title: 'Nome',
-        value: 'Denys',
-        inputType: 'text',
-        validate: validateInput(),
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Data',
-        inputType: 'date',
-        value: '12/12/23',
-        validate: validateInput(),
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Inizio',
-        value: '12:12',
-        inputType: 'text',
-        validate: validateInput(),
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Fine',
-        value: '12:13',
-        inputType: 'text',
-        validate: validateInput(),
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Diagnosi',
-        value: '',
-        inputType: 'text',
-        validate: validateInput(),
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Nota',
-        value: '',
-        inputType: 'text',
-        validate: validateInput(),
-    },
+    [
+        {
+            key: crypto.randomUUID(),
+            title: 'Nome',
+            value: 'Denys',
+            inputType: 'text',
+            validate: validateInput(),
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Data',
+            inputType: 'date',
+            value: '12/12/23',
+            validate: validateInput(),
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Inizio',
+            value: '12:12',
+            inputType: 'text',
+            validate: validateInput(),
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Fine',
+            value: '12:13',
+            inputType: 'text',
+            validate: validateInput(),
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Diagnosi',
+            value: '',
+            inputType: 'text',
+            validate: validateInput(),
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Nota',
+            value: '',
+            inputType: 'text',
+            validate: validateInput(),
+        }
+    ]
 ];
 
 const Visit = [
@@ -254,5 +263,5 @@ const Visit = [
     ],
 ];
 
-export { Person, Animal, Doctor, Visit };
+export { Person, Animal, Doctor, Visit, Description };
 

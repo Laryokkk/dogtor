@@ -1,0 +1,54 @@
+@import url('/src/lib/header/style.css');
+
+.value-data {
+    width: 14rem;
+    height: 2.5rem;
+
+    background: var(--background-inputs);
+    border-radius: 4px;
+
+    padding-left: 1rem;
+
+    border: none;
+}
+
+.logo{
+    color: var( --text-accent);
+}
+
+.logo-description{
+    color: var(--text-accent-light-gray);
+}
+
+.wrapper-data{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 0.5rem;
+}
+
+.wrapper-manage-data{
+    width: 26rem;
+    height: 16rem;
+}
+
+
+.container {
+    width: 25rem;
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 3rem;
+
+    margin-left: 8rem;
+    margin-top: 5rem;
+}
+
+.description-problem{
+    border: none;
+
+    width: 28rem;
+    height: 12rem;
+    background: var(--background-inputs);
+}
