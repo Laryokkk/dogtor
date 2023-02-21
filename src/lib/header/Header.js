@@ -39,18 +39,6 @@ class Header {
 
             console.log('click logo');
         });
-
-        this.elements.linkSignIn.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            console.log('click sign in');
-        });
-
-        this.elements.linkSignUp.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            console.log('click sign up');
-        });
     }
 
     initTemplate() {
@@ -58,13 +46,13 @@ class Header {
         const templateString = `<header>
             <img class="logo" src="/assets/header_logo.svg" alt="logo of the 'Cani Sani'">
             <div class="account">
-                <a id="sign-in" href="">
+                <a id="sign-in" href="/src/routes/login/index.php">
                     <h4 class="text text-active">
                         <span class="text-heading text-accent">S</span>ign <span class="text-heading text-accent">I</span>n
                     </h4>
                 </a>
                 /
-                <a id="sign-up" href="">
+                <a id="sign-up" href="/src/routes/login/index.php">
                     <h4 class="text text-active">
                         <span class="text-heading text-accent">S</span>ign <span class="text-heading text-accent">U</span>p
                     </h4>
