@@ -10,7 +10,7 @@ const Person = [
             value: 'Hello',
             maxLenght: 20,
             className: 'data-entry',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
@@ -19,7 +19,7 @@ const Person = [
             value: '',
             maxLenght: 20,
             className: 'data-entry',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
@@ -29,7 +29,7 @@ const Person = [
             maxLenght: 16,
             minLenght: 16,
             className: 'data-entry',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
@@ -40,7 +40,7 @@ const Person = [
             maxLenght: 10,
             minLenght: 10,
             placeHolder: '9876543210',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
@@ -51,7 +51,7 @@ const Person = [
             maxLenght: 10,
             minLenght: 10,
             placeHolder: 'Facoltativo',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
@@ -61,7 +61,7 @@ const Person = [
             maxLenght: 30,
             placeHolder: 'topolino@gmail.com',
             inputType: 'email',
-            validate: validateInput(this)
+           
         },
     ],
 ];
@@ -76,7 +76,7 @@ const Description = [
             inputType: 'text',
             value: 'Tevfjkbnvfdbjknvfbnjdfvs',
             className: 'data-entry',
-            validate: validateInput(this)
+           
         },
     ]
 ];
@@ -90,7 +90,7 @@ const Animal = [
         maxLenght: 20,
         className: 'data-entry',
         inputType: 'text',
-        validate: validateInput(this)
+       
     },
     {
         key: crypto.randomUUID(),
@@ -98,7 +98,7 @@ const Animal = [
         value: '21.02.2023',
         className: 'data-entry',
         inputType: 'date',
-        validate: validateInput(this)
+       
     },
     {
         key: crypto.randomUUID(),
@@ -107,7 +107,7 @@ const Animal = [
         maxLenght: 20,
         className: 'data-entry',
         inputType: 'text',
-        validate: validateInput(this)
+       
     },
     {
         key: crypto.randomUUID(),
@@ -116,7 +116,7 @@ const Animal = [
         maxLenght: 20,
         className: 'data-entry',
         inputType: 'text',
-        validate: validateInput(this)
+       
     },
     {
         key: crypto.randomUUID(),
@@ -126,7 +126,7 @@ const Animal = [
         className: 'data-entry',
         inputType: 'number',
         placeHolder: '123456789123456',
-        validate: validateInput(this)
+       
     }],
 ];
 
@@ -137,42 +137,42 @@ const Doctor = [
             title: 'Nome',
             value: 'Denys',
             inputType: 'text',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
             title: 'Data',
             inputType: 'date',
             value: '12/12/23',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
             title: 'Inizio',
             value: '12:12',
             inputType: 'text',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
             title: 'Fine',
             value: '12:13',
             inputType: 'text',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
             title: 'Diagnosi',
             value: '',
             inputType: 'text',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
             title: 'Nota',
             value: '',
             inputType: 'text',
-            validate: validateInput(this)
+           
         }
     ]
 ];
@@ -185,7 +185,7 @@ const Visit = [
             value: '12:12',
             inputType: 'text',
             className: 'text-accent',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
@@ -193,21 +193,21 @@ const Visit = [
             value: '12:13',
             inputType: 'text',
             className: 'text-accent',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
             title: 'Data',
             value: '12/10/2023',
             inputType: 'text',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
             title: 'Doctor',
             value: 'Denys Vysotskyy',
             inputType: 'text',
-            validate: validateInput(this)
+           
         },
     ],
     [
@@ -217,7 +217,7 @@ const Visit = [
             value: '12:12',
             inputType: 'text',
             className: 'text-accent',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
@@ -225,21 +225,21 @@ const Visit = [
             value: '12:13',
             inputType: 'text',
             className: 'text-accent',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
             title: 'Data',
             value: '12/10/2023',
             inputType: 'text',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
             title: 'Doctor',
             value: 'Artur Smirnov',
             inputType: 'text',
-            validate: validateInput(this)
+           
         },
     ],
     [
@@ -249,7 +249,7 @@ const Visit = [
             value: '12:12',
             inputType: 'text',
             className: 'text-accent',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
@@ -257,21 +257,21 @@ const Visit = [
             value: '12:13',
             inputType: 'text',
             className: 'text-accent',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
             title: 'Data',
             value: '12/10/2023',
             inputType: 'text',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
             title: 'Doctor',
             value: 'Petro Petrovuch',
             inputType: 'text',
-            validate: validateInput(this)
+           
         },
     ],
     [
@@ -281,7 +281,7 @@ const Visit = [
             value: '12:12',
             inputType: 'text',
             className: 'text-accent',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
@@ -289,21 +289,21 @@ const Visit = [
             value: '12:13',
             inputType: 'text',
             className: 'text-accent',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
             title: 'Data',
             value: '12/10/2023',
             inputType: 'text',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
             title: 'Doctor',
             value: 'San Sanych',
             inputType: 'text',
-            validate: validateInput(this)
+           
         },
     ],
 ];
@@ -316,7 +316,7 @@ const PrenotationDoctor = [
             value: '12:12',
             inputType: 'text',
             className: 'text-accent',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
@@ -324,14 +324,14 @@ const PrenotationDoctor = [
             value: '12:13',
             inputType: 'text',
             className: 'text-accent',
-            validate: validateInput(this)
+           
         },
         {
             key: crypto.randomUUID(),
             title: 'Doctor',
             value: 'Petro Petrovuch',
             inputType: 'text',
-            validate: validateInput(this)
+           
         },
     ]
 ];

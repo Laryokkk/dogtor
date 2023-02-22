@@ -41,7 +41,6 @@ wrapper.menagerWrapper.addEventListener('apply-prenotation', (e) => {
     const dataEntry = document.querySelectorAll('.data-entry');
 
     dataEntry.forEach((element) => {
-        console.log(element);
         if (element.value === '') {
             element.style.border = "2px solid red";
         }
