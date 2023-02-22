@@ -1,29 +1,5 @@
 
 
-
-
-
-
-function validateInput(obj) {
-    if (!obj || obj.value == null || typeof obj.value !== "string") {
-        return false;
-    }
-    return true;
-}
-
-
-function isNumeric(inputStr) {
-    // Use a regular expression to check if the input string contains only numeric characters
-    // The ^ and $ symbols ensure that the entire string is checked
-    // The \d character class matches any digit
-    const numericRegex = /^\d+$/;
-
-    // Test the input string against the regular expression and return the result
-    return numericRegex.test(inputStr);
-}
-
-
-
 const Person = [
     [
         {
