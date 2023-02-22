@@ -36,7 +36,7 @@
 
 
 .container {
-    width: 25rem;
+    max-width: 25rem;
     display: grid;
 
     grid-template-columns: repeat(2, 1fr);
@@ -65,6 +65,8 @@
     width: 25rem;
     height: 12rem;
     background: var(--background-inputs);
+
+    border: 2px solid var(--background-inputs);
 }
 
 .apply {
@@ -150,3 +152,12 @@ textarea {
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
+
+
+.data-valid{
+    border: 2px solid var(--background-inputs);
+}
+
+.data-wrong{
+    border: 2px solid red;
+}

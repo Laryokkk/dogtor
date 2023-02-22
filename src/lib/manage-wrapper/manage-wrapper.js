@@ -1,6 +1,6 @@
 
 class ManageWrapper {
-    constructor(parent, props) {
+    constructor(parent, props,animalTittle) {
         this.parentElement = parent;
         this.props = props;
         this.template;
@@ -8,6 +8,8 @@ class ManageWrapper {
 
         this.isValide = false;
         this.isValue = false;
+
+        this.animalTittle = animalTittle;
 
     }
 
@@ -28,65 +30,67 @@ class ManageWrapper {
     }
 
     initEventListeners() {
-        this.elements.dataEntry.forEach((element) => {
+ /*        this.elements.dataEntry.forEach((element) => {
             element.addEventListener('input', (event) => {
-
+                debugger
                 if ((element.value)) {
                     switch (element.type) {
+
                         case "text":
-                            element.style.border = "2px solid var(--background-inputs)";
+                            element.classList.toggle('data-valid', true)
                             if (this.validateText(element.value) === false) {
-                                element.style.border = "2px solid red";
+                                element.classList.toggle('data-wrong', true)
                             }
                             break;
                         case "tel":
-                            element.style.border = "2px solid var(--background-inputs)";
+                            element.classList.toggle('data-valid', true)
                             if (this.isValidPhoneNumber(element.value) === false) {
-                                element.style.border = "2px solid red";
+                                element.classList.toggle('data-wrong', true)
                             }
                             break;
 
                         case "email":
-                            element.style.border = "2px solid var(--background-inputs)";
+                            element.classList.toggle('data-valid', true)
                             if (this.validateEmail(element.value) === false) {
-                                element.style.border = "2px solid red";
+                                element.classList.toggle('data-wrong', true)
                             }
                             break;
 
                         case "date":
-                            element.style.border = "2px solid var(--background-inputs)";
+                            element.classList.toggle('data-valid', true)
                             if (this.isValidDate(element.value) === false) {
-                                element.style.border = "2px solid red";
+                                element.classList.toggle('data-wrong', true)
                             }
                             break;
 
                         case "number":
-                            element.style.border = "2px solid var(--background-inputs)";;
+                            element.classList.toggle('data-valid', true);
                             if (this.isNumeric(element.value) === false) {
-                                element.style.border = "2px solid red";
+                                element.classList.toggle('data-wrong', true)
                             }
                             break;
                         default:
                             break;
                     }
                 } else {
-                    element.style.border = "2px solid red";
+                    element.classList.toggle('data-wrong', true)
                 }
             });
         });
-
+ */
 
     }
 
     initTemplate() {
         let arrayLength = this.props.length;
+        console.log(this.animalTittle);
         const parser = new DOMParser();
         const templateString = `
         <div class="wrapper-manage-data">
             <div class="wrapper-logo">
-                <h4 class="logo">${arrayLength >= 6 ? "Persona" : "Animale"}</h4>
+                <h4 class="logo">${this.animalTittle}</h4>
+                ${this.initEntry()}
             </div>
-            ${this.initEntry()}
         </div>`;
         const templateElement = parser.parseFromString(templateString, 'text/html');
         return templateElement.documentElement.querySelector("body> .wrapper-manage-data");
@@ -99,10 +103,7 @@ class ManageWrapper {
 
             const { key, title, inputType, placeHolder, value, validate, className, maxLenght, minLenght } = element;
 
-            this.isValide = validate;
-            this.isValue = value;
-
-
+            console.log(validate);
 
             resp += `<div class="wrapper-data" id="${key}">
                         <h6>${title}:</h6>
@@ -114,7 +115,7 @@ class ManageWrapper {
         return resp;
     }
 
-    validateText(text) {
+/*     validateText(text) {
         if (text.length === 0) {
             return false;
         }
@@ -158,7 +159,7 @@ class ManageWrapper {
     isNumeric(inputStr) {
         const numericRegex = /^\d+$/;
         return numericRegex.test(inputStr);
-    }
+    } */
 }
 
 export default ManageWrapper;

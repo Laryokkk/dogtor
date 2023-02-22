@@ -6,21 +6,24 @@ import { Animal, Person, Description, PrenotationDoctor } from "../../helpers/He
 
 const wrapper = {
     header: document.querySelector('section#header'),
-    menagerWrapper: document.querySelector('section.container')
+    menagerWrapper: document.querySelector('section.container'),
+
 };
 
 const props = {
     header: {},
 };
 
-
+const animalTittle = "Animal";
 Animal.forEach(animalProps => {
-    const animalComponent = new ManageWrapper(wrapper.menagerWrapper, animalProps);
+    const animalComponent = new ManageWrapper(wrapper.menagerWrapper, animalProps,animalTittle);
     animalComponent.init();
+    
 });
 
+const personTittle = "Person";
 Person.forEach(personProps => {
-    const personComponent = new ManageWrapper(wrapper.menagerWrapper, personProps);
+    const personComponent = new ManageWrapper(wrapper.menagerWrapper, personProps,personTittle);
     personComponent.init();
 });
 
@@ -42,7 +45,7 @@ wrapper.menagerWrapper.addEventListener('apply-prenotation', (e) => {
 
     dataEntry.forEach((element) => {
         if (element.value === '') {
-            element.style.border = "2px solid red";
+            element.classList.toggle('data-valid', true)
         }
     });
 });

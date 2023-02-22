@@ -1,4 +1,12 @@
-
+const validateText = ("text") =>{
+    if (text.length === 0) {
+        return false;
+    }
+    if (/[^a-zA-Z\s]/.test(text)) {
+        return false;
+    }
+    return true;
+}
 
 
 const Person = [
@@ -10,7 +18,7 @@ const Person = [
             value: 'Hello',
             maxLenght: 20,
             className: 'data-entry',
-           
+            validate: validateText
         },
         {
             key: crypto.randomUUID(),

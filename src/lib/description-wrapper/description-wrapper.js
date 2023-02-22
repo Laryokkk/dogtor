@@ -26,9 +26,10 @@ class DescriptionWrapper {
 
         this.elements.dataEntry.forEach((element) => {
             element.addEventListener('input', (event) => {
-                element.style.border = "2px solid var(--background-inputs)";
+                debugger
+                element.classList.toggle('data-valid', true)
                 if (this.validateText(element.value) === false) {
-                    element.style.border = "2px solid red";
+                    element.classList.toggle('data-wrong', true)
                 }
             });
         });
