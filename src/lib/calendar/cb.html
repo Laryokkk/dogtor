@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Users/artursmirnov/Documents/Code/School/INF/Dogtor/src/style/style.css">
+    <style>
+        section.cb {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        section.cb>div.cb-heading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            gap: 2rem;
+        }
+
+        div.cb-heading-date {
+            height: 2rem;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin: 0;
+            border: 0;
+            border-radius: 0.4rem;
+            padding: 0.2rem 2rem;
+
+            background-color: var(--background-disabled);
+        }
+
+        button.cb-heading-zmdi {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin: 0;
+            border: 0;
+            border-radius: 0.4rem;
+            padding: 0.2rem;
+        }
+
+        button.cb-heading-zmdi.active {
+            background-color: var(--background-accent);
+        }
+
+        button.cb-heading-zmdi.disabled {
+            background-color: var(--background-disabled);
+        }
+
+        button.cb-heading-zmdi.active:hover {
+            background-color: var(--background-accent-hover);
+        }
+
+        div.cb-heading-move {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: row;
+            gap: 0.4rem;
+        }
+
+        /* zmdi */
+        span.cb-zmdi {
+            width: 2rem;
+            height: 2rem;
+
+            text-align: center;
+
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        span.cb-zmdi-chevron-left {
+            background-image: url('/Users/artursmirnov/Documents/Code/School/INF/Dogtor/assets/zmdi/chevron-left.svg');
+        }
+
+        span.cb-zmdi-chevrons-left {
+            background-image: url('/Users/artursmirnov/Documents/Code/School/INF/Dogtor/assets/zmdi/chevrons-left.svg');
+        }
+
+        span.cb-zmdi-chevron-right {
+            background-image: url('/Users/artursmirnov/Documents/Code/School/INF/Dogtor/assets/zmdi/chevron-right.svg');
+        }
+
+        span.cb-zmdi-chevrons-right {
+            background-image: url('/Users/artursmirnov/Documents/Code/School/INF/Dogtor/assets/zmdi/chevrons-right.svg');
+        }
+
+        tbody {
+            display: flex;
+            gap: 2px;
+            flex-direction: column;
+        }
+
+        tr.cb-tr {
+            display: flex;
+            gap: 4px;
+        }
+
+        tr.cb-tr:first-child>th.cb-th {
+            border-radius: 10px 10px 0 0;
+        }
+
+        tr.cb-tr:last-child>th.cb-th {
+            border-radius: 0 0 10px 10px;
+        }
+
+        th.cb-th {
+            position: relative;
+
+            width: 8rem;
+            height: 4rem;
+
+            display: flex;
+            gap: 0.2rem;
+
+            background-color: var(--background-cell);
+        }
+
+        th.cb-th:nth-child(2n) {
+            background-color: var(--background-cell-extend);
+        }
+
+        div.cb-container-rule {
+            width: 0;
+            height: 0;
+        }
+
+        a.cb-rule {
+            position: absolute;
+
+            width: 6rem;
+            height: calc(100%);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            right: 0;
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            margin: 0 auto;
+            border-radius: 1.2rem;
+
+            background-color: var(--background-rule);
+        }
+
+        a.cb-rule:hover {
+            background-color: var(--background-rule-active);
+        }
+
+        div.cb-rule-content {
+            height: 80%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="cb">
+        <div class="cb-heading">
+            <div class="cb-heading-move">
+                <button class="cb-heading-zmdi active">
+                    <span class="cb-zmdi cb-zmdi-chevron-left"></span>
+                </button>
+                <button class="cb-heading-zmdi active">
+                    <span class="cb-zmdi cb-zmdi-chevrons-left"></span>
+                </button>
+            </div>
+            <div class="cb-heading-date">
+                <h4 class="text">
+                    12 - 19 febbraio 2023
+                </h4>
+            </div>
+            <div class="cb-heading-move">
+                <button class="cb-heading-zmdi active">
+                    <span class="cb-zmdi cb-zmdi-chevron-right"></span>
+                </button>
+                <button class="cb-heading-zmdi active">
+                    <span class="cb-zmdi cb-zmdi-chevrons-right"></span>
+                </button>
+            </div>
+        </div>
+        <div class="cb-calendar">
+            <table>
+                <tbody>
+                    <tr class="cb-tr">
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                    </tr>
+                    <tr class="cb-tr">
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule">
+                                <a class="cb-rule" id="uuid">
+                                    <div class="cb-rule-content">
+                                        <h4 class="text text-extend time-start">
+                                            11:00
+                                        </h4>
+                                        <h4 class="text text-extend time-end">
+                                            13:00
+                                        </h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                    </tr>
+                    <tr class="cb-tr">
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                    </tr>
+                    <tr class="cb-tr">
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                    </tr>
+                    <tr class="cb-tr">
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                    </tr>
+                    <tr class="cb-tr">
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                    </tr>
+                    <tr class="cb-tr">
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                    </tr>
+                    <tr class="cb-tr">
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                        <th class="cb-th">
+                            <div class="cb-container-rule"></div>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+
+</html>
