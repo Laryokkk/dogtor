@@ -1,3 +1,5 @@
+import { formatDate, getCurrentFirstDay, getCurrentLastDay } from '/src/utils/util-date.js';
+
 class CalendarBox {
     constructor(parentElement, ...props) {
         this.parentElement = parentElement;
@@ -33,7 +35,6 @@ class CalendarBox {
     initElements() {
         this.initTemplate();
         this.rootElement = this.template;
-        console.log(this.rootElement);
 
         this.elements = {
             heading: {
@@ -44,6 +45,8 @@ class CalendarBox {
                 chevronsRightBtn: this.rootElement.querySelector('button.cb-heading-zmdi-chevrons-right'),
             },
         };
+
+        this.initHeadingDate();
     }
 
     initEventListeners() {
@@ -79,6 +82,16 @@ class CalendarBox {
         console.log('handlerChevronsRight');
     }
 
+    initHeadingDate() {
+        const { heading } = this.elements;
+
+        const currentFirstDay = getCurrentFirstDay();
+        const currentLastDay = getCurrentLastDay();
+        const date = formatDate(new Date(currentFirstDay), new Date(currentLastDay));
+
+        heading.dateStr.innerHTML = date.toString();
+    }
+
     initTemplate() {
         const parser = new DOMParser();
         const templateStr = `
@@ -109,17 +122,28 @@ class CalendarBox {
                 <h5 class="text cb-text cb-heading-date-text"></h5>
             </div>
             <div class="cb-heading-move">
-                <button class="cb-heading-zmdi cb-heading-zmdi-chevron-right active">
-                    <span class="cb-zmdi cb-zmdi-chevron-right"></span>
-                </button>
                 <button class="cb-heading-zmdi cb-heading-zmdi-chevrons-right active">
                     <span class="cb-zmdi cb-zmdi-chevrons-right"></span>
+                </button>
+                <button class="cb-heading-zmdi cb-heading-zmdi-chevron-right active">
+                    <span class="cb-zmdi cb-zmdi-chevron-right"></span>
                 </button>
             </div>
         `;
     }
 
     initTemplateCalendar() {
+        return `
+            ${this.initTemplateTime()}
+            <table>
+                <tbody>
+                    ${this.initTemplateTr()}
+                </tbody>
+            </table>
+        `;
+    }
+
+    initTemplateTime() {
         return `
             <div class="cb-time">
                 <h5 class="text cb-text cb-text-time">
@@ -142,208 +166,45 @@ class CalendarBox {
                 </h4>
                 <h5 class="text cb-text cb-text-time">
                     21:00
-                </h5>
+                </h5> 
             </div>
-            <table>
-                <tbody>
-                    <tr class="cb-tr">
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                    </tr>
-                    <tr class="cb-tr">
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule">
-                                <a class="cb-rule" id="uuid">
-                                    <div class="cb-rule-content">
-                                        <h5 class="text text-extend cb-text time-start">
-                                            11:00
-                                        </h5>
-                                        <h5 class="text text-extend cb-text time-end">
-                                            13:00
-                                        </h5>
-                                    </div>
-                                </a>
-                            </div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                    </tr>
-                    <tr class="cb-tr">
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                    </tr>
-                    <tr class="cb-tr">
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                    </tr>
-                    <tr class="cb-tr">
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                    </tr>
-                    <tr class="cb-tr">
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                    </tr>
-                    <tr class="cb-tr">
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                    </tr>
-                    <tr class="cb-tr">
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                        <th class="cb-th">
-                            <div class="cb-container-rule"></div>
-                        </th>
-                    </tr>
-                </tbody>
-            </table>
         `;
+    }
+
+    initTemplateTr() {
+        const templateStr = `
+            <tr class="cb-tr">
+                <th class="cb-th">
+                    <div class="cb-container-rule"></div>
+                </th>
+                <th class="cb-th">
+                    <div class="cb-container-rule"></div>
+                </th>
+                <th class="cb-th">
+                    <div class="cb-container-rule"></div>
+                </th>
+                <th class="cb-th">
+                    <div class="cb-container-rule"></div>
+                </th>
+                <th class="cb-th">
+                    <div class="cb-container-rule"></div>
+                </th>
+                <th class="cb-th">
+                    <div class="cb-container-rule"></div>
+                </th>
+                <th class="cb-th">
+                    <div class="cb-container-rule"></div>
+                </th>
+            </tr>
+        `;
+
+        let response = '';
+
+        for (let idx = 0; idx < 8; idx++) {
+            response += templateStr;
+        }
+
+        return response;
     }
 }
 
