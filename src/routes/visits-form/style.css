@@ -22,7 +22,6 @@
 
     margin-top: 1rem;
 
-
     border-radius: 4px;
     text-align: center;
 
@@ -62,4 +61,5 @@ button:hover {
 button:active,
 button:hover>* {
     color: var(--text-accent);
+
 }
