@@ -40,12 +40,6 @@ wrapper.menagerWrapper.addEventListener('apply-prenotation', (e) => {
     if (dataEntry.value == '') {
         dataEntry.classList.toggle('data-valid', true)
     }
-
-/*     dataEntry.forEach((element) => {
-        if (element.value === '') {
-            element.classList.toggle('data-valid', true)
-        }
-    }); */
 });
 
 const cancelBtn = document.querySelector('.cancel');
