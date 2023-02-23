@@ -14,23 +14,17 @@ const props = {
     header: {},
 };
 
-const animalTittle = "Animal";
-Animal.forEach(animalProps => {
-    const animalComponent = new ManageWrapper(wrapper.menagerWrapper, animalProps,animalTittle);
-    animalComponent.init();
-    
-});
+const animalComponent = new ManageWrapper(wrapper.menagerWrapper, Animal.list, Animal.title);
+animalComponent.init();
 
-const personTittle = "Person";
-Person.forEach(personProps => {
-    const personComponent = new ManageWrapper(wrapper.menagerWrapper, personProps,personTittle);
-    personComponent.init();
-});
+const personComponent = new ManageWrapper(wrapper.menagerWrapper, Person.list, Person.title);
+personComponent.init();
 
-Description.forEach(descriptionProps => {
-    const descriptioComponent = new DescriptionWrapper(wrapper.menagerWrapper, descriptionProps);
+Description.list.forEach(props => {
+    const descriptioComponent = new DescriptionWrapper(wrapper.menagerWrapper, props);
     descriptioComponent.init();
 });
+
 
 PrenotationDoctor.forEach(prenotationDoctorProps => {
     const prenotationDoctorComponent = new DoctorPrenotationWrapper(wrapper.menagerWrapper, prenotationDoctorProps);
@@ -41,13 +35,17 @@ wrapper.menagerWrapper.addEventListener('apply-prenotation', (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    const dataEntry = document.querySelectorAll('.data-entry');
+    const dataEntry = document.querySelector('.data-entry');
 
-    dataEntry.forEach((element) => {
+    if (dataEntry.value == '') {
+        dataEntry.classList.toggle('data-valid', true)
+    }
+
+/*     dataEntry.forEach((element) => {
         if (element.value === '') {
             element.classList.toggle('data-valid', true)
         }
-    });
+    }); */
 });
 
 const cancelBtn = document.querySelector('.cancel');

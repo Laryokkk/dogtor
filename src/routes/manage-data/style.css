@@ -65,8 +65,6 @@
     width: 25rem;
     height: 12rem;
     background: var(--background-inputs);
-
-    border: 2px solid var(--background-inputs);
 }
 
 .apply {

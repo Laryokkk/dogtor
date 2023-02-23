@@ -2,6 +2,7 @@ class DescriptionWrapper {
     constructor(parent, props) {
         this.parentElement = parent;
         this.props = props;
+        console.log(props);
         this.template;
         this.elements = {};
     }
@@ -15,25 +16,22 @@ class DescriptionWrapper {
         this.template = this.initTemplate(this.props);
 
         this.elements = {
-            dataEntry: this.template.querySelectorAll('.data-entry')
+            dataEntry: this.template.querySelector('.description-problem')
         };
 
         this.parentElement.appendChild(this.template);
     }
 
     initEventListeners() {
+        const { dataEntry } = this.elements;
 
+        dataEntry.addEventListener('input', () => {
 
-        this.elements.dataEntry.forEach((element) => {
-            element.addEventListener('input', (event) => {
-                debugger
-                element.classList.toggle('data-valid', true)
-                if (this.validateText(element.value) === false) {
-                    element.classList.toggle('data-wrong', true)
-                }
-            });
+            const isValid = this.props.validate(dataEntry.value);
+
+            dataEntry.classList.toggle('data-wrong', !isValid)
+            dataEntry.classList.toggle('data-valid', isValid)
         });
-
     }
 
 
@@ -50,32 +48,14 @@ class DescriptionWrapper {
     }
 
     initEntry() {
-        let resp = '';
+        const { title, className } = this.props;
 
-        this.props.forEach(element => {
-
-            const { title, className } = element;
-
-            resp += ` 
+        return ` 
             <div class="wrapper-logo">
                 <h4 class="logo-description">${title}</h4>
             </div>
-            <textarea class="description-problem ${className}" cols="30" rows="10"></textarea>`
-                ;
-        });
-
-        return resp;
-    }
-
-
-    validateText(text) {
-        if (text.length === 0) {
-            return false;
-        }
-        if (/[^a-zA-Z\s]/.test(text)) {
-            return false;
-        }
-        return true;
+            <textarea class="description-problem ${className}" cols="30" rows="10"></textarea>
+        `;
     }
 
 }

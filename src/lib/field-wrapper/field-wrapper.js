@@ -1,6 +1,3 @@
- import Field from "../field-wrapper/field-wrapper.js";
-
-
 class Field {
     constructor(parent, props) {
         this.parentElement = parent;
@@ -14,46 +11,61 @@ class Field {
         this.initEventListeners();
     }
 
+    render() {
+        return this.template;
+    }
+
     initElements() {
-        this.template = this.initTemplate(this.props);
-        this.parentElement.appendChild(this.template);
+        this.template = this.initTemplate();
+
+        this.elements = {
+            fieldWrapper: this.parentElement.querySelector('.wrapper-field'),
+            dataEntry: this.template.querySelector('.value-data'),
+        };
+
+        this.elements.dataEntry.setAttribute('max', this.props.maxLenght);
+        this.elements.dataEntry.setAttribute('type', this.props.inputType);
+        this.elements.dataEntry.setAttribute('id', this.props.key);
+        this.elements.dataEntry.setAttribute('value', this.props.value);
+        this.elements.dataEntry.setAttribute('minlenght', this.props.minLenght);
+        this.elements.dataEntry.setAttribute('maxlength', this.props.maxLenght);
+
     }
 
     initEventListeners() {
+        const { dataEntry } = this.elements;
 
+        dataEntry.addEventListener('input', () => {
+            const isValid = this.props.validate(dataEntry.value);
+
+            dataEntry.classList.toggle('data-wrong', !isValid)
+            dataEntry.classList.toggle('data-valid', isValid)
+        });
     }
 
     initTemplate() {
         const parser = new DOMParser();
         const templateString = `
-        <div class="wrapper-container">
-        ${this.initEntry()}
-        </div>`;
+            <div class="wrapper-container-field">
+                ${this.initEntry()}
+            </div>
+        `;
         const templateElement = parser.parseFromString(templateString, 'text/html');
-        return templateElement.documentElement.querySelector("body> .wrapper-container");
+        return templateElement.documentElement.querySelector("body > div");
     }
 
     initEntry() {
-        let resp = '';
+        const { key, title,className,placeHolder} = this.props;
 
-        this.props.forEach(element => {
-
-            const { key, title, inputType, placeHolder, value, validate, className, maxLenght, minLenght } = element;
-
-            this.isValide = validate;
-            this.isValue = value;
-
-
-
-            resp += `<div class="wrapper-data" id="${key}">
-                        <h6>${title}:</h6>
-                        <input type="${inputType}" class="value-data ${className}" value="${(value === "") ? '' : value}" max="${(maxLenght) ? maxLenght : ''}" minlenght="${(minLenght) ? minLenght : ''}"  maxlength="${(maxLenght) ? maxLenght : ''}" placeholder="${(placeHolder) ? placeHolder : ''}">
-                    </div>`
-                ;
-        });
-
-        return resp;
+        return `
+            <div class="wrapper-data" id="${key}">
+                <h6>${title}:</h6>
+                <input class="value-data ${className}" placeholder="${(placeHolder) ? placeHolder : ''}">
+            </div>
+        `;
     }
+
+
 }
 
 export default Field;
