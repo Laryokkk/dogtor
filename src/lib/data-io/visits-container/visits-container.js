@@ -15,7 +15,6 @@ class VisitsContainer {
         if (this.elements === {}) {
             return;
         }
-
         // Todo
     }
 
@@ -25,7 +24,6 @@ class VisitsContainer {
     }
 
     initEventListeners() {
-
     }
 
     initTemplate() {

@@ -22,4 +22,28 @@ const getCurrentLastDay = () => {
     return currentLastDay.setDate(currentLastDay.getDate() + 6);
 };
 
-export { formatDate, getCurrentFirstDay, getCurrentLastDay };
+const isValidDate = (dateString) => {
+    if (typeof dateString !== 'string') {
+        return false;
+    }
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+        return false;
+    }
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    if (year < 0 || year > 9999 || month < 1 || month > 12 || day < 1 || day > 31) {
+        return false;
+    }
+
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    if (dateString < currentDate) {
+      return false;
+    }
+    return true;
+}
+
+export { formatDate, getCurrentFirstDay, getCurrentLastDay,isValidDate };
+
