@@ -68,8 +68,7 @@
 }
 
 .apply {
-    width: 10rem;
-    height: 3rem;
+    padding: 1rem 2.5rem;
 
     margin-top: 1rem;
 
@@ -86,8 +85,8 @@
 }
 
 .cancel {
-    width: 10rem;
-    height: 3rem;
+
+    padding: 1rem 2.5rem;
 
     margin-top: 1rem;
 

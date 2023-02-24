@@ -1,10 +1,12 @@
 class DescriptionWrapper {
-    constructor(parent, props) {
+    constructor(parent, props, descriptionTittle) {
         this.parentElement = parent;
         this.props = props;
         console.log(props);
         this.template;
         this.elements = {};
+
+        this.descriptionTittle = descriptionTittle;
     }
 
     init() {
@@ -27,10 +29,14 @@ class DescriptionWrapper {
 
         dataEntry.addEventListener('input', () => {
 
-            const isValid = this.props.validate(dataEntry.value);
+            this.props.forEach(propsElement => {
 
-            dataEntry.classList.toggle('data-wrong', !isValid)
-            dataEntry.classList.toggle('data-valid', isValid)
+                const isValid = propsElement.validate(dataEntry.value);
+
+                dataEntry.classList.toggle('data-wrong', !isValid)
+                dataEntry.classList.toggle('data-valid', isValid)
+
+            });
         });
     }
 
@@ -40,19 +46,21 @@ class DescriptionWrapper {
         const parser = new DOMParser();
 
         const templateString = `
-        <div class="wrapper-description">
-        ${this.initEntry()}
-        </div>`;
+            <div class="wrapper-description">
+                ${this.initEntry()}
+            </div>`;
         const templateElement = parser.parseFromString(templateString, 'text/html');
-        return templateElement.documentElement.querySelector("body> .wrapper-description");
+        return templateElement.documentElement.querySelector("body> div");
     }
 
     initEntry() {
-        const { title, className } = this.props;
+        const { className } = this.props;
+
+        console.log(this);
 
         return ` 
             <div class="wrapper-logo">
-                <h4 class="logo-description">${title}</h4>
+                <h4 class="logo-description">${this.descriptionTittle}</h4>
             </div>
             <textarea class="description-problem ${className}" cols="30" rows="10"></textarea>
         `;

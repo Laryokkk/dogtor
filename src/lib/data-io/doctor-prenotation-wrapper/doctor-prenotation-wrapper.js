@@ -1,12 +1,15 @@
+import Field from "../field-wrapper/field-wrapper.js";
+
 class DoctorPrenotationWrapper {
     constructor(parent, props) {
         this.parentElement = parent;
         this.props = props;
 
+        this.templateField;
+
         this.template;
         this.elements = {};
     }
-
 
     init() {
         this.initElements();
@@ -19,17 +22,27 @@ class DoctorPrenotationWrapper {
         this.elements = {
             applyBtn: this.template.querySelector('.apply'),
             cancelBtn: this.template.querySelector('.cancel'),
+            fieldWrapperCom: this.template.querySelector('.wrapper-data-prenotation-doctor')
         };
 
         this.parentElement.appendChild(this.template);
+
+        this.templateField = this.initFieldComponent();
+    }
+
+    initField() {
+        console.log(this.elements.fieldWrapperCom);
+        this.props.forEach(props => {
+            const fieldWrapper = new Field(this.elements.fieldWrapperCom, props)
+            fieldWrapper.init();
+            const el = fieldWrapper.render();
+            console.log(el);
+            this.elements.fieldWrapperCom.appendChild(el);
+        });
     }
 
     initEventListeners() {
-        this.elements.applyBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            this.handlerApply();
-        });
+        this.elements.applyBtn.addEventListener('click', (e) => this.handlerApply(e));
 
     }
 
@@ -45,7 +58,6 @@ class DoctorPrenotationWrapper {
         const templateString = `
         <div class="prenotation-visit-doctor">
             <div class="wrapper-data-prenotation-doctor">
-                ${this.initEntry()}
             </div>
             <div class="wrapper-btns">
                 <button class="apply">
@@ -60,24 +72,15 @@ class DoctorPrenotationWrapper {
         return templateElement.documentElement.querySelector("body> .prenotation-visit-doctor");
     }
 
-    initEntry() {
-        let resp = '';
+    initFieldComponent() {
 
-        this.props.forEach(element => {
-
-            const { key, title, className, value } = element;
-
-            let temp = `<h4 class="${(className) ? className : ''} ">${value}</h4>`;
-
-            resp += `
-            <div class="padding-line">
-                <h6 id="${key}">${title}:</h6>
-                <h6 class="padding-left">${title !== "Doctor" ? temp : value}</h6>
-            </div>`
-                ;
-        });
-
-        return resp;
+        const parser = new DOMParser();
+        const templateString =` 
+        <div class="wrapper-data-prenotation-doctor">
+            ${this.initField()}
+        </div>`;
+        const templateElement = parser.parseFromString(templateString, 'text/html');
+        return templateElement.documentElement.querySelector("body> .wrapper-data-prenotation-doctor");
     }
 }
 

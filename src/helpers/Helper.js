@@ -183,8 +183,9 @@ const Animal = {
 };
 
 
-const Doctor = [
-    [
+const Doctor = {
+    title: '',
+    list: [
         {
             key: crypto.randomUUID(),
             title: 'Nome',
@@ -228,10 +229,11 @@ const Doctor = [
 
         }
     ]
-];
+};
 
-const Visit = [
-    [
+const Visit = {
+    title: '',
+    list: [
         {
             key: crypto.randomUUID(),
             title: 'Inizio',
@@ -263,131 +265,33 @@ const Visit = [
 
         },
     ],
-    [
+};
+
+const PrenotationDoctor = {
+    title: '',
+    list: [
         {
             key: crypto.randomUUID(),
             title: 'Inizio',
             value: '12:12',
-            inputType: 'text',
-            className: 'text-accent',
+            className: 'text-accent data-entry',
 
         },
         {
             key: crypto.randomUUID(),
             title: 'Fine',
             value: '12:13',
-            inputType: 'text',
-            className: 'text-accent',
-
-        },
-        {
-            key: crypto.randomUUID(),
-            title: 'Data',
-            value: '12/10/2023',
-            inputType: 'text',
-
-        },
-        {
-            key: crypto.randomUUID(),
-            title: 'Doctor',
-            value: 'Artur Smirnov',
-            inputType: 'text',
-
-        },
-    ],
-    [
-        {
-            key: crypto.randomUUID(),
-            title: 'Inizio',
-            value: '12:12',
-            inputType: 'text',
-            className: 'text-accent',
-
-        },
-        {
-            key: crypto.randomUUID(),
-            title: 'Fine',
-            value: '12:13',
-            inputType: 'text',
-            className: 'text-accent',
-
-        },
-        {
-            key: crypto.randomUUID(),
-            title: 'Data',
-            value: '12/10/2023',
-            inputType: 'text',
+            className: 'text-accent  data-entry',
 
         },
         {
             key: crypto.randomUUID(),
             title: 'Doctor',
             value: 'Petro Petrovuch',
-            inputType: 'text',
-
-        },
-    ],
-    [
-        {
-            key: crypto.randomUUID(),
-            title: 'Inizio',
-            value: '12:12',
-            inputType: 'text',
-            className: 'text-accent',
-
-        },
-        {
-            key: crypto.randomUUID(),
-            title: 'Fine',
-            value: '12:13',
-            inputType: 'text',
-            className: 'text-accent',
-
-        },
-        {
-            key: crypto.randomUUID(),
-            title: 'Data',
-            value: '12/10/2023',
-            inputType: 'text',
-
-        },
-        {
-            key: crypto.randomUUID(),
-            title: 'Doctor',
-            value: 'San Sanych',
-            inputType: 'text',
-
-        },
-    ],
-];
-
-const PrenotationDoctor = [
-    [
-        {
-            key: crypto.randomUUID(),
-            title: 'Inizio',
-            value: '12:12',
-            inputType: 'text',
-            className: 'text-accent',
-
-        },
-        {
-            key: crypto.randomUUID(),
-            title: 'Fine',
-            value: '12:13',
-            inputType: 'text',
-            className: 'text-accent',
-
-        },
-        {
-            key: crypto.randomUUID(),
-            title: 'Doctor',
-            value: 'Petro Petrovuch',
-            inputType: 'text',
-
+            className: 'data-entry',
         },
     ]
-];
+};
 
 export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor };
 
