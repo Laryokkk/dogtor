@@ -2,7 +2,6 @@ class DescriptionWrapper {
     constructor(parent, props, descriptionTittle) {
         this.parentElement = parent;
         this.props = props;
-        console.log(props);
         this.template;
         this.elements = {};
 
@@ -55,8 +54,6 @@ class DescriptionWrapper {
 
     initEntry() {
         const { className } = this.props;
-
-        console.log(this);
 
         return ` 
             <div class="wrapper-logo">

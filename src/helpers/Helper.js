@@ -1,17 +1,19 @@
-const validateText = (text) => {
-    const textToValidate = text.toString();
+import { isValidDate } from "../utils/util-date.js";
 
-    // todo
-    // delete all spaces before start
+const validateText = (text) => {
+    const textToValidate = text.toString().replace(/^\s+/, '');
 
     if (textToValidate.length === 0) {
         return false;
     }
+
     if (/[^a-zA-Z\s]/.test(textToValidate)) {
         return false;
     }
+
     return true;
 }
+
 
 const validateEmail = (email) => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -23,31 +25,16 @@ const validateEmail = (email) => {
 }
 
 const isValidPhoneNumber = (inputStr) => {
-    const tenDigitRegex = /^\d{10}$/;
-    return tenDigitRegex.test(inputStr);
+    const phoneRegex = /^(\+?\d{1,2}\s?)?(\(\d{3}\)|\d{3})[-\s]?\d{3}[-\s]?\d{4}$/;
+
+    return phoneRegex.test(inputStr);
 }
+
 
 
 const isNumeric = (inputStr) => {
     const numericRegex = /^\d+$/;
     return numericRegex.test(inputStr);
-}
-
-const isValidDate = (dateString) => {
-    if (typeof dateString !== 'string') {
-        return false;
-    }
-    const date = new Date(dateString);
-    if (isNaN(date.getTime())) {
-        return false;
-    }
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    if (year < 0 || year > 9999 || month < 1 || month > 12 || day < 1 || day > 31) {
-        return false;
-    }
-    return true;
 }
 
 
@@ -117,7 +104,6 @@ const Person = {
     ],
 };
 
-
 const Description = {
     title: 'Description',
     list: [
@@ -181,6 +167,9 @@ const Animal = {
         validate: (value) => { return isNumeric(value) },
     }],
 };
+
+
+
 
 
 const Doctor = {

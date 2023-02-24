@@ -31,12 +31,10 @@ class DoctorPrenotationWrapper {
     }
 
     initField() {
-        console.log(this.elements.fieldWrapperCom);
         this.props.forEach(props => {
             const fieldWrapper = new Field(this.elements.fieldWrapperCom, props)
             fieldWrapper.init();
             const el = fieldWrapper.render();
-            console.log(el);
             this.elements.fieldWrapperCom.appendChild(el);
         });
     }
