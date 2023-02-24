@@ -16,3 +16,17 @@
 :root {
     --padding: 1rem 5vw;
 }
+
+/* Calendar Box */
+:root {
+    --background: #FBFBFB;
+    --background-accent: #1A98C0;
+    --background-accent-hover: #21b4e1;
+    --background-disabled: #DADADA;
+
+    --background-cell: #EFEFEF;
+    --background-cell-extend: #DADADA;
+
+    --background-rule: #1A98C0;
+    --background-rule-active: #656565;
+}
