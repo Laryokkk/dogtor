@@ -77,7 +77,7 @@ const Person = {
             inputType: 'tel',
             maxLenght: 10,
             minLenght: 10,
-            placeHolder: '9876543210',
+            placeHolder: '+39 329 467 3745',
             validate: (value) => { return isValidPhoneNumber(value) },
         },
         {
