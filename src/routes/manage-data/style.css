@@ -1,4 +1,5 @@
 @import url('/src/lib/header/style.css');
+@import url('/src/lib/model-window/style.css');
 
 .value-data {
     width: 13.5rem;
@@ -148,13 +149,14 @@ textarea {
 
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
-  }
+}
 
 
-.data-valid{
+.data-valid {
     border: 2px solid var(--background-inputs);
 }
 
-.data-wrong{
+.data-wrong {
     border: 2px solid red;
 }
+

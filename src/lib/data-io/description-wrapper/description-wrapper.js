@@ -49,17 +49,22 @@ class DescriptionWrapper {
                 ${this.initEntry()}
             </div>`;
         const templateElement = parser.parseFromString(templateString, 'text/html');
-        return templateElement.documentElement.querySelector("body> div");
+        return templateElement.documentElement.querySelector("body> .wrapper-description");
     }
 
     initEntry() {
-        const { className } = this.props;
+        this.props.forEach(el => {
+            console.log(el.className);
+
+            this.props.className = el.className;
+            this.props.required = el.className;
+        });
 
         return ` 
             <div class="wrapper-logo">
                 <h4 class="logo-description">${this.descriptionTittle}</h4>
             </div>
-            <textarea class="description-problem ${className}" cols="30" rows="10"></textarea>
+            <textarea class="description-problem ${this.props.className}" ${this.props.required} cols="30" rows="10"></textarea>
         `;
     }
 

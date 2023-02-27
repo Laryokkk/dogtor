@@ -30,19 +30,19 @@ const isValidDate = (dateString) => {
     if (isNaN(date.getTime())) {
         return false;
     }
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    if (year < 0 || year > 9999 || month < 1 || month > 12 || day < 1 || day > 31) {
-        return false;
-    }
 
     const currentDate = new Date();
-    currentDate.setHours(0, 0, 0, 0);
-    if (dateString < currentDate) {
-      return false;
+    if (date <= currentDate) {
+        return false
     }
+
+
     return true;
+}
+
+function isDateValid(date) {
+    const currentDate = new Date();
+    return date >= currentDate;
 }
 
 export { formatDate, getCurrentFirstDay, getCurrentLastDay,isValidDate };

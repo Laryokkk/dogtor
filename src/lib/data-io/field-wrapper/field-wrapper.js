@@ -4,6 +4,8 @@ class Field {
         this.props = props;
         this.template;
         this.elements = {};
+
+        this.isValid = false;
     }
 
     init() {
@@ -21,6 +23,7 @@ class Field {
         this.elements = {
             dataEntry: this.template.querySelector('.data-entry'),
         };
+
         this.initAttributes();
     }
 
@@ -30,10 +33,10 @@ class Field {
         dataEntry.addEventListener('input', () => {
             const isValid = this.props.validate(dataEntry.value);
 
-            console.log(isValid);
+            dataEntry.classList.toggle('data-wrong', !isValid);
+            dataEntry.classList.toggle('data-valid', isValid);
 
-            dataEntry.classList.toggle('data-wrong', !isValid)
-            dataEntry.classList.toggle('data-valid', isValid)
+            this.isValid = isValid;
         });
     }
 
@@ -49,7 +52,7 @@ class Field {
     }
 
     initEntry() {
-        const { key, title, className, placeHolder, inputType, value } = this.props;
+        const { key, title, className, placeHolder, inputType, value,required } = this.props;
 
         let temp = `<h4 class="${(className) ? className : ''} ">${value}</h4>`;
 
@@ -57,7 +60,7 @@ class Field {
             return `
                 <div class="wrapper-data" id="${key}">
                     <h6>${title}:</h6>
-                    <input class="value-data ${className}" placeholder="${(placeHolder) ? placeHolder : ''}">
+                    <input class="value-data ${className}" placeholder="${(placeHolder) ? placeHolder : ''}" ${(required) ? required : ''}>
                 </div>
             `;
         }
@@ -86,8 +89,10 @@ class Field {
           dataEntry.setAttribute('id', key);
         }
       
-        if (value !== undefined) {
+        if (value !== undefined && value !== '') {
           dataEntry.setAttribute('value', value);
+
+          this.isValid = true;
         }
       
         if (minLength !== undefined) {

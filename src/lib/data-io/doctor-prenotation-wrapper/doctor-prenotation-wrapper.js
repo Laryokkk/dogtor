@@ -41,7 +41,6 @@ class DoctorPrenotationWrapper {
 
     initEventListeners() {
         this.elements.applyBtn.addEventListener('click', (e) => this.handlerApply(e));
-
     }
 
     handlerApply() {
@@ -58,7 +57,7 @@ class DoctorPrenotationWrapper {
             <div class="wrapper-data-prenotation-doctor">
             </div>
             <div class="wrapper-btns">
-                <button class="apply">
+                <button class="apply" type="submit">
                     <h4 class="see-visit-text">Apply</h4>
                 </button>
                 <button class="cancel">
