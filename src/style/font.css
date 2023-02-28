@@ -18,18 +18,18 @@ h1 {
 }
 
 h2 {
-    font-size: 28px;
-    line-height: 46px;
+    font-size: 32px;
+    line-height: 30px;
 }
 
 h3 {
-    font-size: 25px;
-    line-height: 38px;
+    font-size: 26px;
+    line-height: 28px;
 }
 
 h4 {
     font-size: 21px;
-    line-height: 32px;
+    line-height: 24px;
 }
 
 h5 {}
@@ -60,7 +60,7 @@ h6 {}
 
 
 @media screen and (min-width: 100px) and (max-width: 1140px) {
-    h1 {
+    /* h1 {
         font-size: 32px;
     }
 
@@ -78,5 +78,5 @@ h6 {}
 
     h5 {}
 
-    h6 {}
+    h6 {} */
 }

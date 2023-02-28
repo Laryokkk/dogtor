@@ -1,137 +1,235 @@
+import { isValidDate } from "../utils/util-date.js";
 
-function validateInput(value) {
-    return value ? true : false;
+const validateText = (text) => {
+    const textToValidate = text.toString().replace(/^\s+/, '');
+
+    if (textToValidate.length === 0) {
+        return false;
+    }
+
+    if (/[^a-zA-Z\s]/.test(textToValidate)) {
+        return false;
+    }
+
+    return true;
 }
 
-const person = [
-    {
-        key: crypto.randomUUID(),
-        title: 'Nome',
-        inputType: 'text',
-        value: 'Hello',
-        validate: validateInput(),
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Cognome',
-        inputType: 'date',
-        value: '',
-        validate: validateInput(),
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Codice Fiscale',
-        inputType: 'text',
-        validate: validateInput(),
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Numero di Telefono',
-        inputType: 'text',
-        validate: validateInput(),
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Email',
-        inputType: 'text',
-        validate: validateInput(),
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Descrizione',
-        inputType: 'text',
-        validate: validateInput(),
-    },
-];
 
-const animal = [
-    {
+const validateEmail = (email) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(email)) {
+        return false;
+    }
+    return true;
+}
+
+const isValidPhoneNumber = (inputStr) => {
+    const phoneRegex = /^(\+?\d{1,2}\s?)?(\(\d{3}\)|\d{3})[-\s]?\d{3}[-\s]?\d{4}$/;
+
+    return phoneRegex.test(inputStr);
+}
+
+
+
+const isNumeric = (inputStr) => {
+    const numericRegex = /^\d+$/;
+    return numericRegex.test(inputStr);
+}
+
+
+const Person = {
+    title: 'Person',
+    list: [
+        {
+            key: crypto.randomUUID(),
+            title: 'Nome',
+            inputType: 'text',
+            value: '',
+            maxLenght: 20,
+            className: 'data-entry',
+            validate: (value) => { return validateText(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Cognome',
+            inputType: 'text',
+            value: '',
+            maxLenght: 20,
+            className: 'data-entry',
+            validate: (value) => { return validateText(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Codice Fiscale',
+            value: 'deniska',
+            inputType: 'text',
+            maxLenght: 16,
+            minLenght: 16,
+            className: 'data-entry',
+            validate: (value) => { return validateText(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Numero di Telefono',
+            value: '12345678',
+            className: 'data-entry',
+            inputType: 'tel',
+            maxLenght: 10,
+            minLenght: 10,
+            placeHolder: '+39 329 467 3745',
+            validate: (value) => { return isValidPhoneNumber(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Numero di Telefono',
+            value: 'daqe',
+            className: 'data-entry',
+            inputType: 'tel',
+            maxLenght: 10,
+            minLenght: 10,
+            placeHolder: 'Facoltativo',
+            validate: (value) => { return isValidPhoneNumber(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            value: 'topolino@gmail.com',
+            className: 'data-entry',
+            title: 'Email',
+            maxLenght: 30,
+            placeHolder: 'topolino@gmail.com',
+            inputType: 'email',
+            validate: (value) => { return validateEmail(value) },
+        },
+    ],
+};
+
+const Description = {
+    title: 'Description',
+    list: [
+        {
+            key: crypto.randomUUID(),
+            title: 'Descrizione',
+            inputType: 'text',
+            value: '',
+            className: 'data-entry',
+            validate: (value) => { return validateText(value) },
+        },
+    ]
+};
+
+
+const Animal = {
+    title: 'Animal',
+    list: [{
         key: crypto.randomUUID(),
         title: 'Nome',
+        value: '',
+        maxLenght: 20,
+        className: 'data-entry',
         inputType: 'text',
-        validate: validateInput(),
+        validate: (value) => { return validateText(value) },
     },
     {
         key: crypto.randomUUID(),
         title: 'Data di Nascita',
+        value: '21.02.2023',
+        className: 'data-entry',
         inputType: 'date',
-        value: '',
-        validate: validateInput(),
+        validate: (value) => { return isValidDate(value) },
     },
     {
         key: crypto.randomUUID(),
         title: 'Luogo di Nascita',
+        value: '',
+        maxLenght: 20,
+        className: 'data-entry',
         inputType: 'text',
-        validate: validateInput(),
+        validate: (value) => { return validateText(value) },
     },
     {
         key: crypto.randomUUID(),
         title: 'Luogo di Residenza',
+        value: '',
+        maxLenght: 20,
+        className: 'data-entry',
         inputType: 'text',
-        validate: validateInput(),
+        validate: (value) => { return validateText(value) },
     },
     {
         key: crypto.randomUUID(),
         title: 'Chip Identificativo',
-        inputType: 'text',
-        validate: validateInput(),
-    },
-];
-
-const doctor = [
-    {
-        key: crypto.randomUUID(),
-        title: 'Nome',
-        value: 'Denys',
-        inputType: 'text',
-        validate: validateInput(),
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Data',
-        inputType: 'date',
-        value: '12/12/23',
-        validate: validateInput(),
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Inizio',
-        value: '12:12',
-        inputType: 'text',
-        validate: validateInput(),
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Fine',
-        value: '12:13',
-        inputType: 'text',
-        validate: validateInput(),
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Diagnosi',
         value: '',
-        inputType: 'text',
-        validate: validateInput(),
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Nota',
-        value: '',
-        inputType: 'text',
-        validate: validateInput(),
-    },
-];
+        maxLenght: 15,
+        className: 'data-entry',
+        inputType: 'number',
+        placeHolder: '123456789123456',
+        validate: (value) => { return isNumeric(value) },
+    }],
+};
 
-const visits = [
-    [
+
+
+
+
+const Doctor = {
+    title: '',
+    list: [
+        {
+            key: crypto.randomUUID(),
+            title: 'Nome',
+            value: 'Denys',
+            inputType: 'text',
+
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Data',
+            inputType: 'date',
+            value: '12/12/23',
+
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Inizio',
+            value: '12:12',
+            inputType: 'text',
+
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Fine',
+            value: '12:13',
+            inputType: 'text',
+
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Diagnosi',
+            value: '',
+            inputType: 'text',
+
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Nota',
+            value: '',
+            inputType: 'text',
+
+        }
+    ]
+};
+
+const Visit = {
+    title: '',
+    list: [
         {
             key: crypto.randomUUID(),
             title: 'Inizio',
             value: '12:12',
             inputType: 'text',
             className: 'text-accent',
-            validate: validateInput(),
+
         },
         {
             key: crypto.randomUUID(),
@@ -139,120 +237,50 @@ const visits = [
             value: '12:13',
             inputType: 'text',
             className: 'text-accent',
-            validate: validateInput(),
+
         },
         {
             key: crypto.randomUUID(),
             title: 'Data',
             value: '12/10/2023',
             inputType: 'text',
-            validate: validateInput(),
+
         },
         {
             key: crypto.randomUUID(),
             title: 'Doctor',
             value: 'Denys Vysotskyy',
             inputType: 'text',
-            validate: validateInput(),
+
         },
     ],
-    [
+};
+
+const PrenotationDoctor = {
+    title: '',
+    list: [
         {
             key: crypto.randomUUID(),
             title: 'Inizio',
             value: '12:12',
-            inputType: 'text',
-            className: 'text-accent',
-            validate: validateInput(),
+            className: 'text-accent data-entry',
+
         },
         {
             key: crypto.randomUUID(),
             title: 'Fine',
             value: '12:13',
-            inputType: 'text',
-            className: 'text-accent',
-            validate: validateInput(),
-        },
-        {
-            key: crypto.randomUUID(),
-            title: 'Data',
-            value: '12/10/2023',
-            inputType: 'text',
-            validate: validateInput(),
-        },
-        {
-            key: crypto.randomUUID(),
-            title: 'Doctor',
-            value: 'Artur Smirnov',
-            inputType: 'text',
-            validate: validateInput(),
-        },
-    ],
-    [
-        {
-            key: crypto.randomUUID(),
-            title: 'Inizio',
-            value: '12:12',
-            inputType: 'text',
-            className: 'text-accent',
-            validate: validateInput(),
-        },
-        {
-            key: crypto.randomUUID(),
-            title: 'Fine',
-            value: '12:13',
-            inputType: 'text',
-            className: 'text-accent',
-            validate: validateInput(),
-        },
-        {
-            key: crypto.randomUUID(),
-            title: 'Data',
-            value: '12/10/2023',
-            inputType: 'text',
-            validate: validateInput(),
+            className: 'text-accent  data-entry',
+
         },
         {
             key: crypto.randomUUID(),
             title: 'Doctor',
             value: 'Petro Petrovuch',
-            inputType: 'text',
-            validate: validateInput(),
+            className: 'data-entry',
         },
-    ],
-    [
-        {
-            key: crypto.randomUUID(),
-            title: 'Inizio',
-            value: '12:12',
-            inputType: 'text',
-            className: 'text-accent',
-            validate: validateInput(),
-        },
-        {
-            key: crypto.randomUUID(),
-            title: 'Fine',
-            value: '12:13',
-            inputType: 'text',
-            className: 'text-accent',
-            validate: validateInput(),
-        },
-        {
-            key: crypto.randomUUID(),
-            title: 'Data',
-            value: '12/10/2023',
-            inputType: 'text',
-            validate: validateInput(),
-        },
-        {
-            key: crypto.randomUUID(),
-            title: 'Doctor',
-            value: 'San Sanych',
-            inputType: 'text',
-            validate: validateInput(),
-        },
-    ],
-];
+    ]
+};
 
+export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor };
 
-export { person, animal, doctor, visits };
