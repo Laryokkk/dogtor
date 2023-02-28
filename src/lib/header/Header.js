@@ -1,3 +1,18 @@
+function getCookie(username) {
+    let name = username + "=";
+    let spli = document.cookie.split(';');
+    for (var j = 0; j < spli.length; j++) {
+        let char = spli[j];
+        while (char.charAt(0) == ' ') {
+            char = char.substring(1);
+        }
+        if (char.indexOf(name) == 0) {
+            return char.substring(name.length, char.length);
+        }
+    }
+    return "";
+}
+
 class Header {
     constructor(parent, props) {
         this.parentElement = parent;
@@ -25,48 +40,42 @@ class Header {
 
         this.elements = {
             header: this.template,
-            logo: this.template.querySelector('img.logo'),
-            linkSignIn: this.template.querySelector('a#sign-in'),
-            linkSignUp: this.template.querySelector('a#sign-up'),
+            containerSignInUp: this.template.querySelector('div.sign-in-up'),
+            containerSignOut: this.template.querySelector('div.sign-out'),
         };
+
+        const cookieGoogleID = getCookie("login_id");
+
+        this.elements.containerSignInUp.classList.toggle('hidden', (cookieGoogleID && cookieGoogleID !== ''))
+        this.elements.containerSignOut.classList.toggle('hidden', !(cookieGoogleID && cookieGoogleID !== ''))
 
         this.parentElement.appendChild(this.template);
     }
 
     initEventListeners() {
-        this.elements.logo.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            console.log('click logo');
-        });
-
-        this.elements.linkSignIn.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            console.log('click sign in');
-        });
-
-        this.elements.linkSignUp.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            console.log('click sign up');
-        });
     }
 
     initTemplate() {
         const parser = new DOMParser();
         const templateString = `<header>
             <img class="logo" src="/assets/header_logo.svg" alt="logo of the 'Cani Sani'">
-            <div class="account">
-                <a id="sign-in" href="">
+            <div class="sign-in-up hidden">
+                <a id="sign-in" href="/redirect.php">
                     <h4 class="text text-active">
                         <span class="text-heading text-accent">S</span>ign <span class="text-heading text-accent">I</span>n
                     </h4>
                 </a>
                 /
-                <a id="sign-up" href="">
+                <a id="sign-up" href="/redirect.php">
                     <h4 class="text text-active">
                         <span class="text-heading text-accent">S</span>ign <span class="text-heading text-accent">U</span>p
+                    </h4>
+                </a>
+            </div>
+            <div class="sign-out hidden">
+                <a id="sign-in" href="/logout.php">
+                    <h4 class="text text-active">
+                        <span class="text-heading text-accent">S</span>ign <span class="text-heading text-accent">O</span>ut
                     </h4>
                 </a>
             </div>
