@@ -11,7 +11,7 @@ img.logo {
     height: 8vh;
 }
 
-div.account {
+div.sign-in-up {
     display: flex;
     align-items: center;
     justify-content: space-between;
