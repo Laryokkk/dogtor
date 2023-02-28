@@ -30,24 +30,7 @@ class ModelWindow {
         const templateString = `
             <div class="wrapper-window-model">
                 <div class="modal-window">
-                    <div class="logo-model-window">
-                        <h3>Prenotazione effetuata <span class="text-accent">corettamente</span></h3>
-                    </div>
-
-                    <div class="wrapper-modal-content">
-
-                        <div class="wrapper-prenotation-data">
-                        <div class="logo-prenotation-data">
-                            <h4>Vi asspettiamo</h4>
-                        </div>
-                        <div class="wrapper-data-prenotation">
-                        ${this.initEntry()}
-                        </div>
-                    </div>
-
-                        <button class="apply prenotation-apply">OK!</button>
-                    </div>
-
+                    ${this.initPrenotation()}
                 </div>
             </div>`;
         const templateElement = parser.parseFromString(templateString, 'text/html');
@@ -58,7 +41,9 @@ class ModelWindow {
         let resp = '';
 
         this.props.forEach(element => {
-            const {title, value, className } = element;
+            const { title, value, className } = element;
+
+            console.log(element);
 
             resp += `
                 <div class="prenotation-data">
@@ -66,6 +51,34 @@ class ModelWindow {
                 </div>
                 `;
         });
+
+        return resp;
+
+    }
+
+    initPrenotation() {
+        let resp = '';
+
+        resp += `
+                <div class="logo-model-window">
+                    <h3>Prenotazione effetuata <span class="text-accent">corettamente</span></h3>
+                    </div>
+
+                    <div class="wrapper-modal-content">
+
+                        <div class="wrapper-prenotation-data">
+                            <div class="logo-prenotation-data">
+                                <h4>Vi asspettiamo</h4>
+                            </div>
+                            <div class="wrapper-data-prenotation">
+                                ${this.initEntry()}
+                            </div>
+                        </div>
+
+                        <button class="apply prenotation-apply">OK!</button>
+                </div>
+            `;
+
 
         return resp;
     }

@@ -30,6 +30,16 @@ const isValidPhoneNumber = (inputStr) => {
     return phoneRegex.test(inputStr);
 }
 
+const isValidPhoneNumberOptional = (inputStr) => {
+    if (inputStr === null || inputStr === '' || inputStr === undefined || inputStr.trim() === '') {
+        return true;
+    }
+
+    const phoneRegex = /^(\+?\d{1,2}\s?)?(\(\d{3}\)|\d{3})[-\s]?\d{3}[-\s]?\d{4}$/;
+
+    return phoneRegex.test(inputStr);
+}
+
 
 
 const isNumeric = (inputStr) => {
@@ -39,11 +49,12 @@ const isNumeric = (inputStr) => {
 
 
 const Person = {
-    title: 'Person',
+    title: 'Accompagnatore',
     list: [
         {
             key: crypto.randomUUID(),
             title: 'Nome',
+           
             inputType: 'text',
             value: '',
             maxLenght: 20,
@@ -54,6 +65,7 @@ const Person = {
         {
             key: crypto.randomUUID(),
             title: 'Cognome',
+           
             inputType: 'text',
             value: '',
             maxLenght: 20,
@@ -64,6 +76,7 @@ const Person = {
         {
             key: crypto.randomUUID(),
             title: 'Codice Fiscale',
+           
             value: '',
             inputType: 'text',
             maxLenght: 16,
@@ -75,6 +88,7 @@ const Person = {
         {
             key: crypto.randomUUID(),
             title: 'Numero di Telefono',
+           
             value: '',
             className: 'data-entry',
             inputType: 'tel',
@@ -87,20 +101,22 @@ const Person = {
         {
             key: crypto.randomUUID(),
             title: 'Numero di Telefono',
-            value: '',
+           
+            value: 'null',
             className: 'data-entry',
             inputType: 'tel',
             maxLenght: 10,
             minLenght: 10,
-            required: 'required',
+            required: '',
             placeHolder: 'Facoltativo',
-            validate: (value) => { return isValidPhoneNumber(value) },
+            validate: (value) => { return isValidPhoneNumberOptional(value) },
         },
         {
             key: crypto.randomUUID(),
             value: '',
             className: 'data-entry',
             title: 'Email',
+           
             maxLenght: 30,
             placeHolder: 'topolino@gmail.com',
             inputType: 'email',
@@ -116,7 +132,7 @@ const Description = {
         {
             key: crypto.randomUUID(),
             title: 'Descrizione',
-            inputType: 'text',
+            inputType: 'textarea',
             value: '',
             className: 'data-entry',
             required: 'required',
@@ -132,6 +148,7 @@ const Animal = {
     {
         key: crypto.randomUUID(),
         title: 'Nome',
+       
         value: '',
         maxLenght: 20,
         className: 'data-entry',
@@ -142,6 +159,7 @@ const Animal = {
     {
         key: crypto.randomUUID(),
         title: 'Data di Nascita',
+       
         value: '',
         className: 'data-entry',
         inputType: 'date',
@@ -151,6 +169,7 @@ const Animal = {
     {
         key: crypto.randomUUID(),
         title: 'Luogo di Nascita',
+       
         value: '',
         maxLenght: 20,
         className: 'data-entry',
@@ -161,6 +180,7 @@ const Animal = {
     {
         key: crypto.randomUUID(),
         title: 'Luogo di Residenza',
+       
         value: '',
         maxLenght: 20,
         className: 'data-entry',
@@ -178,11 +198,19 @@ const Animal = {
         placeHolder: '123456789123456',
         required: 'required',
         validate: (value) => { return isNumeric(value) },
-    }],
+    },
+    {
+        key: crypto.randomUUID(),
+        title: 'Tipo di animale',
+        inputType: 'selector',
+        option: ['Cane', 'Gatto','lexsus'],
+        value: '',
+        className: 'data-entry',
+        required: 'required',
+        validate: (value) => { return validateText(value) },
+    },
+],
 };
-
-
-
 
 
 const Doctor = {
@@ -277,6 +305,7 @@ const PrenotationDoctor = {
             title: 'Inizio',
             value: '12:12',
             className: 'text-accent data-entry',
+            inputType: 'prenotationDoctor',
             required: '',
         },
         {
@@ -284,6 +313,7 @@ const PrenotationDoctor = {
             title: 'Fine',
             value: '12:13',
             className: 'text-accent  data-entry',
+            inputType: 'prenotationDoctor',
             required: '',
         },
         {
@@ -291,6 +321,7 @@ const PrenotationDoctor = {
             title: 'Doctor',
             value: 'Petro Petrovuch',
             className: 'data-entry',
+            inputType: 'prenotationDoctor',
             required: '',
         },
     ]
@@ -314,5 +345,5 @@ const PrenotationModalWindow ={
     ]
 }
 
-export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow };
+export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow,  };
 

@@ -35,9 +35,9 @@ const handlerApply = (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-
-
     console.log(checkBooleanArray(animalComponent.isValid()));
+    console.log(checkBooleanArray(personComponent.isValid()));
+    console.log(checkBooleanArray(descriptioComponent.isValid()));
 
 
     if (checkBooleanArray(animalComponent.isValid()) && checkBooleanArray(personComponent.isValid()) && checkBooleanArray(descriptioComponent.isValid())) {
@@ -59,8 +59,6 @@ const handlerApply = (e) => {
             if (filed.classList.contains('data-wrong')) {
                 filed.classList.toggle('data-wrong', true);
             }
-
-
         });
     }
 };

@@ -1,5 +1,5 @@
 .wrapper-window-model {
-    display: none ;
+    display: none;
 
     width: 100vw;
     height: 100vh;
@@ -12,7 +12,7 @@
     top: 0;
     left: 0;
 
-    background: rgba(30, 30, 30, 0.35);
+    background: var(--backgrount-shadow);
 }
 
 .modal-window {
@@ -20,18 +20,18 @@
     width: 40rem;
     height: 20rem;
 
-    background: #FBFBFB;
-    border: 3px solid #1A98C0;
+    background: var(--background);
+    border: 3px solid var(--background-accent);
     border-radius: 10px;
 }
 
-.logo-model-window{
+.logo-model-window {
     margin: 3.5rem;
     display: flex;
     justify-content: center;
 }
 
-.wrapper-modal-content{
+.wrapper-modal-content {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -40,25 +40,25 @@
     gap: 2rem;
 }
 
-.prenotation-data{
+.prenotation-data {
     margin-top: 1rem;
 }
 
-.prenotation-apply{
+.prenotation-apply {
     margin: 0px;
 
     width: 4rem;
     height: 2rem;
 }
 
-.display-hide{
+.display-hide {
     display: none !important;
 }
 
-.wrapper-data-prenotation{
+.wrapper-data-prenotation {
     display: flex;
 }
 
-.prenotation-data{
+.prenotation-data {
     margin-right: 0.5rem;
 }

@@ -32,12 +32,14 @@ class ManageWrapper {
 
     initField(){
         this.props.forEach(props => {
+            
             const fieldWrapper = new Field (this.elements.fieldWrapperCom, props)
             fieldWrapper.init();
             const el = fieldWrapper.render();
             this.elements.fieldWrapperCom.appendChild(el);
 
             this.listFileds.push(fieldWrapper);
+
         }); 
     }
 
@@ -71,12 +73,9 @@ class ManageWrapper {
     isValid() {
         const isValidArray = [];
     
-        this.listFileds.forEach(filed => {
-            
+        this.listFileds.forEach(filed => { 
             isValidArray.push(filed.isValid);
         });
-    
-        
     
         return isValidArray;
     }
