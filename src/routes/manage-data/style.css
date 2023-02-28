@@ -1,5 +1,7 @@
 @import url('/src/lib/header/style.css');
+@import url('/src/lib/model-window/style.css');
 
+select.data-entry,
 .value-data {
     width: 13.5rem;
     height: 2.5rem;
@@ -12,13 +14,17 @@
     padding-left: 1rem;
 }
 
+select.data-entry {
+    width: 15rem
+}
+
 .logo {
     margin-bottom: 0.5rem;
     color: var(--text-accent);
 }
 
 .logo-description {
-    color: var(--text-accent-light-gray);
+    color: var(--text-accent);
 }
 
 .wrapper-data {
@@ -40,10 +46,10 @@
     display: grid;
 
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 3rem;
+    grid-gap: 6rem 2rem;
 
     margin-left: 8rem;
-    margin-top: 3rem;
+    margin-top: 2rem;
 }
 
 .padding-line {
@@ -58,7 +64,7 @@
 }
 
 .description-problem {
-    border: none;
+    border: 2px solid var(--background-inputs);
 
     padding: 0.5rem;
 
@@ -127,6 +133,12 @@
     margin-top: 2rem;
 }
 
+.wrapper-description {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
 .apply:active,
 .apply:hover {
     color: var(--text-accent);
@@ -148,13 +160,18 @@ textarea {
 
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
-  }
+}
 
 
-.data-valid{
+.data-valid {
     border: 2px solid var(--background-inputs);
 }
 
-.data-wrong{
+.data-wrong {
     border: 2px solid red;
+}
+
+.wrapper-textarea {
+    display: flex;
+    flex-direction: column-reverse;
 }

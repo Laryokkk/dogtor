@@ -1,20 +1,19 @@
 import Field from "../field-wrapper/field-wrapper.js";
 class ManageWrapper {
-    constructor(parent, props, animalTittle) {
+    constructor(parent, props, animalTitle) {
         this.parentElement = parent;
         this.props = props;
         this.template;
         this.templateField;
+
         this.elements = {};
+        this.listFileds = [];
 
-        this.animalTittle = animalTittle;
-
+        this.animalTitle = animalTitle;
     }
 
     init() {
-        
         this.initElements();
-        this.initEventListeners();
     }
 
 
@@ -33,15 +32,15 @@ class ManageWrapper {
 
     initField(){
         this.props.forEach(props => {
+            
             const fieldWrapper = new Field (this.elements.fieldWrapperCom, props)
             fieldWrapper.init();
             const el = fieldWrapper.render();
             this.elements.fieldWrapperCom.appendChild(el);
+
+            this.listFileds.push(fieldWrapper);
+
         }); 
-    }
-
-    initEventListeners() {
-
     }
 
     initTemplate() {
@@ -49,7 +48,7 @@ class ManageWrapper {
         const templateString = `
         <div class="wrapper-manage-data">
             <div class="wrapper-logo">
-                <h4 class="logo">${this.animalTittle}</h4>
+                <h4 class="logo">${this.animalTitle}</h4>
             </div>
             <div class="wrapper-field">
   
@@ -68,6 +67,18 @@ class ManageWrapper {
         </div>`;
         const templateElement = parser.parseFromString(templateString, 'text/html');
         return templateElement.documentElement.querySelector("body> div");
+    }
+
+
+    isValid() {
+        const isValidArray = [];
+    
+        this.listFileds.forEach(filed => { 
+            
+            isValidArray.push(filed.isValid);
+        });
+    
+        return isValidArray;
     }
 }
 
