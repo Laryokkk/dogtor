@@ -1,5 +1,8 @@
 # dogtor
 
+162965303956-1imd1dlt9giopr764cu918m1fkcqr2lc.apps.googleusercontent.com
+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
+
 ## BEST SOLUTIONS EVER
 ```json
 initTimeStart() {
