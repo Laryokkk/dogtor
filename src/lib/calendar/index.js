@@ -6,12 +6,39 @@ class CalendarBox {
         this.rootElement;
 
         this.props = {
-            ...props,
+            timeGridValues: ['03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'],
+            ...props, // error
         };
 
         this.template;
         this.elements = {};
         this.eventHandlers = [];
+
+        this.source = {
+            sourceName: 'Dogtor',
+            sourceRuleList: [
+                {
+                    idx: crypto.randomUUID(),
+                    permission: 'user',
+                    className: 'cb-rule',
+                    date: {
+                        start: new Date(),
+                        end: new Date().setHours(new Date().getHours() + 1),
+                    },
+
+                },
+                {
+                    idx: crypto.randomUUID(),
+                    permission: 'user',
+                    className: 'cb-rule',
+                    date: {
+                        start: new Date().setHours(new Date().getHours() + 4),
+                        end: new Date().setHours(new Date().getHours() + 5),
+                    },
+
+                },
+            ],
+        };
     }
 
     init() {
@@ -44,9 +71,25 @@ class CalendarBox {
                 chevronRightBtn: this.rootElement.querySelector('button.cb-heading-zmdi-chevron-right'),
                 chevronsRightBtn: this.rootElement.querySelector('button.cb-heading-zmdi-chevrons-right'),
             },
+            timeGrid: {
+                time0: this.rootElement.querySelector('#cb-text-time-0'),
+                time1: this.rootElement.querySelector('#cb-text-time-1'),
+                time2: this.rootElement.querySelector('#cb-text-time-2'),
+                time3: this.rootElement.querySelector('#cb-text-time-3'),
+                time4: this.rootElement.querySelector('#cb-text-time-4'),
+                time5: this.rootElement.querySelector('#cb-text-time-5'),
+                time6: this.rootElement.querySelector('#cb-text-time-6'),
+            },
+            calendar: {
+
+            },
         };
 
         this.initHeadingDate();
+        this.intiTimeGrid();
+
+        const sourceElList = this.initSource();
+        console.log(sourceElList);
     }
 
     initEventListeners() {
@@ -90,6 +133,15 @@ class CalendarBox {
         const date = formatDate(new Date(currentFirstDay), new Date(currentLastDay));
 
         heading.dateStr.innerHTML = date.toString();
+    }
+
+    intiTimeGrid() {
+        const { timeGrid } = this.elements;
+        const listTimeEl = Object.values(timeGrid);
+
+        listTimeEl.forEach((el, idx) => {
+            el.innerHTML = this.props.timeGridValues[idx];
+        });
     }
 
     initTemplate() {
@@ -146,65 +198,78 @@ class CalendarBox {
     initTemplateTime() {
         return `
             <div class="cb-time">
-                <h5 class="text cb-text cb-text-time">
-                    03:00
-                </h5>
-                <h4 class="text cb-text cb-text-time">
-                    06:00
-                </h4>
-                <h5 class="text cb-text cb-text-time">
-                    09:00
-                </h5>
-                <h3 class="text cb-text cb-text-time">
-                    12:00
-                </h3>
-                <h5 class="text cb-text cb-text-time">
-                    15:00
-                </h5>
-                <h4 class="text cb-text cb-text-time">
-                    18:00
-                </h4>
-                <h5 class="text cb-text cb-text-time">
-                    21:00
-                </h5> 
+                <h5 id="cb-text-time-0" class="text cb-text cb-text-time"></h5>
+                <h4 id="cb-text-time-1" class="text cb-text cb-text-time"></h4>
+                <h5 id="cb-text-time-2" class="text cb-text cb-text-time"></h5>
+                <h3 id="cb-text-time-3" class="text cb-text cb-text-time"></h3>
+                <h5 id="cb-text-time-4" class="text cb-text cb-text-time"></h5>
+                <h4 id="cb-text-time-5" class="text cb-text cb-text-time"></h4>
+                <h5 id="cb-text-time-6" class="text cb-text cb-text-time"></h5> 
             </div>
         `;
     }
 
     initTemplateTr() {
-        const templateStr = `
-            <tr class="cb-tr">
-                <th class="cb-th">
-                    <div class="cb-container-rule"></div>
-                </th>
-                <th class="cb-th">
-                    <div class="cb-container-rule"></div>
-                </th>
-                <th class="cb-th">
-                    <div class="cb-container-rule"></div>
-                </th>
-                <th class="cb-th">
-                    <div class="cb-container-rule"></div>
-                </th>
-                <th class="cb-th">
-                    <div class="cb-container-rule"></div>
-                </th>
-                <th class="cb-th">
-                    <div class="cb-container-rule"></div>
-                </th>
-                <th class="cb-th">
-                    <div class="cb-container-rule"></div>
-                </th>
-            </tr>
-        `;
-
         let response = '';
 
         for (let idx = 0; idx < 8; idx++) {
-            response += templateStr;
+            response += `
+                <tr class="cb-tr">
+                    ${this.initTemplateTh(idx)}
+                </tr>
+            `;
         }
 
         return response;
+    }
+
+    initTemplateTh(idxTr) {
+        let response = '';
+
+        for (let idx = 0; idx < 7; idx++) {
+            response += `
+                <th class="cb-th">
+                    ${idxTr === 0 ? `<div class="cb-container-rule cb-container-rule-position-${idx}"></div>` : ''}
+                </th>
+            `;
+        }
+
+        return response;
+    }
+
+    initTemplateRule(props) {
+        const { idx, className, date } = props;
+        const classNames = className.concat(` cb-rule-day-${new Date(date.start).getDay()}`)
+        const timeStart = `${new Date(date.start).getHours()} : ${new Date(date.start).getMinutes()}`;
+        const timeEnd = `${new Date(date.end).getHours()} : ${new Date(date.end).getMinutes()}`;
+
+        return `
+            <a class="${classNames}" id="${idx}">
+                <div class="cb-rule-content">
+                    <h5 class="text text-extend cb-text time-start">
+                        ${timeStart}
+                    </h5>
+                    <h5 class="text text-extend cb-text time-end">
+                        ${timeEnd}
+                    </h5>
+                </div>
+            </a>
+        `;
+    }
+
+    initSource() {
+        const ruleElList = [];
+
+        this.source.sourceRuleList.forEach(ruleProps => {
+            const parser = new DOMParser();
+            const templateStr = this.initTemplateRule(ruleProps);
+            console.log(templateStr);
+            const ruleTemplate = parser.parseFromString(templateStr, 'text/html');
+
+            ruleElList.push(ruleTemplate.documentElement.querySelector('body > a'));
+        });
+
+        return ruleElList;
     }
 }
 
