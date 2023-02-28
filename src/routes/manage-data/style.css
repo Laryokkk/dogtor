@@ -14,7 +14,7 @@ select.data-entry,
     padding-left: 1rem;
 }
 
-select.data-entry{
+select.data-entry {
     width: 15rem
 }
 
@@ -24,7 +24,7 @@ select.data-entry{
 }
 
 .logo-description {
-    color: var(--text-accent-light-gray);
+    color: var(--text-accent);
 }
 
 .wrapper-data {
@@ -49,7 +49,7 @@ select.data-entry{
     grid-gap: 3rem;
 
     margin-left: 8rem;
-    margin-top: 3rem;
+    margin-top: 2rem;
 }
 
 .padding-line {
@@ -64,7 +64,7 @@ select.data-entry{
 }
 
 .description-problem {
-    border: none;
+    border: 2px solid var(--background-inputs);
 
     padding: 0.5rem;
 
@@ -133,6 +133,12 @@ select.data-entry{
     margin-top: 2rem;
 }
 
+.wrapper-description {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
 .apply:active,
 .apply:hover {
     color: var(--text-accent);
@@ -165,3 +171,7 @@ input[type=number]::-webkit-inner-spin-button {
     border: 2px solid red;
 }
 
+.wrapper-textarea {
+    display: flex;
+    flex-direction: column-reverse;
+}

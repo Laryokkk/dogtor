@@ -1,4 +1,4 @@
-import { createOption } from "../../../utils/util-select.js";
+import { createOptions } from "../../../utils/util-select.js";
 class Field {
     constructor(parent, props) {
         this.parentElement = parent;
@@ -32,6 +32,8 @@ class Field {
 
     initEventListeners() {
         const { dataEntry } = this.elements;
+
+       
 
         dataEntry.addEventListener('input', () => {
             const isValid = this.props.validate(dataEntry.value);
@@ -68,13 +70,10 @@ class Field {
             `;
         }
         if (inputType === 'selector') {
-            console.log("There is one select");
             return `
-            <div class="wrapper-data">
+            <div class="wrapper-data anTemo">
                 <div> ${title} </div>
-                <select class="${className} animalType">
-
-                </select>
+                ${this.initSelect()}
             </div>
         `;
         }
@@ -93,16 +92,23 @@ class Field {
         }
     }
 
+    initSelect(){
+        return `
+        <select class="${this.props.className} animalType" ${this.props.required}>
+            <option value="null">-</option>
+            ${createOptions(this.props.option)}
+        </select>
+        `
+    }
+
     initAttributes() {
-        const { maxLenght, inputType, key, value, minLength, maxLength } = this.props;
+        const { maxLenght, inputType, key, value, minLength } = this.props;
         const { dataEntry } = this.elements;
 
 
-        if (maxLenght !== undefined) {
-            dataEntry.setAttribute('max', maxLenght);
-        }
+        console.log(maxLenght);
 
-        if (inputType !== undefined || inputType === 'selestor') {
+        if (inputType !== undefined && inputType === 'selestor') {
         } else if (inputType !== undefined) {
             dataEntry.setAttribute('type', inputType);
         }
@@ -124,8 +130,8 @@ class Field {
             dataEntry.setAttribute('minlength', minLength);
         }
 
-        if (maxLength !== undefined) {
-            dataEntry.setAttribute('maxlength', maxLength);
+        if (maxLenght !== undefined) {
+            dataEntry.setAttribute('maxlength', maxLenght);
         }
     }
 

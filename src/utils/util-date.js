@@ -23,22 +23,10 @@ const getCurrentLastDay = () => {
 };
 
 const isValidDate = (dateString) => {
-    if (typeof dateString !== 'string') {
-        return false;
-    }
     const date = new Date(dateString);
-    if (isNaN(date.getTime())) {
-        return false;
-    }
-
     const currentDate = new Date();
-    if (date < currentDate) {
-        return false
-    }
-
-
-    return true;
-}
+    return !isNaN(date.getTime()) && date >= currentDate;
+  };
 
 export { formatDate, getCurrentFirstDay, getCurrentLastDay,isValidDate };
 

@@ -1,5 +1,30 @@
 import { isValidDate } from "../utils/util-date.js";
 
+const validateCodiceFiscale = (str) => {
+    const regex = /^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/i;
+    if (!regex.test(str)) {
+      return false;
+    }
+  
+    const validSet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const validPosition = [
+      1, 0, 5, 7, 9, 13, 15, 17, 19, 21, 2, 4, 18, 20, 11, 3, 6, 8, 12, 14, 16, 10,
+    ];
+  
+    let sum = 0;
+    for (let i = 0; i < 15; i++) {
+      const c = str.charAt(i);
+      const v = validSet.indexOf(c);
+      const p = validPosition[i];
+      const digit = v * (p % 2 + 1);
+      sum += digit < 10 ? digit : digit - 9;
+    }
+  
+    const checkDigit = validSet.charAt((10 - (sum % 10)) % 10);
+    return str.charAt(15).toUpperCase() === checkDigit;
+  };
+  
+
 const validateText = (text) => {
     const textToValidate = text.toString().replace(/^\s+/, '');
 
@@ -40,11 +65,13 @@ const isValidPhoneNumberOptional = (inputStr) => {
     return phoneRegex.test(inputStr);
 }
 
+function isNumeric(str) {
+    const regex = /^\d{15}$/;
+    return regex.test(str);
+}
 
-
-const isNumeric = (inputStr) => {
-    const numericRegex = /^\d+$/;
-    return numericRegex.test(inputStr);
+const isOptions = (inputStr) => {
+    return true;
 }
 
 
@@ -54,7 +81,7 @@ const Person = {
         {
             key: crypto.randomUUID(),
             title: 'Nome',
-           
+
             inputType: 'text',
             value: '',
             maxLenght: 20,
@@ -65,7 +92,7 @@ const Person = {
         {
             key: crypto.randomUUID(),
             title: 'Cognome',
-           
+
             inputType: 'text',
             value: '',
             maxLenght: 20,
@@ -76,19 +103,20 @@ const Person = {
         {
             key: crypto.randomUUID(),
             title: 'Codice Fiscale',
-           
+
             value: '',
             inputType: 'text',
             maxLenght: 16,
             minLenght: 16,
+            placeHolder: 'RSSMRA70A01H501W',
             required: 'required',
             className: 'data-entry',
-            validate: (value) => { return validateText(value) },
+            validate: (value) => { return validateCodiceFiscale(value) },
         },
         {
             key: crypto.randomUUID(),
             title: 'Numero di Telefono',
-           
+
             value: '',
             className: 'data-entry',
             inputType: 'tel',
@@ -101,7 +129,7 @@ const Person = {
         {
             key: crypto.randomUUID(),
             title: 'Numero di Telefono',
-           
+
             value: 'null',
             className: 'data-entry',
             inputType: 'tel',
@@ -116,7 +144,7 @@ const Person = {
             value: '',
             className: 'data-entry',
             title: 'Email',
-           
+
             maxLenght: 30,
             placeHolder: 'topolino@gmail.com',
             inputType: 'email',
@@ -138,6 +166,16 @@ const Description = {
             required: 'required',
             validate: (value) => { return validateText(value) },
         },
+        {
+            key: crypto.randomUUID(),
+            title: 'Tipo di simptome',
+            inputType: 'selector',
+            option: ['Cane', 'Gatto', 'lexsus'],
+            value: '',
+            className: 'data-entry',
+            required: 'required',
+            validate: (value) => { return isOptions(value) },
+        },
     ]
 };
 
@@ -145,71 +183,71 @@ const Description = {
 const Animal = {
     title: 'Animal',
     list: [
-    {
-        key: crypto.randomUUID(),
-        title: 'Nome',
-       
-        value: '',
-        maxLenght: 20,
-        className: 'data-entry',
-        inputType: 'text',
-        required: 'required',
-        validate: (value) => { return validateText(value) },
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Data di Nascita',
-       
-        value: '',
-        className: 'data-entry',
-        inputType: 'date',
-        required: 'required',
-        validate: (value) => { return isValidDate(value) },
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Luogo di Nascita',
-       
-        value: '',
-        maxLenght: 20,
-        className: 'data-entry',
-        inputType: 'text',
-        required: 'required',
-        validate: (value) => { return validateText(value) },
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Luogo di Residenza',
-       
-        value: '',
-        maxLenght: 20,
-        className: 'data-entry',
-        inputType: 'text',
-        required: 'required',
-        validate: (value) => { return validateText(value) },
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Chip Identificativo',
-        value: '',
-        maxLenght: 15,
-        className: 'data-entry',
-        inputType: 'number',
-        placeHolder: '123456789123456',
-        required: 'required',
-        validate: (value) => { return isNumeric(value) },
-    },
-    {
-        key: crypto.randomUUID(),
-        title: 'Tipo di animale',
-        inputType: 'selector',
-        option: ['Cane', 'Gatto','lexsus'],
-        value: '',
-        className: 'data-entry',
-        required: 'required',
-        validate: (value) => { return validateText(value) },
-    },
-],
+        {
+            key: crypto.randomUUID(),
+            title: 'Nome',
+
+            value: '',
+            maxLenght: 20,
+            className: 'data-entry',
+            inputType: 'text',
+            required: 'required',
+            validate: (value) => { return validateText(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Data di Nascita',
+
+            value: '',
+            className: 'data-entry',
+            inputType: 'date',
+            required: 'required',
+            validate: (value) => { return isValidDate(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Luogo di Nascita',
+
+            value: '',
+            maxLenght: 20,
+            className: 'data-entry',
+            inputType: 'text',
+            required: 'required',
+            validate: (value) => { return validateText(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Luogo di Residenza',
+
+            value: '',
+            maxLenght: 20,
+            className: 'data-entry',
+            inputType: 'text',
+            required: 'required',
+            validate: (value) => { return validateText(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Chip Identificativo',
+            value: '',
+            maxLenght: 15,
+            className: 'data-entry',
+            inputType: 'number',
+            placeHolder: '123456789123456',
+            required: 'required',
+            validate: (value) => { return isNumeric(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Tipo di animale',
+            inputType: 'selector',
+            option: ['Cancer', 'coronavirus', 'bahchisarai'],
+            value: '',
+            className: 'data-entry',
+            required: 'required',
+            validate: (value) => { return isOptions(value) },
+        },
+    ],
 };
 
 
@@ -327,7 +365,7 @@ const PrenotationDoctor = {
     ]
 };
 
-const PrenotationModalWindow ={
+const PrenotationModalWindow = {
     title: '',
     list: [
         {
@@ -345,5 +383,5 @@ const PrenotationModalWindow ={
     ]
 }
 
-export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow,  };
+export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow, };
 

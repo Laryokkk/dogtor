@@ -1,12 +1,20 @@
-const createOption = ()=>{
-    const select = template.querySelector('.animalType');
-    let newOption = document.createElement("option");
-    newOption.text = "Kiwi";
-    console.log(select);
-    select.add(newOption);
+function createOptions(text) {
+    const select = document.createElement('select');
+    
+    text.forEach((element, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.text = element;
+        option.required = 'required';
+        select.appendChild(option);
+    });
+  
+    return select.innerHTML;
 }
+  
 
 
 
 
-export {createOption };
+
+export { createOptions };

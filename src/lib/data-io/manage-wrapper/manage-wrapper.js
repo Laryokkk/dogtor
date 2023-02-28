@@ -74,6 +74,7 @@ class ManageWrapper {
         const isValidArray = [];
     
         this.listFileds.forEach(filed => { 
+            
             isValidArray.push(filed.isValid);
         });
     

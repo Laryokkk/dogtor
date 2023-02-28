@@ -14,7 +14,6 @@ class DescriptionWrapper {
 
     init() {
         this.initElements();
-        /* this.initEventListeners(); */
     }
 
     initElements() {
@@ -39,33 +38,12 @@ class DescriptionWrapper {
         }); 
     }
 
-/*     initEventListeners() {
-        const { dataEntry } = this.elements;
-
-        dataEntry.addEventListener('input', () => {
-            this.props.forEach(el => {
-                console.log(el.validate(dataEntry.value));
-
-                const isValid = el.validate(dataEntry.value);
-
-                dataEntry.classList.toggle('data-wrong', !isValid);
-                dataEntry.classList.toggle('data-valid', isValid);
-
-                this.isValid = isValid;
-            })
-            console.log(this.isValid);
-        });
-        this.listFileds = this.initEntry();
-    } */
-
-
-
     initTemplate() {
         const parser = new DOMParser();
         const templateString = `
             <div class="wrapper-description">
                 <div class="wrapper-logo">
-                    <h4 class="logo-description">${this.descriptionTittle}</h4>
+                    <h4 class="logo-description ">${this.descriptionTittle}</h4>
                 </div>
                 <div class="wrapper-textarea">
                 </div>
