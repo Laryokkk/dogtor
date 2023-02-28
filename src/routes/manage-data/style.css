@@ -1,0 +1,177 @@
+@import url('/src/lib/header/style.css');
+@import url('/src/lib/model-window/style.css');
+
+select.data-entry,
+.value-data {
+    width: 13.5rem;
+    height: 2.5rem;
+
+    border: 2px solid var(--background-inputs);
+
+    background: var(--background-inputs);
+    border-radius: 4px;
+
+    padding-left: 1rem;
+}
+
+select.data-entry {
+    width: 15rem
+}
+
+.logo {
+    margin-bottom: 0.5rem;
+    color: var(--text-accent);
+}
+
+.logo-description {
+    color: var(--text-accent);
+}
+
+.wrapper-data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 0.3rem;
+}
+
+.wrapper-manage-data {
+    width: 26rem;
+    height: 16rem;
+}
+
+
+.container {
+    max-width: 25rem;
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 6rem 2rem;
+
+    margin-left: 8rem;
+    margin-top: 2rem;
+}
+
+.padding-line {
+    padding-bottom: 0.5rem;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+.padding-left {
+    padding-left: 1rem;
+}
+
+.description-problem {
+    border: 2px solid var(--background-inputs);
+
+    padding: 0.5rem;
+
+    width: 25rem;
+    height: 12rem;
+    background: var(--background-inputs);
+}
+
+.apply {
+    padding: 1rem 2.5rem;
+
+    margin-top: 1rem;
+
+    color: var(--text-extend);
+
+
+    border-radius: 4px;
+    text-align: center;
+
+    background-color: var(--background-accent);
+    border: 2px solid var(--background-accent);
+
+    cursor: pointer;
+}
+
+.cancel {
+
+    padding: 1rem 2.5rem;
+
+    margin-top: 1rem;
+
+
+    border-radius: 4px;
+    text-align: center;
+
+    color: var(--text-accent-light-gray);
+
+    background-color: var(--background-inputs);
+    border: 2px solid var(--background-inputs);
+
+    cursor: pointer;
+}
+
+.prenotation-visit-doctor {
+    width: 21rem;
+}
+
+.wrapper-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.prenotation-visit-doctor {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.wrapper-data-prenotation-doctor {
+    margin-top: 1.7rem;
+}
+
+.prenotation-visit-doctor,
+.wrapper-description {
+    margin-top: 2rem;
+}
+
+.wrapper-description {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.apply:active,
+.apply:hover {
+    color: var(--text-accent);
+    background: var(--background);
+    border: 2px solid var(--background-accent);
+}
+
+.cancel:active,
+.cancel:hover {
+    color: var(--text-accent-light-gray);
+    background: var(--background);
+    border: 2px solid var(--background-inputs);
+}
+
+
+textarea {
+    resize: none;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+
+.data-valid {
+    border: 2px solid var(--background-inputs);
+}
+
+.data-wrong {
+    border: 2px solid red;
+}
+
+.wrapper-textarea {
+    display: flex;
+    flex-direction: column-reverse;
+}

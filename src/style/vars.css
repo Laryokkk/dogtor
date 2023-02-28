@@ -3,10 +3,13 @@
     --text-extend: #FBFBFB;
     --text-accent: #1A98C0;
     --text-accent-gray: #BBBBBB;
+    --text-accent-light-gray: #676767;
 
     --background: #FBFBFB;
+    --background-inputs: #EFEFEF;
     --background-accent: #1A98C0;
     --background-extend: #111111;
+    --backgrount-shadow: rgba(30, 30, 30, 0.35);
 
     /* Todo (Add a line colors) */
 }

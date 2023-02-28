@@ -22,4 +22,11 @@ const getCurrentLastDay = () => {
     return currentLastDay.setDate(currentLastDay.getDate() + 6);
 };
 
-export { formatDate, getCurrentFirstDay, getCurrentLastDay };
+const isValidDate = (dateString) => {
+    const date = new Date(dateString);
+    const currentDate = new Date();
+    return !isNaN(date.getTime()) && date >= currentDate;
+  };
+
+export { formatDate, getCurrentFirstDay, getCurrentLastDay,isValidDate };
+
