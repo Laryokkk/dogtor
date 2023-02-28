@@ -46,7 +46,7 @@ select.data-entry {
     display: grid;
 
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 3rem;
+    grid-gap: 6rem 2rem;
 
     margin-left: 8rem;
     margin-top: 2rem;

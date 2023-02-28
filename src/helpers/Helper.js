@@ -111,7 +111,7 @@ const Person = {
             placeHolder: 'RSSMRA70A01H501W',
             required: 'required',
             className: 'data-entry',
-            validate: (value) => { return validateCodiceFiscale(value) },
+            validate: (value) => { return validateText(value) },
         },
         {
             key: crypto.randomUUID(),
