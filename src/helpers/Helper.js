@@ -3,9 +3,9 @@ import { isValidDate } from "../utils/util-date.js";
 const validateSelect = selectElement => {
     if (selectElement.selectedIndex === 0) {
       return false;
-    } else {
-      return true;
     }
+    
+    return true;
   };
   
   
