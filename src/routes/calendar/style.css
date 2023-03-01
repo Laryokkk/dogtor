@@ -1,1 +1,7 @@
+@import url('/src/lib/header/style.css');
 @import url('../../lib/calendar/style.css');
+
+div.container {
+    margin-right: 20vw;
+    margin-top: 6vh;
+}

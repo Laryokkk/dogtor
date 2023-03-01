@@ -1,4 +1,5 @@
 import { isValidDate } from "../utils/util-date.js";
+import UtilFetch from "/src/utils/util-fetch.js";
 
 const validateSelect = selectElement => {
     if (selectElement.selectedIndex === 0) {
@@ -8,8 +9,6 @@ const validateSelect = selectElement => {
     return true;
   };
   
-  
-
 const validateText = (text) => {
     const textToValidate = text.toString().replace(/^\s+/, '');
 
@@ -362,5 +361,52 @@ const PrenotationModalWindow = {
     ]
 }
 
-export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow, };
+// {
+//     idx: crypto.randomUUID(),
+//     permission: 'user',
+//     className: 'cb-rule',
+//     date: {
+//         start: new Date().setHours(new Date().getHours() - 6),
+//         end: new Date().setHours(new Date().getHours() - 4),
+//     },
+
+// },
+
+const sourceCB = {
+    sourceName: 'Dogtor',
+    sourceRuleList: [],
+};
+
+const initSourceCB = async () => {
+    const fetchProps = { permission: 'user' };
+    const response = sourceCB;
+
+    await UtilFetch.postData('/src/utils/php/getSourceCB.php', fetchProps)
+        .then(fetchResponse => {
+            const { status, data } = fetchResponse;
+
+            if (status >= 200 && status < 300) {
+                const jsonData = JSON.parse(JSON.stringify(data));
+                jsonData.forEach(props => {
+                    response.sourceRuleList.push({
+                        uuid: crypto.randomUUID(),
+                        idx: props.idx,
+                        permission: fetchProps.permission,
+                        className: 'cb-rule',
+                        date: {
+                            start: new Date(props.time_start_prenotation),
+                            end: new Date(props.time_end_prenotation),
+                        },
+                    });
+                });
+            } else {
+                console.error('Error in getParks fetch!');
+                console.error(fetchResponse);
+            }
+        });
+
+    return response;
+};
+
+export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow, sourceCB, initSourceCB };
 

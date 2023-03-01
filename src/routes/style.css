@@ -1,7 +1,7 @@
 @import url('/src/lib/header/style.css');
 
 section.container {
-    padding: 10vh 10vw;
+    padding: 18vh 10vw;
     display: flex;
     align-items: flex-start;
     flex-direction: column;
