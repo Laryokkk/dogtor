@@ -56,7 +56,7 @@ class DescriptionWrapper {
         
         const parser = new DOMParser();
         const templateString = `
-        <div class="wrapper">
+        <div>
              ${this.initField()}
         </div>`;
         const templateElement = parser.parseFromString(templateString, 'text/html');
