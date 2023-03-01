@@ -106,7 +106,7 @@ class Field {
         const { dataEntry } = this.elements;
 
 
-        console.log(maxLenght);
+        
 
         if (inputType !== undefined && inputType === 'selestor') {
         } else if (inputType !== undefined) {

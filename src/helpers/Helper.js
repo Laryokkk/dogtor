@@ -370,16 +370,34 @@ const PrenotationModalWindow = {
     list: [
         {
             key: crypto.randomUUID(),
-            title: '',
-            value: '23/01/2023',
-            className: 'text-accent data-entry',
+            title: 'Prenotazione effetuatta',
+            value: 'correttamente!',
+            className: 'logo-model-window',
         },
         {
             key: crypto.randomUUID(),
-            title: 'alle',
+            title: 'Vi aspettiamo',
+            value: '',
+            className: 'logo-prenotation-data',
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Date',
+            value: '27/04/2024',
+            className: 'prenotation-data',
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'WhichTime',
+            value: 'alle',
+            className: 'prenotation-data',
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Time',
             value: '15:00',
-            className: 'text-accent data-entry',
-        }
+            className: 'prenotation-data',
+        },
     ]
 }
 
