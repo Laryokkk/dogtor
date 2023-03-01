@@ -1,17 +1,14 @@
 import { isValidDate } from "../utils/util-date.js";
-<<<<<<< HEAD
-=======
 import UtilFetch from "/src/utils/util-fetch.js";
 
 const validateSelect = selectElement => {
     if (selectElement.selectedIndex === 0) {
       return false;
     }
-    
+
     return true;
   };
->>>>>>> origin
-  
+
 const validateText = (text) => {
     const textToValidate = text.toString().replace(/^\s+/, '');
 
@@ -371,17 +368,12 @@ const PrenotationModalWindow = {
     ]
 }
 
-<<<<<<< HEAD
-
 const CancelModalWindow = {
     title: '',
     modalType: 'cancel',
     list: [
     ],
 }
-
-export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow ,CancelModalWindow };
-=======
 // {
 //     idx: crypto.randomUUID(),
 //     permission: 'user',
@@ -390,7 +382,6 @@ export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, Prenotat
 //         start: new Date().setHours(new Date().getHours() - 6),
 //         end: new Date().setHours(new Date().getHours() - 4),
 //     },
-
 // },
 
 const sourceCB = {
@@ -429,6 +420,5 @@ const initSourceCB = async () => {
     return response;
 };
 
-export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow, sourceCB, initSourceCB };
->>>>>>> origin
+export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow, CancelModalWindow, initSourceCB };
 
