@@ -3,7 +3,10 @@ import ManageWrapper from "../../lib/data-io/manage-wrapper/manage-wrapper.js";
 import DoctorPrenotationWrapper from "../../lib/data-io/doctor-prenotation-wrapper/doctor-prenotation-wrapper.js"
 import DescriptionWrapper from "../../lib/data-io/description-wrapper/description-wrapper.js"
 import ModelWindow from "../../lib/model-window/model-window.js";
+import { getParam } from "../../utils/util-params.js";
 import { Animal, Person, Description, PrenotationDoctor, PrenotationModalWindow } from "../../helpers/Helper.js";
+
+console.log(getParam(window, 'idx'));
 
 const wrapper = {
     header: document.querySelector('section#header'),
