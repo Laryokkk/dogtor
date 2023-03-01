@@ -26,13 +26,8 @@ function calculateTopAndHeight(eventStartTime, eventEndTime, parentHeight) {
     return { top: `${top}px`, height: `${height}px` };
 }
 
-const betaDate = new Date().setDate((new Date().getDate() + 1));
-
-const betaDate2 = new Date().setDate((new Date().getDate() - 2));
-
-
 class CalendarBox {
-    constructor(parentElement, ...props) {
+    constructor(parentElement, source, ...props) {
         this.parentElement = parentElement;
         this.rootElement;
 
@@ -45,40 +40,7 @@ class CalendarBox {
         this.elements = {};
         this.eventHandlers = [];
 
-        this.source = {
-            sourceName: 'Dogtor',
-            sourceRuleList: [
-                {
-                    idx: crypto.randomUUID(),
-                    permission: 'user',
-                    className: 'cb-rule',
-                    date: {
-                        start: new Date().setHours(new Date().getHours()),
-                        end: new Date().setHours(new Date().getHours() + 1),
-                    },
-
-                },
-                {
-                    idx: crypto.randomUUID(),
-                    permission: 'user',
-                    className: 'cb-rule',
-                    date: {
-                        start: new Date(betaDate).setHours(new Date().getHours() + 3),
-                        end: new Date(betaDate).setHours(new Date().getHours() + 4),
-                    },
-                },
-                {
-                    idx: crypto.randomUUID(),
-                    permission: 'user',
-                    className: 'cb-rule',
-                    date: {
-                        start: new Date(betaDate2).setHours(new Date().getHours() - 5),
-                        end: new Date(betaDate2).setHours(new Date().getHours() - 2),
-                    },
-
-                },
-            ],
-        };
+        this.source = source;
     }
 
     init() {
@@ -312,12 +274,17 @@ class CalendarBox {
             const ruleTemplate = parser.parseFromString(templateStr, 'text/html');
             const ruleEl = ruleTemplate.documentElement.querySelector('body > a');
 
+            ruleEl.addEventListener('click', () => { this.handlerRule(ruleProps.idx) });
             this.intiSourcePosition(ruleEl, ruleProps.date);
 
             ruleElList.push(ruleEl);
         });
 
         return ruleElList;
+    }
+
+    handlerRule(idx) {
+        this.parentElement.dispatchEvent(new CustomEvent('handlerRule', { bubbles: true, detail: { ruleIdx: idx }, }));
     }
 
     intiSourcePosition(el, date) {

@@ -1,29 +1,30 @@
 import { isValidDate } from "../utils/util-date.js";
+import UtilFetch from "/src/utils/util-fetch.js";
 
 const validateCodiceFiscale = (str) => {
     const regex = /^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/i;
     if (!regex.test(str)) {
-      return false;
+        return false;
     }
-  
+
     const validSet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const validPosition = [
-      1, 0, 5, 7, 9, 13, 15, 17, 19, 21, 2, 4, 18, 20, 11, 3, 6, 8, 12, 14, 16, 10,
+        1, 0, 5, 7, 9, 13, 15, 17, 19, 21, 2, 4, 18, 20, 11, 3, 6, 8, 12, 14, 16, 10,
     ];
-  
+
     let sum = 0;
     for (let i = 0; i < 15; i++) {
-      const c = str.charAt(i);
-      const v = validSet.indexOf(c);
-      const p = validPosition[i];
-      const digit = v * (p % 2 + 1);
-      sum += digit < 10 ? digit : digit - 9;
+        const c = str.charAt(i);
+        const v = validSet.indexOf(c);
+        const p = validPosition[i];
+        const digit = v * (p % 2 + 1);
+        sum += digit < 10 ? digit : digit - 9;
     }
-  
+
     const checkDigit = validSet.charAt((10 - (sum % 10)) % 10);
     return str.charAt(15).toUpperCase() === checkDigit;
-  };
-  
+};
+
 
 const validateText = (text) => {
     const textToValidate = text.toString().replace(/^\s+/, '');
@@ -383,5 +384,52 @@ const PrenotationModalWindow = {
     ]
 }
 
-export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow, };
+// {
+//     idx: crypto.randomUUID(),
+//     permission: 'user',
+//     className: 'cb-rule',
+//     date: {
+//         start: new Date().setHours(new Date().getHours() - 6),
+//         end: new Date().setHours(new Date().getHours() - 4),
+//     },
+
+// },
+
+const sourceCB = {
+    sourceName: 'Dogtor',
+    sourceRuleList: [],
+};
+
+const initSourceCB = async () => {
+    const fetchProps = { permission: 'user' };
+    const response = sourceCB;
+
+    await UtilFetch.postData('/src/utils/php/getSourceCB.php', fetchProps)
+        .then(fetchResponse => {
+            const { status, data } = fetchResponse;
+
+            if (status >= 200 && status < 300) {
+                const jsonData = JSON.parse(JSON.stringify(data));
+                jsonData.forEach(props => {
+                    response.sourceRuleList.push({
+                        uuid: crypto.randomUUID(),
+                        idx: props.idx,
+                        permission: fetchProps.permission,
+                        className: 'cb-rule',
+                        date: {
+                            start: new Date(props.time_start_prenotation),
+                            end: new Date(props.time_end_prenotation),
+                        },
+                    });
+                });
+            } else {
+                console.error('Error in getParks fetch!');
+                console.error(fetchResponse);
+            }
+        });
+
+    return response;
+};
+
+export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow, sourceCB, initSourceCB };
 

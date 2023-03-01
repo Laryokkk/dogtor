@@ -58,7 +58,9 @@ class Header {
     initTemplate() {
         const parser = new DOMParser();
         const templateString = `<header>
-            <img class="logo" src="/assets/header_logo.svg" alt="logo of the 'Cani Sani'">
+            <a href="/">
+                <img class="logo" src="/assets/header_logo.svg" alt="logo of the 'Cani Sani'">
+            </a>
             <div class="sign-in-up hidden">
                 <a id="sign-in" href="/redirect.php">
                     <h4 class="text text-active">
