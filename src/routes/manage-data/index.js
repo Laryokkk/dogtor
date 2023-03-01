@@ -48,7 +48,11 @@ const handlerApply = (e) => {
         fiedsList.forEach(filed => {
             if (filed.classList.contains('data-wrong') && filed.value === null) {
                 filed.classList.toggle('data-wrong', true);
+<<<<<<< HEAD
             } else if (!(filed.classList.contains('data-wrong')) && !(filed.classList.contains('data-valid')) && !(filed.classList.contains('data-output')) && !(filed.classList.contains('optional'))) {
+=======
+            }else if (!(filed.classList.contains('data-wrong')) && !(filed.classList.contains('data-valid')) && !(filed.classList.contains('data-output')) && !(filed.classList.contains('optional'))) {
+>>>>>>> origin
                 filed.classList.toggle('data-wrong', true);
             }
         });

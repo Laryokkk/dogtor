@@ -33,10 +33,11 @@ class Field {
     initEventListeners() {
         const { dataEntry } = this.elements;
 
-       
-
         dataEntry.addEventListener('input', () => {
+
             const isValid = this.props.validate(dataEntry.value);
+
+            console.log(isValid);
 
             dataEntry.classList.toggle('data-wrong', !isValid);
             dataEntry.classList.toggle('data-valid', isValid);
@@ -57,7 +58,7 @@ class Field {
     }
 
     initEntry() {
-        const { key, title, className, placeHolder, inputType, value, required, htmlTag } = this.props;
+        const { key, title, className, placeHolder, inputType, value, required } = this.props;
 
         let temp = `<h4 class="${(className) ? className : ''} ">${value}</h4>`;
 
@@ -92,10 +93,10 @@ class Field {
         }
     }
 
-    initSelect(){
+    initSelect() {
         return `
-        <select class="${this.props.className} animalType" ${this.props.required}>
-            <option value="null">-</option>
+        <select class="${this.props.className} animalType" ${this.props.required} required>
+            <option value="null">Scegliere opzione</option>
             ${createOptions(this.props.option)}
         </select>
         `
@@ -105,11 +106,16 @@ class Field {
         const { maxLenght, inputType, key, value, minLength } = this.props;
         const { dataEntry } = this.elements;
 
+<<<<<<< HEAD
 
         
 
         if (inputType !== undefined && inputType === 'selestor') {
+=======
+        if (inputType === undefined && inputType === 'selestor') {
+>>>>>>> origin
         } else if (inputType !== undefined) {
+
             dataEntry.setAttribute('type', inputType);
         }
 

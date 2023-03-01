@@ -1,6 +1,17 @@
 import { isValidDate } from "../utils/util-date.js";
-  
+<<<<<<< HEAD
+=======
+import UtilFetch from "/src/utils/util-fetch.js";
 
+const validateSelect = selectElement => {
+    if (selectElement.selectedIndex === 0) {
+      return false;
+    }
+    
+    return true;
+  };
+>>>>>>> origin
+  
 const validateText = (text) => {
     const textToValidate = text.toString().replace(/^\s+/, '');
 
@@ -44,10 +55,6 @@ const isValidPhoneNumberOptional = (inputStr) => {
 function isNumeric(str) {
     const regex = /^\d{15}$/;
     return regex.test(str);
-}
-
-const isOptions = (inputStr) => {
-    return true;
 }
 
 
@@ -105,9 +112,8 @@ const Person = {
         {
             key: crypto.randomUUID(),
             title: 'Numero di Telefono',
-
             value: 'null',
-            className: 'data-entry',
+            className: 'data-entry optional',
             inputType: 'tel',
             maxLenght: 10,
             minLenght: 10,
@@ -120,7 +126,6 @@ const Person = {
             value: '',
             className: 'data-entry',
             title: 'Email',
-
             maxLenght: 30,
             placeHolder: 'topolino@gmail.com',
             inputType: 'email',
@@ -146,11 +151,11 @@ const Description = {
             key: crypto.randomUUID(),
             title: 'Tipo di simptome',
             inputType: 'selector',
-            option: ['Cane', 'Gatto', 'lexsus'],
+            option: ['Cancer', 'coronavirus', 'non sa fare use case', 'non sa fare integrale |x dx'],
             value: '',
-            className: 'data-entry',
+            className: 'data-entry selectType',
             required: 'required',
-            validate: (value) => { return isOptions(value) },
+            validate: (value) => { return validateSelect(value) },
         },
     ]
 };
@@ -209,7 +214,7 @@ const Animal = {
             maxLenght: 15,
             className: 'data-entry',
             inputType: 'number',
-            placeHolder: '123456789123456',
+            placeHolder: 'max 15 number',
             required: 'required',
             validate: (value) => { return isNumeric(value) },
         },
@@ -217,11 +222,11 @@ const Animal = {
             key: crypto.randomUUID(),
             title: 'Tipo di animale',
             inputType: 'selector',
-            option: ['Cancer', 'coronavirus', 'bahchisarai'],
+            option: ['Cane', 'gato', 'pussy in boots'],
             value: '',
-            className: 'data-entry',
+            className: 'data-entry selectType',
             required: 'required',
-            validate: (value) => { return isOptions(value) },
+            validate: (value) => { return validateSelect(value) },
         },
     ],
 };
@@ -318,7 +323,7 @@ const PrenotationDoctor = {
             key: crypto.randomUUID(),
             title: 'Inizio',
             value: '12:12',
-            className: 'text-accent data-entry',
+            className: 'text-accent data-entry data-output',
             inputType: 'prenotationDoctor',
             required: '',
         },
@@ -326,7 +331,7 @@ const PrenotationDoctor = {
             key: crypto.randomUUID(),
             title: 'Fine',
             value: '12:13',
-            className: 'text-accent  data-entry',
+            className: 'text-accent  data-entry data-output',
             inputType: 'prenotationDoctor',
             required: '',
         },
@@ -334,7 +339,7 @@ const PrenotationDoctor = {
             key: crypto.randomUUID(),
             title: 'Doctor',
             value: 'Petro Petrovuch',
-            className: 'data-entry',
+            className: 'data-entry data-output',
             inputType: 'prenotationDoctor',
             required: '',
         },
@@ -366,6 +371,7 @@ const PrenotationModalWindow = {
     ]
 }
 
+<<<<<<< HEAD
 
 const CancelModalWindow = {
     title: '',
@@ -375,4 +381,54 @@ const CancelModalWindow = {
 }
 
 export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow ,CancelModalWindow };
+=======
+// {
+//     idx: crypto.randomUUID(),
+//     permission: 'user',
+//     className: 'cb-rule',
+//     date: {
+//         start: new Date().setHours(new Date().getHours() - 6),
+//         end: new Date().setHours(new Date().getHours() - 4),
+//     },
+
+// },
+
+const sourceCB = {
+    sourceName: 'Dogtor',
+    sourceRuleList: [],
+};
+
+const initSourceCB = async () => {
+    const fetchProps = { permission: 'user' };
+    const response = sourceCB;
+
+    await UtilFetch.postData('/src/utils/php/getSourceCB.php', fetchProps)
+        .then(fetchResponse => {
+            const { status, data } = fetchResponse;
+
+            if (status >= 200 && status < 300) {
+                const jsonData = JSON.parse(JSON.stringify(data));
+                jsonData.forEach(props => {
+                    response.sourceRuleList.push({
+                        uuid: crypto.randomUUID(),
+                        idx: props.idx,
+                        permission: fetchProps.permission,
+                        className: 'cb-rule',
+                        date: {
+                            start: new Date(props.time_start_prenotation),
+                            end: new Date(props.time_end_prenotation),
+                        },
+                    });
+                });
+            } else {
+                console.error('Error in getParks fetch!');
+                console.error(fetchResponse);
+            }
+        });
+
+    return response;
+};
+
+export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow, sourceCB, initSourceCB };
+>>>>>>> origin
 
