@@ -1,28 +1,4 @@
 import { isValidDate } from "../utils/util-date.js";
-
-const validateCodiceFiscale = (str) => {
-    const regex = /^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/i;
-    if (!regex.test(str)) {
-      return false;
-    }
-  
-    const validSet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const validPosition = [
-      1, 0, 5, 7, 9, 13, 15, 17, 19, 21, 2, 4, 18, 20, 11, 3, 6, 8, 12, 14, 16, 10,
-    ];
-  
-    let sum = 0;
-    for (let i = 0; i < 15; i++) {
-      const c = str.charAt(i);
-      const v = validSet.indexOf(c);
-      const p = validPosition[i];
-      const digit = v * (p % 2 + 1);
-      sum += digit < 10 ? digit : digit - 9;
-    }
-  
-    const checkDigit = validSet.charAt((10 - (sum % 10)) % 10);
-    return str.charAt(15).toUpperCase() === checkDigit;
-  };
   
 
 const validateText = (text) => {
@@ -367,19 +343,8 @@ const PrenotationDoctor = {
 
 const PrenotationModalWindow = {
     title: '',
+    modalType: 'confirm',
     list: [
-        {
-            key: crypto.randomUUID(),
-            title: 'Prenotazione effetuatta',
-            value: 'correttamente!',
-            className: 'logo-model-window',
-        },
-        {
-            key: crypto.randomUUID(),
-            title: 'Vi aspettiamo',
-            value: '',
-            className: 'logo-prenotation-data',
-        },
         {
             key: crypto.randomUUID(),
             title: 'Date',
@@ -401,5 +366,13 @@ const PrenotationModalWindow = {
     ]
 }
 
-export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow, };
+
+const CancelModalWindow = {
+    title: '',
+    modalType: 'cancel',
+    list: [
+    ],
+}
+
+export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow ,CancelModalWindow };
 
