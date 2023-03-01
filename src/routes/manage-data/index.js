@@ -3,7 +3,7 @@ import ManageWrapper from "../../lib/data-io/manage-wrapper/manage-wrapper.js";
 import DoctorPrenotationWrapper from "../../lib/data-io/doctor-prenotation-wrapper/doctor-prenotation-wrapper.js"
 import DescriptionWrapper from "../../lib/data-io/description-wrapper/description-wrapper.js"
 import ModelWindow from "../../lib/model-window/model-window.js";
-import { Animal, Person, Description, PrenotationDoctor, PrenotationModalWindow, CancelModalWindow } from "../../helpers/Helper.js";
+import { Animal, Person, Description, PrenotationDoctor, PrenotationModalWindow } from "../../helpers/Helper.js";
 
 const wrapper = {
     header: document.querySelector('section#header'),
@@ -34,13 +34,8 @@ const handlerApply = (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    console.log(checkBooleanArray(animalComponent.isValid()));
-    console.log(checkBooleanArray(personComponent.isValid()));
-    console.log(checkBooleanArray(descriptioComponent.isValid()));
-
-
     if (checkBooleanArray(animalComponent.isValid()) && checkBooleanArray(personComponent.isValid()) && checkBooleanArray(descriptioComponent.isValid())) {
-        const modelWindow = new ModelWindow(wrapper.menagerWrapper, CancelModalWindow)
+        const modelWindow = new ModelWindow(wrapper.menagerWrapper, PrenotationModalWindow)
         modelWindow.init();
     } else {
         const fiedsList = wrapper.menagerWrapper.querySelectorAll('.data-entry');

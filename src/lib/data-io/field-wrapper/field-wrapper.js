@@ -37,8 +37,6 @@ class Field {
 
             const isValid = this.props.validate(dataEntry.value);
 
-            console.log(isValid);
-
             dataEntry.classList.toggle('data-wrong', !isValid);
             dataEntry.classList.toggle('data-valid', isValid);
 
