@@ -3,7 +3,7 @@ import ManageWrapper from "../../lib/data-io/manage-wrapper/manage-wrapper.js";
 import DoctorPrenotationWrapper from "../../lib/data-io/doctor-prenotation-wrapper/doctor-prenotation-wrapper.js"
 import DescriptionWrapper from "../../lib/data-io/description-wrapper/description-wrapper.js"
 import ModelWindow from "../../lib/model-window/model-window.js";
-import { Animal, Person, Description, PrenotationDoctor, PrenotationModalWindow ,CancelModalWindow } from "../../helpers/Helper.js";
+import { Animal, Person, Description, PrenotationDoctor, PrenotationModalWindow, CancelModalWindow } from "../../helpers/Helper.js";
 
 const wrapper = {
     header: document.querySelector('section#header'),
@@ -48,11 +48,7 @@ const handlerApply = (e) => {
         fiedsList.forEach(filed => {
             if (filed.classList.contains('data-wrong') && filed.value === null) {
                 filed.classList.toggle('data-wrong', true);
-<<<<<<< HEAD
             } else if (!(filed.classList.contains('data-wrong')) && !(filed.classList.contains('data-valid')) && !(filed.classList.contains('data-output')) && !(filed.classList.contains('optional'))) {
-=======
-            }else if (!(filed.classList.contains('data-wrong')) && !(filed.classList.contains('data-valid')) && !(filed.classList.contains('data-output')) && !(filed.classList.contains('optional'))) {
->>>>>>> origin
                 filed.classList.toggle('data-wrong', true);
             }
         });

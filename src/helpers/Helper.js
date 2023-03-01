@@ -376,7 +376,6 @@ const PrenotationModalWindow = {
 //         start: new Date().setHours(new Date().getHours() - 6),
 //         end: new Date().setHours(new Date().getHours() - 4),
 //     },
-
 // },
 
 const sourceCB = {
