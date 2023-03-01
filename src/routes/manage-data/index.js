@@ -3,7 +3,7 @@ import ManageWrapper from "../../lib/data-io/manage-wrapper/manage-wrapper.js";
 import DoctorPrenotationWrapper from "../../lib/data-io/doctor-prenotation-wrapper/doctor-prenotation-wrapper.js"
 import DescriptionWrapper from "../../lib/data-io/description-wrapper/description-wrapper.js"
 import ModelWindow from "../../lib/model-window/model-window.js";
-import { Animal, Person, Description, PrenotationDoctor, PrenotationModalWindow } from "../../helpers/Helper.js";
+import { Animal, Person, Description, PrenotationDoctor, PrenotationModalWindow ,CancelModalWindow } from "../../helpers/Helper.js";
 
 const wrapper = {
     header: document.querySelector('section#header'),
@@ -27,9 +27,8 @@ descriptioComponent.init();
 const prenotationDoctorComponent = new DoctorPrenotationWrapper(wrapper.menagerWrapper, PrenotationDoctor.list);
 prenotationDoctorComponent.init();
 
-const modelWindow = new ModelWindow(wrapper.menagerWrapper, PrenotationModalWindow.list)
-
 wrapper.menagerWrapper.addEventListener('apply-prenotation', (e) => handlerApply(e));
+
 
 const handlerApply = (e) => {
     e.preventDefault();
@@ -41,28 +40,32 @@ const handlerApply = (e) => {
 
 
     if (checkBooleanArray(animalComponent.isValid()) && checkBooleanArray(personComponent.isValid()) && checkBooleanArray(descriptioComponent.isValid())) {
-
+        const modelWindow = new ModelWindow(wrapper.menagerWrapper, CancelModalWindow)
         modelWindow.init();
-        const btnSubmitWindowModal = document.querySelector('.prenotation-apply');
-        const wrapperWindwoModal = document.querySelector('.wrapper-window-model');
-
-        btnSubmitWindowModal.addEventListener('click', () => {
-            wrapperWindwoModal.classList.toggle('display-hide', true);
-            wrapper.menagerWrapper.removeChild(wrapperWindwoModal);
-
-        })
     } else {
         const fiedsList = wrapper.menagerWrapper.querySelectorAll('.data-entry');
 
         fiedsList.forEach(filed => {
             if (filed.classList.contains('data-wrong') && filed.value === null) {
                 filed.classList.toggle('data-wrong', true);
+<<<<<<< HEAD
+            } else if (!(filed.classList.contains('data-wrong')) && !(filed.classList.contains('data-valid')) && !(filed.classList.contains('data-output')) && !(filed.classList.contains('optional'))) {
+=======
             }else if (!(filed.classList.contains('data-wrong')) && !(filed.classList.contains('data-valid')) && !(filed.classList.contains('data-output')) && !(filed.classList.contains('optional'))) {
+>>>>>>> origin
                 filed.classList.toggle('data-wrong', true);
             }
         });
     }
 };
+const handlerModalContent = (e) => {
+    const { content } = e.detail;
+
+    console.log(content);
+};
+
+wrapper.menagerWrapper.addEventListener('content-data', (e) => { handlerModalContent(e) });
+
 
 function checkBooleanArray(boolArray) {
     let allTrue = true;

@@ -1,4 +1,6 @@
 import { isValidDate } from "../utils/util-date.js";
+<<<<<<< HEAD
+=======
 import UtilFetch from "/src/utils/util-fetch.js";
 
 const validateSelect = selectElement => {
@@ -8,6 +10,7 @@ const validateSelect = selectElement => {
     
     return true;
   };
+>>>>>>> origin
   
 const validateText = (text) => {
     const textToValidate = text.toString().replace(/^\s+/, '');
@@ -345,22 +348,40 @@ const PrenotationDoctor = {
 
 const PrenotationModalWindow = {
     title: '',
+    modalType: 'confirm',
     list: [
         {
             key: crypto.randomUUID(),
-            title: '',
-            value: '23/01/2023',
-            className: 'text-accent data-entry',
+            title: 'Date',
+            value: '27/04/2024',
+            className: 'prenotation-data',
         },
         {
             key: crypto.randomUUID(),
-            title: 'alle',
+            title: 'WhichTime',
+            value: 'alle',
+            className: 'prenotation-data',
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Time',
             value: '15:00',
-            className: 'text-accent data-entry',
-        }
+            className: 'prenotation-data',
+        },
     ]
 }
 
+<<<<<<< HEAD
+
+const CancelModalWindow = {
+    title: '',
+    modalType: 'cancel',
+    list: [
+    ],
+}
+
+export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow ,CancelModalWindow };
+=======
 // {
 //     idx: crypto.randomUUID(),
 //     permission: 'user',
@@ -409,4 +430,5 @@ const initSourceCB = async () => {
 };
 
 export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow, sourceCB, initSourceCB };
+>>>>>>> origin
 
