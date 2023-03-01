@@ -55,8 +55,9 @@ const handlerApply = (e) => {
         const fiedsList = wrapper.menagerWrapper.querySelectorAll('.data-entry');
 
         fiedsList.forEach(filed => {
-
-            if (filed.classList.contains('data-wrong')) {
+            if (filed.classList.contains('data-wrong') && filed.value === null) {
+                filed.classList.toggle('data-wrong', true);
+            }else if (!(filed.classList.contains('data-wrong')) && !(filed.classList.contains('data-valid')) && !(filed.classList.contains('data-output')) && !(filed.classList.contains('optional'))) {
                 filed.classList.toggle('data-wrong', true);
             }
         });
@@ -74,6 +75,8 @@ function checkBooleanArray(boolArray) {
 
     return allTrue;
 }
+
+
 
 
 
