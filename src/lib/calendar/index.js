@@ -1,12 +1,43 @@
 import { formatDate, getCurrentFirstDay, getCurrentLastDay } from '/src/utils/util-date.js';
 
+function calculateTopAndHeight(eventStartTime, eventEndTime, parentHeight) {
+    const relativeDate = new Date(eventStartTime);
+    relativeDate.setHours(0);
+    relativeDate.setMinutes(0);
+    relativeDate.setSeconds(0);
+
+    const startOfDay = new Date(relativeDate).setHours(6, 0, 0, 0);
+    const endOfDay = new Date(relativeDate).setHours(17, 0, 0, 0);
+    const eventStart = new Date(eventStartTime).getTime();
+    const eventEnd = new Date(eventEndTime).getTime();
+
+    if (new Date(eventStartTime).getHours() < 6 || new Date(eventStartTime).getHours() > 17) {
+        return {};
+    }
+
+    const totalDayTime = endOfDay - startOfDay;
+    const eventDuration = eventEnd - eventStart;
+    const eventStartRelativeToDay = eventStart - startOfDay;
+    // const eventEndRelativeToDay = eventEnd - startOfDay;
+
+    const top = (eventStartRelativeToDay / totalDayTime) * parentHeight - ((eventStartRelativeToDay / totalDayTime) * parentHeight) * 0.05;
+    const height = (eventDuration / totalDayTime) * parentHeight - ((eventDuration / totalDayTime) * parentHeight * 0.05);
+
+    return { top: `${top}px`, height: `${height}px` };
+}
+
+const betaDate = new Date().setDate((new Date().getDate() + 1));
+
+const betaDate2 = new Date().setDate((new Date().getDate() - 2));
+
+
 class CalendarBox {
     constructor(parentElement, ...props) {
         this.parentElement = parentElement;
         this.rootElement;
 
         this.props = {
-            timeGridValues: ['03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'],
+            timeGridValues: ['07:00', '08:00', '10:00', '11:30', '13:00', '15:00', '16:00'],
             ...props, // error
         };
 
@@ -22,7 +53,7 @@ class CalendarBox {
                     permission: 'user',
                     className: 'cb-rule',
                     date: {
-                        start: new Date(),
+                        start: new Date().setHours(new Date().getHours()),
                         end: new Date().setHours(new Date().getHours() + 1),
                     },
 
@@ -32,8 +63,17 @@ class CalendarBox {
                     permission: 'user',
                     className: 'cb-rule',
                     date: {
-                        start: new Date().setHours(new Date().getHours() + 4),
-                        end: new Date().setHours(new Date().getHours() + 5),
+                        start: new Date(betaDate).setHours(new Date().getHours() + 3),
+                        end: new Date(betaDate).setHours(new Date().getHours() + 4),
+                    },
+                },
+                {
+                    idx: crypto.randomUUID(),
+                    permission: 'user',
+                    className: 'cb-rule',
+                    date: {
+                        start: new Date(betaDate2).setHours(new Date().getHours() - 5),
+                        end: new Date(betaDate2).setHours(new Date().getHours() - 2),
                     },
 
                 },
@@ -49,6 +89,8 @@ class CalendarBox {
 
     render() {
         this.parentElement.appendChild(this.rootElement);
+
+        this.renderSource();
     }
 
     refresh() {
@@ -81,15 +123,19 @@ class CalendarBox {
                 time6: this.rootElement.querySelector('#cb-text-time-6'),
             },
             calendar: {
-
+                table: this.rootElement.querySelector('table'),
+                ruleContainer0: this.rootElement.querySelector('.cb-container-rule-position-0'),
+                ruleContainer1: this.rootElement.querySelector('.cb-container-rule-position-1'),
+                ruleContainer2: this.rootElement.querySelector('.cb-container-rule-position-2'),
+                ruleContainer3: this.rootElement.querySelector('.cb-container-rule-position-3'),
+                ruleContainer4: this.rootElement.querySelector('.cb-container-rule-position-4'),
+                ruleContainer5: this.rootElement.querySelector('.cb-container-rule-position-5'),
+                ruleContainer6: this.rootElement.querySelector('.cb-container-rule-position-6'),
             },
         };
 
         this.initHeadingDate();
         this.intiTimeGrid();
-
-        const sourceElList = this.initSource();
-        console.log(sourceElList);
     }
 
     initEventListeners() {
@@ -263,13 +309,57 @@ class CalendarBox {
         this.source.sourceRuleList.forEach(ruleProps => {
             const parser = new DOMParser();
             const templateStr = this.initTemplateRule(ruleProps);
-            console.log(templateStr);
             const ruleTemplate = parser.parseFromString(templateStr, 'text/html');
+            const ruleEl = ruleTemplate.documentElement.querySelector('body > a');
 
-            ruleElList.push(ruleTemplate.documentElement.querySelector('body > a'));
+            this.intiSourcePosition(ruleEl, ruleProps.date);
+
+            ruleElList.push(ruleEl);
         });
 
         return ruleElList;
+    }
+
+    intiSourcePosition(el, date) {
+        const { top, height } = calculateTopAndHeight(
+            new Date(date.start),
+            new Date(date.end),
+            this.elements.calendar.table.offsetHeight,
+        );
+
+        if (top !== undefined && height !== undefined) {
+            el.style.top = top;
+            el.style.height = height;
+
+            return;
+        }
+
+        el.classList.toggle('hidden', true);
+        console.error('Start/End time error');
+    }
+
+    renderSource() {
+        const sourceElList = this.initSource();
+
+        sourceElList.forEach(source => {
+            const classList = source.classList.toString();
+
+            if (classList.includes('0')) {
+                this.elements.calendar.ruleContainer0.appendChild(source);
+            } else if (classList.includes('1')) {
+                this.elements.calendar.ruleContainer1.appendChild(source);
+            } else if (classList.includes('2')) {
+                this.elements.calendar.ruleContainer2.appendChild(source);
+            } else if (classList.includes('3')) {
+                this.elements.calendar.ruleContainer3.appendChild(source);
+            } else if (classList.includes('4')) {
+                this.elements.calendar.ruleContainer4.appendChild(source);
+            } else if (classList.includes('5')) {
+                this.elements.calendar.ruleContainer5.appendChild(source);
+            } else if (classList.includes('6')) {
+                this.elements.calendar.ruleContainer6.appendChild(source);
+            }
+        });
     }
 }
 
