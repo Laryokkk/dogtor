@@ -5,10 +5,10 @@ const validateSelect = selectElement => {
     if (selectElement.selectedIndex === 0) {
       return false;
     }
-    
+
     return true;
   };
-  
+
 const validateText = (text) => {
     const textToValidate = text.toString().replace(/^\s+/, '');
 
@@ -368,6 +368,12 @@ const PrenotationModalWindow = {
     ]
 }
 
+const CancelModalWindow = {
+    title: '',
+    modalType: 'cancel',
+    list: [
+    ],
+}
 // {
 //     idx: crypto.randomUUID(),
 //     permission: 'user',
@@ -414,5 +420,5 @@ const initSourceCB = async () => {
     return response;
 };
 
-export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow, sourceCB, initSourceCB };
+export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow, CancelModalWindow, initSourceCB };
 

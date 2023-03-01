@@ -106,8 +106,7 @@ class Field {
         const { maxLenght, inputType, key, value, minLength } = this.props;
         const { dataEntry } = this.elements;
 
-        if (inputType === undefined && inputType === 'selestor') {
-
+        if (inputType !== undefined && inputType === 'selestor') {
         } else if (inputType !== undefined) {
 
             dataEntry.setAttribute('type', inputType);
