@@ -1,31 +1,14 @@
 import { isValidDate } from "../utils/util-date.js";
 import UtilFetch from "/src/utils/util-fetch.js";
 
-const validateCodiceFiscale = (str) => {
-    const regex = /^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/i;
-    if (!regex.test(str)) {
-        return false;
+const validateSelect = selectElement => {
+    if (selectElement.selectedIndex === 0) {
+      return false;
     }
-
-    const validSet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const validPosition = [
-        1, 0, 5, 7, 9, 13, 15, 17, 19, 21, 2, 4, 18, 20, 11, 3, 6, 8, 12, 14, 16, 10,
-    ];
-
-    let sum = 0;
-    for (let i = 0; i < 15; i++) {
-        const c = str.charAt(i);
-        const v = validSet.indexOf(c);
-        const p = validPosition[i];
-        const digit = v * (p % 2 + 1);
-        sum += digit < 10 ? digit : digit - 9;
-    }
-
-    const checkDigit = validSet.charAt((10 - (sum % 10)) % 10);
-    return str.charAt(15).toUpperCase() === checkDigit;
-};
-
-
+    
+    return true;
+  };
+  
 const validateText = (text) => {
     const textToValidate = text.toString().replace(/^\s+/, '');
 
@@ -69,10 +52,6 @@ const isValidPhoneNumberOptional = (inputStr) => {
 function isNumeric(str) {
     const regex = /^\d{15}$/;
     return regex.test(str);
-}
-
-const isOptions = (inputStr) => {
-    return true;
 }
 
 
@@ -130,9 +109,8 @@ const Person = {
         {
             key: crypto.randomUUID(),
             title: 'Numero di Telefono',
-
             value: 'null',
-            className: 'data-entry',
+            className: 'data-entry optional',
             inputType: 'tel',
             maxLenght: 10,
             minLenght: 10,
@@ -145,7 +123,6 @@ const Person = {
             value: '',
             className: 'data-entry',
             title: 'Email',
-
             maxLenght: 30,
             placeHolder: 'topolino@gmail.com',
             inputType: 'email',
@@ -171,11 +148,11 @@ const Description = {
             key: crypto.randomUUID(),
             title: 'Tipo di simptome',
             inputType: 'selector',
-            option: ['Cane', 'Gatto', 'lexsus'],
+            option: ['Cancer', 'coronavirus', 'non sa fare use case', 'non sa fare integrale |x dx'],
             value: '',
-            className: 'data-entry',
+            className: 'data-entry selectType',
             required: 'required',
-            validate: (value) => { return isOptions(value) },
+            validate: (value) => { return validateSelect(value) },
         },
     ]
 };
@@ -234,7 +211,7 @@ const Animal = {
             maxLenght: 15,
             className: 'data-entry',
             inputType: 'number',
-            placeHolder: '123456789123456',
+            placeHolder: 'max 15 number',
             required: 'required',
             validate: (value) => { return isNumeric(value) },
         },
@@ -242,11 +219,11 @@ const Animal = {
             key: crypto.randomUUID(),
             title: 'Tipo di animale',
             inputType: 'selector',
-            option: ['Cancer', 'coronavirus', 'bahchisarai'],
+            option: ['Cane', 'gato', 'pussy in boots'],
             value: '',
-            className: 'data-entry',
+            className: 'data-entry selectType',
             required: 'required',
-            validate: (value) => { return isOptions(value) },
+            validate: (value) => { return validateSelect(value) },
         },
     ],
 };
@@ -343,7 +320,7 @@ const PrenotationDoctor = {
             key: crypto.randomUUID(),
             title: 'Inizio',
             value: '12:12',
-            className: 'text-accent data-entry',
+            className: 'text-accent data-entry data-output',
             inputType: 'prenotationDoctor',
             required: '',
         },
@@ -351,7 +328,7 @@ const PrenotationDoctor = {
             key: crypto.randomUUID(),
             title: 'Fine',
             value: '12:13',
-            className: 'text-accent  data-entry',
+            className: 'text-accent  data-entry data-output',
             inputType: 'prenotationDoctor',
             required: '',
         },
@@ -359,7 +336,7 @@ const PrenotationDoctor = {
             key: crypto.randomUUID(),
             title: 'Doctor',
             value: 'Petro Petrovuch',
-            className: 'data-entry',
+            className: 'data-entry data-output',
             inputType: 'prenotationDoctor',
             required: '',
         },

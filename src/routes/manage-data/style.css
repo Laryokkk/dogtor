@@ -1,7 +1,6 @@
 @import url('/src/lib/header/style.css');
 @import url('/src/lib/model-window/style.css');
 
-select.data-entry,
 .value-data {
     width: 13.5rem;
     height: 2.5rem;
@@ -14,8 +13,17 @@ select.data-entry,
     padding-left: 1rem;
 }
 
-select.data-entry {
-    width: 15rem
+.selectType {
+    width: 15rem;
+
+    height: 2.5rem;
+
+    border: 2px solid var(--background-inputs);
+
+    background: var(--background-inputs);
+    border-radius: 4px;
+
+    padding-left: 1rem;
 }
 
 .logo {
