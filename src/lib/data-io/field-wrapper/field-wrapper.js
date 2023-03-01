@@ -41,6 +41,8 @@ class Field {
             dataEntry.classList.toggle('data-valid', isValid);
 
             this.isValid = isValid;
+
+            this.props.value = dataEntry.value;
         });
     }
 

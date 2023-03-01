@@ -1,4 +1,5 @@
 import Header from "../../lib/header/Header.js"
+import UtilFetch from "../../utils/util-fetch.js";
 import ManageWrapper from "../../lib/data-io/manage-wrapper/manage-wrapper.js";
 import DoctorPrenotationWrapper from "../../lib/data-io/doctor-prenotation-wrapper/doctor-prenotation-wrapper.js"
 import DescriptionWrapper from "../../lib/data-io/description-wrapper/description-wrapper.js"
@@ -32,14 +33,62 @@ prenotationDoctorComponent.init();
 
 wrapper.menagerWrapper.addEventListener('apply-prenotation', (e) => handlerApply(e));
 
-
 const handlerApply = (e) => {
     e.preventDefault();
     e.stopPropagation();
 
+    console.log(animalComponent.props);
+
+    const {
+        0: {title: Nome, value: nomeAnimale, },
+        1: {title: DatadiNascita, value: dataDiNascita, },
+        2: {title: LuogodiNascita, value: luogoDiNascita, },
+        3: {title: LuogodiResidenza, value: luogoDiResodenza, },
+        4: {title: titChipIdentificativole4, value: chipIdentificativo, },
+        5: {title: Tipodianimale, value: tipoAnimale }
+    } = animalComponent.props;
+
+    const {
+        0: {title: nomePerson, value: nomePersona, },
+        1: {title: Cognome, value: cgnomePersona, },
+        2: {title: CodiceFiscale, value: codiceFiscale, },
+        3: {title: NumerodiTelefono, value: numerodiTelefono, },
+        4: {title: titlNumerodiTelefonoOptional, value: numerodiTelefonoOptionale, },
+        5: {title: Email, value: email }
+    } = personComponent.props;
+
+    const {
+        0: {title: Tipodisimptome, value: tipodisimptome, },
+        1: {title: Describtion, value: describtion, },
+    } = descriptioComponent.props;
+
+    console.log(nomeAnimale); // Output: ''
+    console.log(dataDiNascita); // Output: ''
+    console.log(luogoDiNascita); // Output: ''
+    console.log(luogoDiResodenza); // Output: ''    console.log(nomeAnimale); // Output: ''
+    console.log(chipIdentificativo); // Output: ''
+    console.log(tipoAnimale); // Output: ''
+
+    console.log(nomePersona); // Output: ''
+    console.log(cgnomePersona); // Output: ''
+    console.log(codiceFiscale); // Output: ''
+    console.log(luogoDiResodenza); // Output: ''    console.log(nomeAnimale); // Output: ''
+    console.log(numerodiTelefono); // Output: ''
+    console.log(numerodiTelefonoOptionale); // Output: ''
+    console.log(email); // Output: ''
+
+    console.log(tipodisimptome); // Output: ''
+    console.log(describtion); // Output: ''
+
+
+
+
     if (checkBooleanArray(animalComponent.isValid()) && checkBooleanArray(personComponent.isValid()) && checkBooleanArray(descriptioComponent.isValid())) {
         const modelWindow = new ModelWindow(wrapper.menagerWrapper, PrenotationModalWindow)
         modelWindow.init();
+
+
+        console.log("Funziona");
     } else {
         const fiedsList = wrapper.menagerWrapper.querySelectorAll('.data-entry');
 
@@ -54,8 +103,10 @@ const handlerApply = (e) => {
 };
 const handlerModalContent = (e) => {
     const { content } = e.detail;
-
+    console.log("Heeko");
     console.log(content);
+
+
 };
 
 wrapper.menagerWrapper.addEventListener('content-data', (e) => { handlerModalContent(e) });
