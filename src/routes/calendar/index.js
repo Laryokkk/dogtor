@@ -21,7 +21,7 @@ cb.init();
 const handlerRule = (e) => {
     const { ruleIdx } = e.detail;
 
-    console.log(ruleIdx);
+    window.location.href = `/src/routes/manage-data/index.html?idx=${ruleIdx}`;
 };
 
 wrapper.calendar.addEventListener('handlerRule', (e) => { handlerRule(e) });
