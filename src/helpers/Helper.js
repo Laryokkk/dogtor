@@ -1,6 +1,31 @@
 import { isValidDate } from "../utils/util-date.js";
 import UtilFetch from "/src/utils/util-fetch.js";
 
+
+async function getDataAnimal() {
+
+    let temp;
+
+    await UtilFetch.postData('/src/utils/php/getAnimalData.php', {})
+        .then(fetchResponse => {
+            const { status, data } = fetchResponse;
+
+            if (status >= 200 && status < 300) {
+                data.forEach(props => {
+                    console.log(props.name_animal);
+                    temp = props.name_animal;
+                console.log(temp);
+                });
+
+            } else {
+                console.error('Error in getParks fetch!');
+                console.error(fetchResponse);
+            }
+        });
+        console.log(temp);
+        return temp;
+}
+
 const validateSelect = selectElement => {
     if (selectElement.selectedIndex === 0) {
         return false;
@@ -134,7 +159,7 @@ const Person = {
         {
             key: crypto.randomUUID(),
             title: 'Numero di Telefono',
-            value: 'null',
+            value: '',
             className: 'data-entry optional',
             inputType: 'tel',
             maxLenght: 10,
@@ -190,7 +215,7 @@ const Animal = {
             key: crypto.randomUUID(),
             title: 'Nome',
 
-            value: '',
+            value: getDataAnimal(),
             maxLenght: 20,
             className: 'data-entry',
             inputType: 'text',

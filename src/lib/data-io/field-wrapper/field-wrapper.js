@@ -115,8 +115,10 @@ class Field {
             dataEntry.setAttribute('id', key);
         }
 
+        console.log(value);
+
         if (value !== undefined && value !== '') {
-            dataEntry.setAttribute('value', '');
+            dataEntry.setAttribute('value', value);
 
             //TO DO
 
