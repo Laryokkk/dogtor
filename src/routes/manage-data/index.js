@@ -89,9 +89,11 @@ const handlerApply = async (e) => {
     } = personComponent.props;
 
     const {
-        0: { title: Tipodisimptome, value: tipodisimptome, },
-        1: { title: Describtion, value: describtion, },
+        0: { title: Describtion, value: describtion, },
+        1: { title: Tipodisimptome, value: tipodisimptome, },
     } = descriptioComponent.props;
+
+    console.log(tipodisimptome);
 
     const fetchPropsAnimal = {
         nomeAnimale,
@@ -99,7 +101,7 @@ const handlerApply = async (e) => {
         luogoDiNascita,
         luogoDiResodenza,
         chipIdentificativo,
-        tipoAnimale: parseInt(tipoAnimale) +1,
+        tipoAnimale: parseInt(tipoAnimale) + 1,
     };
 
     const fetchPropsPerson = {
@@ -111,57 +113,71 @@ const handlerApply = async (e) => {
         email
     };
 
-    console.log(fetchPropsAnimal);
-
-    await UtilFetch.postData('/src/utils/php/insertAnimal.php', fetchPropsAnimal)
-        .then(fetchResponse => {
-            const { status, data } = fetchResponse;
-
-            if (status >= 200 && status < 300) {
-
-            } else {
-                console.error('Error in getParks fetch!');
-                console.error(fetchResponse);
-            }
-        });
-
-    await UtilFetch.postData('/src/utils/php/insertPerson.php', fetchPropsPerson)
-        .then(fetchResponse => {
-            const { status, data } = fetchResponse;
-
-            if (status >= 200 && status < 300) {
-
-            } else {
-                console.error('Error in getParks fetch!');
-                console.error(fetchResponse);
-            }
-        });
-
-
-    // console.log(nomeAnimale); // Output: ''
-    // console.log(dataDiNascita); // Output: ''
-    // console.log(luogoDiNascita); // Output: ''
-    // console.log(luogoDiResodenza); // Output: ''    console.log(nomeAnimale); // Output: ''
-    // console.log(chipIdentificativo); // Output: ''
-    // console.log(tipoAnimale); // Output: ''
-
-    // console.log(nomePersona); // Output: ''
-    // console.log(cgnomePersona); // Output: ''
-    // console.log(codiceFiscale); // Output: ''
-    // console.log(luogoDiResodenza); // Output: ''    console.log(nomeAnimale); // Output: ''
-    // console.log(numerodiTelefono); // Output: ''
-    // console.log(numerodiTelefonoOptionale); // Output: ''
-    // console.log(email); // Output: ''
-
-    // console.log(tipodisimptome); // Output: ''
-    // console.log(describtion); // Output: ''
-
-
-
+    let diagnosiVisit;
+    let priceVisit;
+    let idxAnimal;
+    let idxPerson;
 
     if (checkBooleanArray(animalComponent.isValid()) && checkBooleanArray(personComponent.isValid()) && checkBooleanArray(descriptioComponent.isValid())) {
         const modelWindow = new ModelWindow(wrapper.menagerWrapper, PrenotationModalWindow)
         modelWindow.init();
+
+        await UtilFetch.postData('/src/utils/php/insertAnimal.php', fetchPropsAnimal)
+            .then(fetchResponse => {
+                const { status, data } = fetchResponse;
+
+                idxAnimal = data.new_animal_id;
+
+                console.log("This is idAnimal" + idxAnimal);
+
+                if (status >= 200 && status < 300) {
+
+                } else {
+                    console.error('Error in getParks fetch!');
+                    console.error(fetchResponse);
+                }
+            });
+
+
+        await UtilFetch.postData('/src/utils/php/insertPerson.php', fetchPropsPerson)
+            .then(fetchResponse => {
+                const { status, data } = fetchResponse;
+
+                idxPerson = data.new_person_id;
+
+                console.log("This is idAnimal" + idxPerson);
+
+                if (status >= 200 && status < 300) {
+
+                } else {
+                    console.error('Error in getParks fetch!');
+                    console.error(fetchResponse);
+                }
+            });
+
+        const fetchPropsDescribtion = {
+            idxPrenotation: getParam(window, 'idx'),
+            idxAnimal,
+            idxPerson,
+            tipodisimptome,
+            describtion,
+            diagnosiVisit,
+            priceVisit,
+        };
+
+        await UtilFetch.postData('/src/utils/php/insertDescription.php', fetchPropsDescribtion)
+            .then(fetchResponse => {
+                const { status, data } = fetchResponse;
+
+                if (status >= 200 && status < 300) {
+
+                } else {
+                    console.error('Error in getParks fetch!');
+                    console.error(fetchResponse);
+                }
+            });
+
+
 
 
         console.log("Funziona");
