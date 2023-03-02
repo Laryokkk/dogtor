@@ -1,0 +1,42 @@
+div.history-component {
+    width: fit-content;
+    height: fit-content;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    flex-direction: column;
+    gap: 1rem;
+
+    padding: 2rem;
+    border-radius: 20px;
+
+    background-color: var(--background-inputs);
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 1rem 4rem;
+    border: 2px solid var(--background-accent);
+    border-radius: 4px;
+
+    cursor: pointer;
+    background-color: var(--background-accent);
+}
+
+button.button-history {
+    margin-top: 2rem;
+}
+
+button:active,
+button:hover {
+    background-color: var(--background);
+}
+
+button:active,
+button:hover>* {
+    color: var(--text-accent);
+}
