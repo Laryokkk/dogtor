@@ -94,9 +94,10 @@ class Field {
     }
 
     initSelect() {
+        console.log(this.props.value);
         return `
         <select class="${this.props.className} animalType" ${this.props.required} required>
-            ${createOptions(this.props.option)}
+            ${createOptions(this.props.option,this.props.value)}
         </select>
         `
     }
@@ -104,6 +105,12 @@ class Field {
     initAttributes() {
         const { maxLenght, inputType, key, value, minLength } = this.props;
         const { dataEntry } = this.elements;
+
+        console.log(inputType);
+
+        if (inputType === 'textarea') {
+            dataEntry.innerHTML = value;
+        }
 
         if (inputType !== undefined && inputType === 'selestor') {
         } else if (inputType !== undefined) {
@@ -116,9 +123,8 @@ class Field {
             dataEntry.setAttribute('id', key);
         }
 
-        if (value !== undefined && value !== '') {
-            dataEntry.setAttribute('value', '');
-
+        if (value !== undefined) {
+            dataEntry.setAttribute('value', value);
             //TO DO
 
             this.isValid = true;

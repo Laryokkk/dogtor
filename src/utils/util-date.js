@@ -43,4 +43,3 @@ const isValidBirthdayDate = (dateString) => {
 };
 
 export { formatDate, getCurrentFirstDay, getCurrentLastDay, isValidDate, isValidBirthdayDate };
-
