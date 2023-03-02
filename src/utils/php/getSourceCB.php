@@ -1,11 +1,31 @@
 <?php
-require_once('./connectionMySQL.php');
-
 $response = array();
 
-// Call the stored procedure
-$permition = 1;
+$permition;
+if (isset($_COOKIE["permission"])) {
+    $permitionStatus = $_COOKIE["permission"];
+
+    if ($permitionStatus == "admin") {
+        $permition = 2;
+    } else if ($permitionStatus == "admin") {
+        $permition = 1;
+    } else {
+        $permition = 3;
+    }
+} else {
+    $permition = 3;
+}
+
+require('./connectionMySQL.php');
 $stmt = $conn->prepare('CALL get_prenotations_by_permition(?)');
+if (!$stmt) {
+    $response = array(
+        'data' => $conn->error,
+        'status' => 500,
+    );
+    echo json_encode($response);
+    exit;
+}
 $stmt->bind_param('i', $permition);
 $stmt->execute();
 
@@ -33,4 +53,5 @@ echo json_encode($response);
 // Close the statement and connection
 $stmt->close();
 $conn->close();
+
 ?>

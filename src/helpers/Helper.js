@@ -1,4 +1,4 @@
-import { isValidDate } from "../utils/util-date.js";
+import { isValidBirthdayDate } from "../utils/util-date.js";
 import UtilFetch from "/src/utils/util-fetch.js";
 import { getParam } from "../utils/util-params.js";
 
@@ -136,6 +136,50 @@ const getPersonlEmail_person = array => {
     return array.email_person
 }
 
+
+async function getAnimalType() {
+    const animalTypes = [];
+
+    await UtilFetch.postData('/src/utils/php/getAnimalType.php', {})
+        .then(fetchResponse => {
+            const { status, data } = fetchResponse;
+
+            if (status >= 200 && status < 300) {
+                data.forEach(props => {
+                    
+                    animalTypes.push(props.type);
+                });
+
+            } else {
+                
+                console.error(fetchResponse);
+            }
+        });
+
+    return animalTypes;
+}
+
+async function getAnimalSick() {
+    const animalTypes = [];
+
+    await UtilFetch.postData('/src/utils/php/getAnimalSick.php', {})
+        .then(fetchResponse => {
+            const { status, data } = fetchResponse;
+
+            if (status >= 200 && status < 300) {
+                data.forEach(props => {
+                    
+                    animalTypes.push(props.symptom);
+                });
+
+            } else {
+                
+                console.error(fetchResponse);
+            }
+        });
+
+    return animalTypes;
+}
 
 const validateSelect = selectElement => {
     if (selectElement.selectedIndex === 0) {
@@ -306,7 +350,7 @@ const Description = {
             key: crypto.randomUUID(),
             title: 'Tipo di simptome',
             inputType: 'selector',
-            option: ['Cancer', 'coronavirus', 'non sa fare use case', 'non sa fare integrale |x dx'],
+            option: await getAnimalSick(),
             value: '',
             className: 'data-entry selectType',
             required: 'required',
@@ -336,7 +380,7 @@ const Animal = {
             className: 'data-entry',
             inputType: 'date',
             required: 'required',
-            validate: (value) => { return isValidDate(value) },
+            validate: (value) => { return isValidBirthdayDate(value) },
         },
         {
             key: crypto.randomUUID(),
@@ -373,8 +417,9 @@ const Animal = {
             key: crypto.randomUUID(),
             title: 'Tipo di animale',
             inputType: 'selector',
-            option: ['Cane', 'gato', 'pussy in boots'],
             value: getAnimalTypeAnimal(await getDataAnimal()),
+            option: await getAnimalType(),
+            value: '',
             className: 'data-entry selectType',
             required: 'required',
             validate: (value) => { return validateSelect(value) },
@@ -566,7 +611,7 @@ const initSourceCB = async () => {
                     });
                 });
             } else {
-                console.error('Error in getParks fetch!');
+                
                 console.error(fetchResponse);
             }
         });
