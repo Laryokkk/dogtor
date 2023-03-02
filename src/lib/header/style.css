@@ -11,7 +11,8 @@ img.logo {
     height: 8vh;
 }
 
-div.sign-in-up {
+div.sign-in-up,
+div.sign-out {
     display: flex;
     align-items: center;
     justify-content: space-between;

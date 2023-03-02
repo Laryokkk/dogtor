@@ -3,11 +3,11 @@ import UtilFetch from "/src/utils/util-fetch.js";
 
 const validateSelect = selectElement => {
     if (selectElement.selectedIndex === 0) {
-      return false;
+        return false;
     }
 
     return true;
-  };
+};
 
 const validateText = (text) => {
     const textToValidate = text.toString().replace(/^\s+/, '');
@@ -54,6 +54,31 @@ function isNumeric(str) {
     return regex.test(str);
 }
 
+const History = {
+    idx: 1,
+    list: [
+        {
+            title: 'Inizio',
+            value: '06:00',
+            className: 'text-accent',
+        },
+        {
+            title: 'Fine',
+            value: '08:00',
+            className: 'text-accent',
+        },
+        {
+            title: 'Data',
+            value: ' 23/02/2023',
+            className: '',
+        },
+        {
+            title: 'Dottore',
+            value: 'Massimo Hyilo',
+            className: '',
+        }
+    ],
+};
 
 const Person = {
     title: 'Accompagnatore',
@@ -420,5 +445,5 @@ const initSourceCB = async () => {
     return response;
 };
 
-export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow, CancelModalWindow, initSourceCB };
+export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow, CancelModalWindow, initSourceCB, History };
 
