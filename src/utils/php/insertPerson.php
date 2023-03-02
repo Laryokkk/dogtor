@@ -18,8 +18,10 @@ $stmt = $conn->prepare("CALL insert_person(?, ?, ?, ?, ?, ?)");
 $stmt->bind_param("ssssss", $nomePersona, $cgnomePersona, $codiceFiscale, $numerodiTelefono, $numerodiTelefonoOptionale, $email);
 
 if ($stmt->execute()) {
+    $result = $stmt->get_result();
+    $person_id = $result->fetch_assoc()['new_person_id'];
     $response = array(
-        'data' => null,
+        'data' => array('new_person_id' => $person_id),
         'status' => 200,
     );
 } else {

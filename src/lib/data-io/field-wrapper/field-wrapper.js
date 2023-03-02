@@ -96,7 +96,6 @@ class Field {
     initSelect() {
         return `
         <select class="${this.props.className} animalType" ${this.props.required} required>
-            <option value="null">Scegliere opzione</option>
             ${createOptions(this.props.option)}
         </select>
         `

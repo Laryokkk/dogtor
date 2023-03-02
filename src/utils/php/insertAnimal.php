@@ -18,8 +18,10 @@ $stmt = $conn->prepare("CALL insert_animal(?, ?, ?, ?, ?, ?)");
 $stmt->bind_param("sssssi", $animal_name, $animal_birthday, $animal_birthday_place, $animal_residenze_place, $animal_chip, $animal_type_idx);
 
 if ($stmt->execute()) {
+    $result = $stmt->get_result();
+    $new_animal_id = $result->fetch_assoc()["new_animal_id"];
     $response = array(
-        'data' => null,
+        'data' => array("new_animal_id" => $new_animal_id),
         'status' => 200,
     );
 } else {
@@ -33,4 +35,5 @@ echo json_encode($response);
 
 $stmt->close();
 $conn->close();
+
 ?>

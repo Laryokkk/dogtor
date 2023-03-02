@@ -89,9 +89,11 @@ const handlerApply = async (e) => {
     } = personComponent.props;
 
     const {
-        0: { title: Tipodisimptome, value: tipodisimptome, },
-        1: { title: Describtion, value: describtion, },
+        0: { title: Describtion, value: describtion, },
+        1: { title: Tipodisimptome, value: tipodisimptome, },
     } = descriptioComponent.props;
+
+    console.log(tipodisimptome);
 
     const fetchPropsAnimal = {
         nomeAnimale,
@@ -99,7 +101,7 @@ const handlerApply = async (e) => {
         luogoDiNascita,
         luogoDiResodenza,
         chipIdentificativo,
-        tipoAnimale: parseInt(tipoAnimale) +1,
+        tipoAnimale: parseInt(tipoAnimale) + 1,
     };
 
     const fetchPropsPerson = {
@@ -111,12 +113,38 @@ const handlerApply = async (e) => {
         email
     };
 
+    let diagnosiVisit ;
+    let priceVisit;
+    let idxAnimal; 
+    let idxPerson;
+
     console.log(fetchPropsAnimal);
 
     await UtilFetch.postData('/src/utils/php/insertAnimal.php', fetchPropsAnimal)
         .then(fetchResponse => {
             const { status, data } = fetchResponse;
 
+            idxAnimal = data.new_animal_id; 
+    
+            console.log("This is idAnimal" + idxAnimal);
+    
+            if (status >= 200 && status < 300) {
+    
+            } else {
+                console.error('Error in getParks fetch!');
+                console.error(fetchResponse);
+            }
+        });
+    
+
+    await UtilFetch.postData('/src/utils/php/insertPerson.php', fetchPropsPerson)
+        .then(fetchResponse => {
+            const { status, data } = fetchResponse;
+
+            idxPerson = data.new_person_id;
+
+            console.log("This is idAnimal" + idxPerson);
+
             if (status >= 200 && status < 300) {
 
             } else {
@@ -125,7 +153,18 @@ const handlerApply = async (e) => {
             }
         });
 
-    await UtilFetch.postData('/src/utils/php/insertPerson.php', fetchPropsPerson)
+        const fetchPropsDescribtion = {
+            idxPrenotation: getParam(window, 'idx'),
+            idxAnimal,
+            idxPerson,
+            tipodisimptome,
+            describtion,
+            diagnosiVisit,
+            priceVisit,
+        };
+
+
+    await UtilFetch.postData('/src/utils/php/insertDescription.php', fetchPropsDescribtion)
         .then(fetchResponse => {
             const { status, data } = fetchResponse;
 
@@ -136,6 +175,7 @@ const handlerApply = async (e) => {
                 console.error(fetchResponse);
             }
         });
+
 
 
     // console.log(nomeAnimale); // Output: ''
