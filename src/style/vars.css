@@ -30,4 +30,8 @@
 
     --background-rule: #1A98C0;
     --background-rule-active: #656565;
+
+    --background-rule-close: #982222;
+    --background-rule-booked: #237A15;
+    --background-rule-pending: #1A98C0;
 }

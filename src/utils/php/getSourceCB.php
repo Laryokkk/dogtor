@@ -1,23 +1,8 @@
 <?php
 $response = array();
 
-$permition;
-if (isset($_COOKIE["permission"])) {
-    $permitionStatus = $_COOKIE["permission"];
-
-    if ($permitionStatus == "admin") {
-        $permition = 2;
-    } else if ($permitionStatus == "admin") {
-        $permition = 1;
-    } else {
-        $permition = 3;
-    }
-} else {
-    $permition = 3;
-}
-
 require('./connectionMySQL.php');
-$stmt = $conn->prepare('CALL get_prenotations_by_permition(?)');
+$stmt = $conn->prepare('CALL select_prenotation()');
 if (!$stmt) {
     $response = array(
         'data' => $conn->error,
@@ -26,7 +11,6 @@ if (!$stmt) {
     echo json_encode($response);
     exit;
 }
-$stmt->bind_param('i', $permition);
 $stmt->execute();
 
 // Get the results

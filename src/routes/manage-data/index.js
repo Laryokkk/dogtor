@@ -33,37 +33,6 @@ prenotationDoctorComponent.init();
 
 wrapper.menagerWrapper.addEventListener('apply-prenotation', (e) => handlerApply(e));
 
-const initSourceCB = async () => {
-    const fetchProps = { permission: 'user' };
-    const response = sourceCB;
-
-    await UtilFetch.postData('/src/utils/php/getSourceCB.php', fetchProps)
-        .then(fetchResponse => {
-            const { status, data } = fetchResponse;
-
-            if (status >= 200 && status < 300) {
-                const jsonData = JSON.parse(JSON.stringify(data));
-                jsonData.forEach(props => {
-                    response.sourceRuleList.push({
-                        uuid: crypto.randomUUID(),
-                        idx: props.idx,
-                        permission: fetchProps.permission,
-                        className: 'cb-rule',
-                        date: {
-                            start: new Date(props.time_start_prenotation),
-                            end: new Date(props.time_end_prenotation),
-                        },
-                    });
-                });
-            } else {
-                
-                console.error(fetchResponse);
-            }
-        });
-
-    return response;
-};
-
 const handlerApply = async (e) => {
     e.preventDefault();
     e.stopPropagation();

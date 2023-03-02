@@ -472,6 +472,7 @@ const initSourceCB = async () => {
                     response.sourceRuleList.push({
                         uuid: crypto.randomUUID(),
                         idx: props.idx,
+                        status: props.idx_status,
                         permission: fetchProps.permission,
                         className: 'cb-rule',
                         date: {
