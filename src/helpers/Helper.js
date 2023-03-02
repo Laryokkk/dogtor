@@ -3,13 +3,38 @@ import UtilFetch from "/src/utils/util-fetch.js";
 import { getParam } from "../utils/util-params.js";
 
 
-console.log("IDX PERSON IS"+getParam(window, 'idx'));
+console.log("IDX PERSON IS" + getParam(window, 'idx'));
 
 
 const data = {
-    idPermission : 10
+    idPermission: 4
 
 };
+
+
+
+async function getPrenotationDoctor() {
+    const doctorData = {};
+
+    await UtilFetch.postData('/src/utils/php/getPrenotationDoctor.php', data)
+        .then(fetchResponse => {
+            const { status, data } = fetchResponse;
+
+            if (status >= 200 && status < 300) {
+                data.forEach(props => {
+                    doctorData.time_start_prenotation = props.time_start_prenotation;
+                    doctorData.time_end_prenotation = props.time_end_prenotation;
+                    doctorData.name = props.name;
+                    console.log(doctorData);
+                });
+            } else {
+                console.error('Error in getParks fetch!');
+                console.error(fetchResponse);
+            }
+        });
+
+    return doctorData;
+}
 
 async function getDataAnimal() {
     const animalData = {};
@@ -86,11 +111,27 @@ async function getDescribtionData() {
     return describtionData;
 }
 
-const getDescribtion= array => {
+const getStartTime = array => {
+    const date = new Date(array.time_start_prenotation);
+    const formattedTime = date.toLocaleTimeString('eu-EU', { hour: '2-digit', minute: '2-digit' });
+    return formattedTime
+}
+
+const getEndtTime = array => {
+    const date = new Date(array.time_end_prenotation);
+    const formattedTime = date.toLocaleTimeString('eu-EU', { hour: '2-digit', minute: '2-digit' });
+    return formattedTime
+}
+
+const getNameDoctor = array => {
+    return array.name
+}
+
+const getDescribtion = array => {
     return array.description_visit
 }
 
-const getSiptomi= array => {
+const getSiptomi = array => {
     return array.idx_symptoms_visit
 }
 
@@ -152,12 +193,12 @@ async function getAnimalType() {
 
             if (status >= 200 && status < 300) {
                 data.forEach(props => {
-                    
+
                     animalTypes.push(props.type);
                 });
 
             } else {
-                
+
                 console.error(fetchResponse);
             }
         });
@@ -174,12 +215,12 @@ async function getAnimalSick() {
 
             if (status >= 200 && status < 300) {
                 data.forEach(props => {
-                    
+
                     animalTypes.push(props.symptom);
                 });
 
             } else {
-                
+
                 console.error(fetchResponse);
             }
         });
@@ -524,7 +565,7 @@ const PrenotationDoctor = {
         {
             key: crypto.randomUUID(),
             title: 'Inizio',
-            value: '12:12',
+            value: getStartTime(await getPrenotationDoctor()),
             className: 'text-accent data-entry data-output',
             inputType: 'prenotationDoctor',
             required: '',
@@ -532,7 +573,7 @@ const PrenotationDoctor = {
         {
             key: crypto.randomUUID(),
             title: 'Fine',
-            value: '12:13',
+            value: getEndtTime(await getPrenotationDoctor()),
             className: 'text-accent  data-entry data-output',
             inputType: 'prenotationDoctor',
             required: '',
@@ -540,7 +581,7 @@ const PrenotationDoctor = {
         {
             key: crypto.randomUUID(),
             title: 'Doctor',
-            value: 'Petro Petrovuch',
+            value: getNameDoctor(await getPrenotationDoctor()),
             className: 'data-entry data-output',
             inputType: 'prenotationDoctor',
             required: '',
@@ -618,7 +659,7 @@ const initSourceCB = async () => {
                     });
                 });
             } else {
-                
+
                 console.error(fetchResponse);
             }
         });
