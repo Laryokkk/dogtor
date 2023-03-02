@@ -6,8 +6,11 @@ $response = array();
 $json = file_get_contents('php://input');
 $data = json_decode($json);
 
+$permition = $data -> idPermission;
+
 // Call the stored procedure
-$stmt = $conn->prepare('CALL get_person_data()');
+$stmt = $conn->prepare('CALL get_person_data(?)');
+$stmt->bind_param('i', $permition);
 $stmt->execute();
 
 // Get the results

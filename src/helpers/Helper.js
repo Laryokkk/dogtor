@@ -5,10 +5,16 @@ import { getParam } from "../utils/util-params.js";
 
 console.log("IDX PERSON IS"+getParam(window, 'idx'));
 
+
+const data = {
+    idPermission : 10
+
+};
+
 async function getDataAnimal() {
     const animalData = {};
 
-    await UtilFetch.postData('/src/utils/php/getAnimalData.php', {})
+    await UtilFetch.postData('/src/utils/php/getAnimalData.php', data)
         .then(fetchResponse => {
             const { status, data } = fetchResponse;
 
@@ -34,7 +40,7 @@ async function getDataAnimal() {
 async function getPersonData() {
     const personlData = {};
 
-    await UtilFetch.postData('/src/utils/php/getPersonData.php', {})
+    await UtilFetch.postData('/src/utils/php/getPersonData.php', data)
         .then(fetchResponse => {
             const { status, data } = fetchResponse;
 
@@ -60,7 +66,7 @@ async function getPersonData() {
 async function getDescribtionData() {
     const describtionData = {};
 
-    await UtilFetch.postData('/src/utils/php/getDescribtionData.php', {})
+    await UtilFetch.postData('/src/utils/php/getDescribtionData.php', data)
         .then(fetchResponse => {
             const { status, data } = fetchResponse;
 

@@ -97,12 +97,7 @@ class Field {
         console.log(this.props.value);
         return `
         <select class="${this.props.className} animalType" ${this.props.required} required>
-<<<<<<< HEAD
-            <option value="null">Scegliere opzione</option>
             ${createOptions(this.props.option,this.props.value)}
-=======
-            ${createOptions(this.props.option)}
->>>>>>> origin
         </select>
         `
     }
