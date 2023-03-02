@@ -6,11 +6,8 @@ $response = array();
 $json = file_get_contents('php://input');
 $data = json_decode($json);
 
-$permition = 4;
-
 // Call the stored procedure
-$stmt = $conn->prepare('CALL get_animal_data(?)');
-$stmt->bind_param('i', $permition);
+$stmt = $conn->prepare('CALL get_describtion_data()');
 $stmt->execute();
 
 // Get the results
