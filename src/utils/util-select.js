@@ -1,20 +1,9 @@
-function createOptions(text) {
-    const select = document.createElement('select');
-    
-    text.forEach((element, index) => {
-        const option = document.createElement('option');
-        option.value = index;
-        option.text = element;
-        option.required = 'required';
-        select.appendChild(option);
+export const createOptions = (props) => {
+    let response = '<option value="null">Scegliere opzione</option>';
+
+    props.forEach((type, index) => {
+        response += `<option value="${index}">${type}</option>`;
     });
-  
-    return select.innerHTML;
+
+    return response;
 }
-  
-
-
-
-
-
-export { createOptions };

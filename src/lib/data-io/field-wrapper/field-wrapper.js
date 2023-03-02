@@ -41,6 +41,8 @@ class Field {
             dataEntry.classList.toggle('data-valid', isValid);
 
             this.isValid = isValid;
+
+            this.props.value = dataEntry.value;
         });
     }
 
@@ -94,7 +96,6 @@ class Field {
     initSelect() {
         return `
         <select class="${this.props.className} animalType" ${this.props.required} required>
-            <option value="null">Scegliere opzione</option>
             ${createOptions(this.props.option)}
         </select>
         `
