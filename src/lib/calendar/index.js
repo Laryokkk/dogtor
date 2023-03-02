@@ -20,8 +20,8 @@ function calculateTopAndHeight(eventStartTime, eventEndTime, parentHeight) {
     const eventStartRelativeToDay = eventStart - startOfDay;
     // const eventEndRelativeToDay = eventEnd - startOfDay;
 
-    const top = (eventStartRelativeToDay / totalDayTime) * parentHeight - ((eventStartRelativeToDay / totalDayTime) * parentHeight) * 0.05;
-    const height = (eventDuration / totalDayTime) * parentHeight - ((eventDuration / totalDayTime) * parentHeight * 0.05);
+    const top = (eventStartRelativeToDay / totalDayTime) * (parentHeight);
+    const height = (eventDuration / totalDayTime) * (parentHeight);
 
     return { top: `${top}px`, height: `${height}px` };
 }
@@ -32,7 +32,7 @@ class CalendarBox {
         this.rootElement;
 
         this.props = {
-            timeGridValues: ['07:00', '08:00', '10:00', '11:30', '13:00', '15:00', '16:00'],
+            timeGridValues: ['07:00', '08:30', '10:00', '11:30', '13:00', '14:30', '16:00'],
             ...props, // error
         };
 
@@ -86,13 +86,11 @@ class CalendarBox {
             },
             calendar: {
                 table: this.rootElement.querySelector('table'),
-                ruleContainer0: this.rootElement.querySelector('.cb-container-rule-position-0'),
                 ruleContainer1: this.rootElement.querySelector('.cb-container-rule-position-1'),
                 ruleContainer2: this.rootElement.querySelector('.cb-container-rule-position-2'),
                 ruleContainer3: this.rootElement.querySelector('.cb-container-rule-position-3'),
                 ruleContainer4: this.rootElement.querySelector('.cb-container-rule-position-4'),
                 ruleContainer5: this.rootElement.querySelector('.cb-container-rule-position-5'),
-                ruleContainer6: this.rootElement.querySelector('.cb-container-rule-position-6'),
             },
         };
 
@@ -234,7 +232,7 @@ class CalendarBox {
     initTemplateTh(idxTr) {
         let response = '';
 
-        for (let idx = 0; idx < 7; idx++) {
+        for (let idx = 1; idx < 6; idx++) {
             response += `
                 <th class="cb-th">
                     ${idxTr === 0 ? `<div class="cb-container-rule cb-container-rule-position-${idx}"></div>` : ''}
@@ -311,9 +309,7 @@ class CalendarBox {
         sourceElList.forEach(source => {
             const classList = source.classList.toString();
 
-            if (classList.includes('0')) {
-                this.elements.calendar.ruleContainer0.appendChild(source);
-            } else if (classList.includes('1')) {
+            if (classList.includes('1')) {
                 this.elements.calendar.ruleContainer1.appendChild(source);
             } else if (classList.includes('2')) {
                 this.elements.calendar.ruleContainer2.appendChild(source);
@@ -323,8 +319,6 @@ class CalendarBox {
                 this.elements.calendar.ruleContainer4.appendChild(source);
             } else if (classList.includes('5')) {
                 this.elements.calendar.ruleContainer5.appendChild(source);
-            } else if (classList.includes('6')) {
-                this.elements.calendar.ruleContainer6.appendChild(source);
             }
         });
     }
