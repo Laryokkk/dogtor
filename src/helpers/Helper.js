@@ -15,7 +15,7 @@ async function getAnimalType() {
                 });
 
             } else {
-                console.error('Error in getParks fetch!');
+                
                 console.error(fetchResponse);
             }
         });
@@ -37,7 +37,7 @@ async function getAnimalSick() {
                 });
 
             } else {
-                console.error('Error in getParks fetch!');
+                
                 console.error(fetchResponse);
             }
         });
@@ -481,7 +481,7 @@ const initSourceCB = async () => {
                     });
                 });
             } else {
-                console.error('Error in getParks fetch!');
+                
                 console.error(fetchResponse);
             }
         });

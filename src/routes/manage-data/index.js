@@ -56,7 +56,7 @@ const initSourceCB = async () => {
                     });
                 });
             } else {
-                console.error('Error in getParks fetch!');
+                
                 console.error(fetchResponse);
             }
         });
@@ -133,7 +133,7 @@ const handlerApply = async (e) => {
                 if (status >= 200 && status < 300) {
 
                 } else {
-                    console.error('Error in getParks fetch!');
+                    
                     console.error(fetchResponse);
                 }
             });
@@ -150,7 +150,7 @@ const handlerApply = async (e) => {
                 if (status >= 200 && status < 300) {
 
                 } else {
-                    console.error('Error in getParks fetch!');
+                    
                     console.error(fetchResponse);
                 }
             });
@@ -172,7 +172,7 @@ const handlerApply = async (e) => {
                 if (status >= 200 && status < 300) {
 
                 } else {
-                    console.error('Error in getParks fetch!');
+                    
                     console.error(fetchResponse);
                 }
             });
