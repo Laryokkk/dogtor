@@ -23,3 +23,15 @@ div.sign-out {
 div.sign-out {
     gap: 3rem;
 }
+
+div.statistics {
+    justify-self: flex-end;
+}
+
+div.container-data {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 3rem;
+    flex-direction: row;
+}
