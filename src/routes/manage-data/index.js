@@ -113,45 +113,47 @@ const handlerApply = async (e) => {
         email
     };
 
-    let diagnosiVisit ;
+    let diagnosiVisit;
     let priceVisit;
-    let idxAnimal; 
+    let idxAnimal;
     let idxPerson;
 
-    console.log(fetchPropsAnimal);
+    if (checkBooleanArray(animalComponent.isValid()) && checkBooleanArray(personComponent.isValid()) && checkBooleanArray(descriptioComponent.isValid())) {
+        const modelWindow = new ModelWindow(wrapper.menagerWrapper, PrenotationModalWindow)
+        modelWindow.init();
 
-    await UtilFetch.postData('/src/utils/php/insertAnimal.php', fetchPropsAnimal)
-        .then(fetchResponse => {
-            const { status, data } = fetchResponse;
+        await UtilFetch.postData('/src/utils/php/insertAnimal.php', fetchPropsAnimal)
+            .then(fetchResponse => {
+                const { status, data } = fetchResponse;
 
-            idxAnimal = data.new_animal_id; 
-    
-            console.log("This is idAnimal" + idxAnimal);
-    
-            if (status >= 200 && status < 300) {
-    
-            } else {
-                console.error('Error in getParks fetch!');
-                console.error(fetchResponse);
-            }
-        });
-    
+                idxAnimal = data.new_animal_id;
 
-    await UtilFetch.postData('/src/utils/php/insertPerson.php', fetchPropsPerson)
-        .then(fetchResponse => {
-            const { status, data } = fetchResponse;
+                console.log("This is idAnimal" + idxAnimal);
 
-            idxPerson = data.new_person_id;
+                if (status >= 200 && status < 300) {
 
-            console.log("This is idAnimal" + idxPerson);
+                } else {
+                    console.error('Error in getParks fetch!');
+                    console.error(fetchResponse);
+                }
+            });
 
-            if (status >= 200 && status < 300) {
 
-            } else {
-                console.error('Error in getParks fetch!');
-                console.error(fetchResponse);
-            }
-        });
+        await UtilFetch.postData('/src/utils/php/insertPerson.php', fetchPropsPerson)
+            .then(fetchResponse => {
+                const { status, data } = fetchResponse;
+
+                idxPerson = data.new_person_id;
+
+                console.log("This is idAnimal" + idxPerson);
+
+                if (status >= 200 && status < 300) {
+
+                } else {
+                    console.error('Error in getParks fetch!');
+                    console.error(fetchResponse);
+                }
+            });
 
         const fetchPropsDescribtion = {
             idxPrenotation: getParam(window, 'idx'),
@@ -163,45 +165,19 @@ const handlerApply = async (e) => {
             priceVisit,
         };
 
+        await UtilFetch.postData('/src/utils/php/insertDescription.php', fetchPropsDescribtion)
+            .then(fetchResponse => {
+                const { status, data } = fetchResponse;
 
-    await UtilFetch.postData('/src/utils/php/insertDescription.php', fetchPropsDescribtion)
-        .then(fetchResponse => {
-            const { status, data } = fetchResponse;
+                if (status >= 200 && status < 300) {
 
-            if (status >= 200 && status < 300) {
-
-            } else {
-                console.error('Error in getParks fetch!');
-                console.error(fetchResponse);
-            }
-        });
-
+                } else {
+                    console.error('Error in getParks fetch!');
+                    console.error(fetchResponse);
+                }
+            });
 
 
-    // console.log(nomeAnimale); // Output: ''
-    // console.log(dataDiNascita); // Output: ''
-    // console.log(luogoDiNascita); // Output: ''
-    // console.log(luogoDiResodenza); // Output: ''    console.log(nomeAnimale); // Output: ''
-    // console.log(chipIdentificativo); // Output: ''
-    // console.log(tipoAnimale); // Output: ''
-
-    // console.log(nomePersona); // Output: ''
-    // console.log(cgnomePersona); // Output: ''
-    // console.log(codiceFiscale); // Output: ''
-    // console.log(luogoDiResodenza); // Output: ''    console.log(nomeAnimale); // Output: ''
-    // console.log(numerodiTelefono); // Output: ''
-    // console.log(numerodiTelefonoOptionale); // Output: ''
-    // console.log(email); // Output: ''
-
-    // console.log(tipodisimptome); // Output: ''
-    // console.log(describtion); // Output: ''
-
-
-
-
-    if (checkBooleanArray(animalComponent.isValid()) && checkBooleanArray(personComponent.isValid()) && checkBooleanArray(descriptioComponent.isValid())) {
-        const modelWindow = new ModelWindow(wrapper.menagerWrapper, PrenotationModalWindow)
-        modelWindow.init();
 
 
         console.log("Funziona");
