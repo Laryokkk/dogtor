@@ -99,12 +99,33 @@ const handlerApply = async (e) => {
         luogoDiNascita,
         luogoDiResodenza,
         chipIdentificativo,
-        tipoAnimale: tipoAnimale + 1,
+        tipoAnimale: parseInt(tipoAnimale) +1,
+    };
+
+    const fetchPropsPerson = {
+        nomePersona,
+        cgnomePersona,
+        codiceFiscale,
+        numerodiTelefono,
+        numerodiTelefonoOptionale,
+        email
     };
 
     console.log(fetchPropsAnimal);
 
     await UtilFetch.postData('/src/utils/php/insertAnimal.php', fetchPropsAnimal)
+        .then(fetchResponse => {
+            const { status, data } = fetchResponse;
+
+            if (status >= 200 && status < 300) {
+
+            } else {
+                console.error('Error in getParks fetch!');
+                console.error(fetchResponse);
+            }
+        });
+
+    await UtilFetch.postData('/src/utils/php/insertPerson.php', fetchPropsPerson)
         .then(fetchResponse => {
             const { status, data } = fetchResponse;
 
