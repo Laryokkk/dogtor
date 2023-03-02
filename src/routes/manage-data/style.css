@@ -54,7 +54,7 @@
     display: grid;
 
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 6rem 2rem;
+    grid-gap: 6rem 8rem;
 
     margin-left: 8rem;
     margin-top: 2rem;
