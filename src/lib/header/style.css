@@ -19,3 +19,7 @@ div.sign-out {
     flex-direction: row;
     gap: 1.5rem;
 }
+
+div.sign-out {
+    gap: 3rem;
+}
