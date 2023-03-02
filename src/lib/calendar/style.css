@@ -24,6 +24,8 @@ section.cb>div.cb-heading {
     justify-content: center;
     flex-direction: row;
     gap: 2rem;
+
+    margin-left: 6rem;
 }
 
 div.cb-heading-date {
@@ -179,7 +181,7 @@ a.cb-rule {
     top: 0;
     bottom: 0;
 
-    margin: 0 auto;
+    margin: 0 1rem;
     border-radius: 1.2rem;
 
     box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.20);

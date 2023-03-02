@@ -80,6 +80,11 @@ class Header {
                         <span class="text-heading text-accent">S</span>ign <span class="text-heading text-accent">O</span>ut
                     </h4>
                 </a>
+                <a id="sign-in" href="/src/routes/account/index.html">
+                    <h4 class="text text-active">
+                        <span class="text-heading text-accent">A</span>ccount
+                    </h4>
+                </a>
             </div>
         </header>`;
         const templateElement = parser.parseFromString(templateString, 'text/html');
