@@ -339,7 +339,6 @@ class CalendarBox {
         const copySource = JSON.parse(JSON.stringify(this.source));
 
         this.activeSource.sourceRuleList = copySource.sourceRuleList.filter((props) => {
-            console.log(new Date(this.timeRange.end));
             if ((new Date(this.timeRange.start) < new Date(props.date.start) && new Date(this.timeRange.end) < new Date(props.date.end)) || new Date(props.date.end) < new Date(this.timeRange.start)) return false
 
             return true;
