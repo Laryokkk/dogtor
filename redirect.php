@@ -26,15 +26,43 @@ if (isset($_GET['code'])) {
   setcookie('google_name', $full_name, time() + (60*15), '/');
  
   $get_user = mysqli_query($db_connection, "SELECT `google_id` FROM `users` WHERE `google_id`='$id'");
-  if(mysqli_num_rows($get_user) > 0){
-      setcookie('login_id', $id, time() + (60*15), '/');
-      header('Location: /');
-      exit;
+  if (mysqli_num_rows($get_user) > 0){
+    setcookie('login_id', $id, time() + (60*15), '/');
+    $googleID = $id;
+    $permition;
+
+    require('./src/utils/php/connectionMySQL.php');
+    $stmt1 = $conn->prepare('CALL get_user_admin(?)');
+    $stmt1->bind_param('i', $googleID);
+    $stmt1->execute();
+    $stmt1->store_result();
+    if ($stmt1->num_rows > 0) {
+        $permition = 2;
+        setcookie('permission', 'admin', time() + (60*15), '/');
+    }
+
+    require('./src/utils/php/connectionMySQL.php');
+    $stmt2 = $conn->prepare('CALL get_user_doctor(?)');
+    $stmt2->bind_param('i', $googleID);
+    $stmt2->execute();
+    $stmt2->store_result();
+    if ($stmt2->num_rows > 0) {
+        $permition = 1;
+        setcookie('permission', 'doctor', time() + (60*15), '/');
+    }
+
+    if(!isset($permition)) {
+        $permition = 3;
+        setcookie('permission', 'user', time() + (60*15), '/');
+    }
+    header('Location: /');
+    exit;
   }
   else{
       $insert = mysqli_query($db_connection, "INSERT INTO `users`(`google_id`,`name`,`email`) VALUES('$id','$full_name','$email')");
       if($insert){
         setcookie('login_id', $id, time() + (60*15), '/');
+        setcookie('permission', 'user', time() + (60*15), '/');
           header('Location: /');
           exit;
       }
