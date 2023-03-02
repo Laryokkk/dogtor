@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/style/style.css">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <section id="header">
+
+    </section>
+    <section class="container">
+        <h3>
+            Aggiungi nuova visita <br>
+            Ore lavorative <span class="text-heading text-accent">07:00</span> - <span
+                class="text-heading text-accent">16:00</span> <br>
+            Da <span class="text-heading text-accent">lunedi</span> a <span
+                class="text-heading text-accent">venerdi</span>
+        </h3>
+        <form>
+            <select class="data-entry" name="idx-doctor">
+            </select>
+            <!-- <input class="data-entry" type="text" name="idx-user">
+            <input class="data-entry" type="text" name="idx-permission">
+            <input class="data-entry" type="text" name="idx-status"> -->
+            <input class="data-entry" type="datetime-local" name="time-start" min="07:00" max="16:00" required>
+            <input class="data-entry" type="datetime-local" name="time-end" min="07:00" max="16:00" required>
+            <button type="submit">
+                <h4 class="text text-extend">
+                Save
+                </h4>
+            </button>
+        </form>
+    </section>
+    <div id="dogtor">
+
+    </div>
+</body>
+<script src="./index.js" type="module"></script>
+
+</html>

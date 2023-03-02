@@ -42,12 +42,23 @@ class Header {
             header: this.template,
             containerSignInUp: this.template.querySelector('div.sign-in-up'),
             containerSignOut: this.template.querySelector('div.sign-out'),
+            containerStats: this.template.querySelector('div.statistics'),
+            containerHistory: this.template.querySelector('div.history'),
         };
 
         const cookieGoogleID = getCookie("login_id");
+        const permission = getCookie("permission");
 
         this.elements.containerSignInUp.classList.toggle('hidden', (cookieGoogleID && cookieGoogleID !== ''))
         this.elements.containerSignOut.classList.toggle('hidden', !(cookieGoogleID && cookieGoogleID !== ''))
+
+        if (permission === 'user' && cookieGoogleID && cookieGoogleID !== '') {
+            this.elements.containerHistory.classList.toggle('hidden', false);
+        }
+
+        if ((permission === 'admin' || permission === 'doctor') && cookieGoogleID && cookieGoogleID !== '') {
+            this.elements.containerStats.classList.toggle('hidden', false);
+        }
 
         this.parentElement.appendChild(this.template);
     }
@@ -61,6 +72,7 @@ class Header {
             <a href="/">
                 <img class="logo" src="/assets/header_logo.svg" alt="logo of the 'Cani Sani'">
             </a>
+            <div class="container-data">
             <div class="sign-in-up hidden">
                 <a id="sign-in" href="/redirect.php">
                     <h4 class="text text-active">
@@ -74,17 +86,27 @@ class Header {
                     </h4>
                 </a>
             </div>
+            <div class="statistics hidden">
+                <a href="/src/routes/statistics/index.html">
+                    <h4 class="text text-active">
+                        <span class="text-heading text-accent">A</span>ggiungi <span class="text-heading text-accent">V</span>isita
+                    </h4>
+                </a>
+            </div>
+            <div class="history hidden">
+                <a href="/src/routes/account/index.html">
+                    <h4 class="text text-active">
+                        <span class="text-heading text-accent">S</span>toria
+                    </h4>
+                </a>
+            </div>
             <div class="sign-out hidden">
-                <a id="sign-in" href="/logout.php">
+                <a href="/logout.php">
                     <h4 class="text text-active">
                         <span class="text-heading text-accent">S</span>ign <span class="text-heading text-accent">O</span>ut
                     </h4>
                 </a>
-                <a id="sign-in" href="/src/routes/account/index.html">
-                    <h4 class="text text-active">
-                        <span class="text-heading text-accent">A</span>ccount
-                    </h4>
-                </a>
+            </div>
             </div>
         </header>`;
         const templateElement = parser.parseFromString(templateString, 'text/html');
