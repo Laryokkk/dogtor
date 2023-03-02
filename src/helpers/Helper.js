@@ -1,4 +1,4 @@
-import { isValidDate } from "../utils/util-date.js";
+import { isValidBirthdayDate } from "../utils/util-date.js";
 import UtilFetch from "/src/utils/util-fetch.js";
 
 async function getAnimalType() {
@@ -249,7 +249,7 @@ const Animal = {
             className: 'data-entry',
             inputType: 'date',
             required: 'required',
-            validate: (value) => { return isValidDate(value) },
+            validate: (value) => { return isValidBirthdayDate(value) },
         },
         {
             key: crypto.randomUUID(),

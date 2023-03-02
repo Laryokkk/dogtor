@@ -26,7 +26,13 @@ const isValidDate = (dateString) => {
     const date = new Date(dateString);
     const currentDate = new Date();
     return !isNaN(date.getTime()) && date >= currentDate;
-  };
+};
 
-export { formatDate, getCurrentFirstDay, getCurrentLastDay,isValidDate };
+const isValidBirthdayDate = (dateString) => {
+    const date = new Date(dateString);
+    const currentDate = new Date();
+    return !isNaN(date.getTime()) && date < currentDate;
+};
+
+export { formatDate, getCurrentFirstDay, getCurrentLastDay, isValidDate, isValidBirthdayDate };
 
