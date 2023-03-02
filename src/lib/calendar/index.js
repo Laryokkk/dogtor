@@ -26,6 +26,21 @@ function calculateTopAndHeight(eventStartTime, eventEndTime, parentHeight) {
     return { top: `${top}px`, height: `${height}px` };
 }
 
+function getCookie(username) {
+    let name = username + "=";
+    let spli = document.cookie.split(';');
+    for (var j = 0; j < spli.length; j++) {
+        let char = spli[j];
+        while (char.charAt(0) == ' ') {
+            char = char.substring(1);
+        }
+        if (char.indexOf(name) == 0) {
+            return char.substring(name.length, char.length);
+        }
+    }
+    return "";
+}
+
 class CalendarBox {
     constructor(parentElement, source, ...props) {
         this.parentElement = parentElement;
@@ -41,9 +56,12 @@ class CalendarBox {
         this.eventHandlers = [];
 
         this.source = source;
+        this.activeSource = JSON.parse(JSON.stringify(this.source));
+        this.timeRange = { start: getCurrentFirstDay(), end: getCurrentLastDay() }
     }
 
     init() {
+        this.initActiveSource();
         this.initElements();
         this.initEventListeners();
         this.render();
@@ -51,12 +69,18 @@ class CalendarBox {
 
     render() {
         this.parentElement.appendChild(this.rootElement);
-
         this.renderSource();
     }
 
     refresh() {
+        while (this.template.firstChild) {
+            this.template.removeChild(this.template.lastChild);
+        }
 
+        this.initActiveSource();
+        this.initElements();
+        this.initEventListeners();
+        this.render();
     }
 
     destroy() {
@@ -70,10 +94,8 @@ class CalendarBox {
         this.elements = {
             heading: {
                 chevronLeftBtn: this.rootElement.querySelector('button.cb-heading-zmdi-chevron-left'),
-                chevronsLeftBtn: this.rootElement.querySelector('button.cb-heading-zmdi-chevrons-left'),
                 dateStr: this.rootElement.querySelector('.cb-heading-date-text'),
                 chevronRightBtn: this.rootElement.querySelector('button.cb-heading-zmdi-chevron-right'),
-                chevronsRightBtn: this.rootElement.querySelector('button.cb-heading-zmdi-chevrons-right'),
             },
             timeGrid: {
                 time0: this.rootElement.querySelector('#cb-text-time-0'),
@@ -102,40 +124,34 @@ class CalendarBox {
         const { heading } = this.elements;
 
         heading.chevronLeftBtn.addEventListener('click', (e) => this.handlerChevronLeft(e));
-        heading.chevronsLeftBtn.addEventListener('click', (e) => this.handlerChevronsLeft(e));
         heading.chevronRightBtn.addEventListener('click', (e) => this.handlerChevronRight(e));
-        heading.chevronsRightBtn.addEventListener('click', (e) => this.handlerChevronsRight(e));
     }
 
     handlerChevronLeft(e) {
         e.preventDefault();
+        const start = new Date(new Date(this.timeRange.start).getTime() - 604800000);
+        const end = new Date(new Date(this.timeRange.end).getTime() - 604800000);
 
-        console.log('handlerChevronLeft');
-    }
+        this.timeRange = { start, end };
 
-    handlerChevronsLeft(e) {
-        e.preventDefault();
-
-        console.log('handlerChevronsLeft');
+        this.refresh();
     }
 
     handlerChevronRight(e) {
         e.preventDefault();
+        const start = new Date(new Date(this.timeRange.start).getTime() + 604800000);
+        const end = new Date(new Date(this.timeRange.end).getTime() + 604800000);
 
-        console.log('handlerChevronRight');
-    }
+        this.timeRange = { start, end };
 
-    handlerChevronsRight(e) {
-        e.preventDefault();
-
-        console.log('handlerChevronsRight');
+        this.refresh();
     }
 
     initHeadingDate() {
         const { heading } = this.elements;
 
-        const currentFirstDay = getCurrentFirstDay();
-        const currentLastDay = getCurrentLastDay();
+        const currentFirstDay = this.timeRange.start;
+        const currentLastDay = this.timeRange.end;
         const date = formatDate(new Date(currentFirstDay), new Date(currentLastDay));
 
         heading.dateStr.innerHTML = date.toString();
@@ -172,17 +188,11 @@ class CalendarBox {
                 <button class="cb-heading-zmdi cb-heading-zmdi-chevron-left active">
                     <span class="cb-zmdi cb-zmdi-chevron-left"></span>
                 </button>
-                <button class="cb-heading-zmdi cb-heading-zmdi-chevrons-left active">
-                    <span class="cb-zmdi cb-zmdi-chevrons-left"></span>
-                </button>
             </div>
             <div class="cb-heading-date">
                 <h5 class="text cb-text cb-heading-date-text"></h5>
             </div>
             <div class="cb-heading-move">
-                <button class="cb-heading-zmdi cb-heading-zmdi-chevrons-right active">
-                    <span class="cb-zmdi cb-zmdi-chevrons-right"></span>
-                </button>
                 <button class="cb-heading-zmdi cb-heading-zmdi-chevron-right active">
                     <span class="cb-zmdi cb-zmdi-chevron-right"></span>
                 </button>
@@ -266,14 +276,16 @@ class CalendarBox {
     initSource() {
         const ruleElList = [];
 
-        this.source.sourceRuleList.forEach(ruleProps => {
+        this.activeSource.sourceRuleList.forEach(ruleProps => {
             const parser = new DOMParser();
             const templateStr = this.initTemplateRule(ruleProps);
             const ruleTemplate = parser.parseFromString(templateStr, 'text/html');
             const ruleEl = ruleTemplate.documentElement.querySelector('body > a');
 
             ruleEl.addEventListener('click', () => { this.handlerRule(ruleProps.idx) });
-            this.intiSourcePosition(ruleEl, ruleProps.date);
+            this.intiSourcePosition(ruleEl, ruleProps);
+            const classNameStatus = this.initEventStatus(ruleProps);
+            classNameStatus && ruleEl.classList.toggle(classNameStatus, true);
 
             ruleElList.push(ruleEl);
         });
@@ -285,10 +297,10 @@ class CalendarBox {
         this.parentElement.dispatchEvent(new CustomEvent('handlerRule', { bubbles: true, detail: { ruleIdx: idx }, }));
     }
 
-    intiSourcePosition(el, date) {
+    intiSourcePosition(el, props) {
         const { top, height } = calculateTopAndHeight(
-            new Date(date.start),
-            new Date(date.end),
+            new Date(props.date.start),
+            new Date(props.date.end),
             this.elements.calendar.table.offsetHeight,
         );
 
@@ -321,6 +333,51 @@ class CalendarBox {
                 this.elements.calendar.ruleContainer5.appendChild(source);
             }
         });
+    }
+
+    initActiveSource() {
+        const copySource = JSON.parse(JSON.stringify(this.source));
+
+        this.activeSource.sourceRuleList = copySource.sourceRuleList.filter((props) => {
+            if ((new Date(this.timeRange.start) < new Date(props.date.start) && new Date(this.timeRange.end) < new Date(props.date.end)) || new Date(props.date.end) < new Date(this.timeRange.start)) return false
+
+            return true;
+        });
+    }
+
+    initEventStatus(event) {
+        const permission = getCookie('permission');
+
+        switch (permission) {
+            case 'user':
+                if (event.status === 1) {
+                    return '';
+                } else {
+                    return 'hidden';
+                }
+            case 'admin':
+                if (event.status === 2) {
+                    return 'cb-rule-close';
+                } else if (event.status === 3) {
+                    return 'cb-rule-booked';
+                } else if (event.status === 4) {
+                    return 'cb-rule-pending';
+                } else {
+                    return 'hidden';
+                }
+            case 'doctor':
+                if (event.status === 3) {
+                    return 'cb-rule-booked';
+                } else {
+                    return 'hidden';
+                }
+            default:
+                if (event.status === 1) {
+                    return '';
+                } else {
+                    return 'hidden';
+                };
+        }
     }
 }
 

@@ -11,15 +11,23 @@ const getCurrentFirstDay = () => {
     const currentDate = new Date();
     const currentDay = currentDate.getDay();
     const diff = currentDate.getDate() - currentDay + (currentDay === 0 ? -6 : 1);
+    const date = new Date(currentDate.setDate(diff));
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
 
-    return new Date(currentDate.setDate(diff));
+    return date;
 };
 
 const getCurrentLastDay = () => {
     const currentFirstDay = getCurrentFirstDay();
     const currentLastDay = new Date(currentFirstDay);
+    const date = new Date(currentLastDay.setDate(currentLastDay.getDate() + 6));
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
 
-    return currentLastDay.setDate(currentLastDay.getDate() + 6);
+    return date;
 };
 
 const isValidDate = (dateString) => {

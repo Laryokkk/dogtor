@@ -29,6 +29,7 @@ section.cb>div.cb-heading {
 }
 
 div.cb-heading-date {
+    min-width: 220px;
     height: 2rem;
 
     display: flex;
@@ -187,6 +188,18 @@ a.cb-rule {
     box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.20);
 
     background-color: var(--background-rule);
+}
+
+a.cb-rule-close {
+    background-color: var(--background-rule-close);
+}
+
+a.cb-rule-booked {
+    background-color: var(--background-rule-booked);
+}
+
+a.cb-rule-pending {
+    background-color: var(--background-rule-pending);
 }
 
 a.cb-rule:hover {
