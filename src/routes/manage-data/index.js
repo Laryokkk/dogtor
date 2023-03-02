@@ -33,52 +33,107 @@ prenotationDoctorComponent.init();
 
 wrapper.menagerWrapper.addEventListener('apply-prenotation', (e) => handlerApply(e));
 
-const handlerApply = (e) => {
+const initSourceCB = async () => {
+    const fetchProps = { permission: 'user' };
+    const response = sourceCB;
+
+    await UtilFetch.postData('/src/utils/php/getSourceCB.php', fetchProps)
+        .then(fetchResponse => {
+            const { status, data } = fetchResponse;
+
+            if (status >= 200 && status < 300) {
+                const jsonData = JSON.parse(JSON.stringify(data));
+                jsonData.forEach(props => {
+                    response.sourceRuleList.push({
+                        uuid: crypto.randomUUID(),
+                        idx: props.idx,
+                        permission: fetchProps.permission,
+                        className: 'cb-rule',
+                        date: {
+                            start: new Date(props.time_start_prenotation),
+                            end: new Date(props.time_end_prenotation),
+                        },
+                    });
+                });
+            } else {
+                console.error('Error in getParks fetch!');
+                console.error(fetchResponse);
+            }
+        });
+
+    return response;
+};
+
+const handlerApply = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
     console.log(animalComponent.props);
 
     const {
-        0: {title: Nome, value: nomeAnimale, },
-        1: {title: DatadiNascita, value: dataDiNascita, },
-        2: {title: LuogodiNascita, value: luogoDiNascita, },
-        3: {title: LuogodiResidenza, value: luogoDiResodenza, },
-        4: {title: titChipIdentificativole4, value: chipIdentificativo, },
-        5: {title: Tipodianimale, value: tipoAnimale }
+        0: { title: Nome, value: nomeAnimale, },
+        1: { title: DatadiNascita, value: dataDiNascita, },
+        2: { title: LuogodiNascita, value: luogoDiNascita, },
+        3: { title: LuogodiResidenza, value: luogoDiResodenza, },
+        4: { title: titChipIdentificativole4, value: chipIdentificativo, },
+        5: { title: Tipodianimale, value: tipoAnimale }
     } = animalComponent.props;
 
     const {
-        0: {title: nomePerson, value: nomePersona, },
-        1: {title: Cognome, value: cgnomePersona, },
-        2: {title: CodiceFiscale, value: codiceFiscale, },
-        3: {title: NumerodiTelefono, value: numerodiTelefono, },
-        4: {title: titlNumerodiTelefonoOptional, value: numerodiTelefonoOptionale, },
-        5: {title: Email, value: email }
+        0: { title: nomePerson, value: nomePersona, },
+        1: { title: Cognome, value: cgnomePersona, },
+        2: { title: CodiceFiscale, value: codiceFiscale, },
+        3: { title: NumerodiTelefono, value: numerodiTelefono, },
+        4: { title: titlNumerodiTelefonoOptional, value: numerodiTelefonoOptionale, },
+        5: { title: Email, value: email }
     } = personComponent.props;
 
     const {
-        0: {title: Tipodisimptome, value: tipodisimptome, },
-        1: {title: Describtion, value: describtion, },
+        0: { title: Tipodisimptome, value: tipodisimptome, },
+        1: { title: Describtion, value: describtion, },
     } = descriptioComponent.props;
 
-    console.log(nomeAnimale); // Output: ''
-    console.log(dataDiNascita); // Output: ''
-    console.log(luogoDiNascita); // Output: ''
-    console.log(luogoDiResodenza); // Output: ''    console.log(nomeAnimale); // Output: ''
-    console.log(chipIdentificativo); // Output: ''
-    console.log(tipoAnimale); // Output: ''
+    const fetchPropsAnimal = {
+        nomeAnimale,
+        dataDiNascita,
+        luogoDiNascita,
+        luogoDiResodenza,
+        chipIdentificativo,
+        tipoAnimale: tipoAnimale + 1,
+    };
 
-    console.log(nomePersona); // Output: ''
-    console.log(cgnomePersona); // Output: ''
-    console.log(codiceFiscale); // Output: ''
-    console.log(luogoDiResodenza); // Output: ''    console.log(nomeAnimale); // Output: ''
-    console.log(numerodiTelefono); // Output: ''
-    console.log(numerodiTelefonoOptionale); // Output: ''
-    console.log(email); // Output: ''
+    console.log(fetchPropsAnimal);
 
-    console.log(tipodisimptome); // Output: ''
-    console.log(describtion); // Output: ''
+    await UtilFetch.postData('/src/utils/php/insertAnimal.php', fetchPropsAnimal)
+        .then(fetchResponse => {
+            const { status, data } = fetchResponse;
+
+            if (status >= 200 && status < 300) {
+
+            } else {
+                console.error('Error in getParks fetch!');
+                console.error(fetchResponse);
+            }
+        });
+
+
+    // console.log(nomeAnimale); // Output: ''
+    // console.log(dataDiNascita); // Output: ''
+    // console.log(luogoDiNascita); // Output: ''
+    // console.log(luogoDiResodenza); // Output: ''    console.log(nomeAnimale); // Output: ''
+    // console.log(chipIdentificativo); // Output: ''
+    // console.log(tipoAnimale); // Output: ''
+
+    // console.log(nomePersona); // Output: ''
+    // console.log(cgnomePersona); // Output: ''
+    // console.log(codiceFiscale); // Output: ''
+    // console.log(luogoDiResodenza); // Output: ''    console.log(nomeAnimale); // Output: ''
+    // console.log(numerodiTelefono); // Output: ''
+    // console.log(numerodiTelefonoOptionale); // Output: ''
+    // console.log(email); // Output: ''
+
+    // console.log(tipodisimptome); // Output: ''
+    // console.log(describtion); // Output: ''
 
 
 
