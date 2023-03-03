@@ -248,7 +248,7 @@ if (result === 'user') {
     const descriptioComponent = new DescriptionWrapper(wrapper.menagerWrapper, Description.list, Description.title);
     descriptioComponent.init();
 
-    const prenotationDoctorComponent = new DoctorPrenotationWrapper(wrapper.menagerWrapper, PrenotationDoctor.list);
+    const prenotationDoctorComponent = new DoctorPrenotationWrapper(wrapper.menagerWrapper, PrenotationDoctor.list, PrenotationDoctor.title);
     prenotationDoctorComponent.init();
 
     wrapper.menagerWrapper.addEventListener('apply-prenotation', (e) => handlerApply(e));

@@ -1,7 +1,7 @@
 import Field from "../field-wrapper/field-wrapper.js";
 
 class DoctorPrenotationWrapper {
-    constructor(parent, props,doctorTittle , propsPriceDoctor, priceDoctorTittle) {
+    constructor(parent, props, doctorTittle, propsPriceDoctor, priceDoctorTittle) {
         this.parentElement = parent;
         this.props = props;
         this.propsPriceDoctor = propsPriceDoctor;
@@ -43,12 +43,14 @@ class DoctorPrenotationWrapper {
     }
 
     initFieldPrezzoDoctor() {
-        this.propsPriceDoctor.forEach(props => {
-            const fieldWrapper = new Field(this.elements.fieldWrapperCom, props)
-            fieldWrapper.init();
-            const el = fieldWrapper.render();
-            this.elements.fieldWrapperCom.appendChild(el);
-        });
+        if (this.propsPriceDoctor) {
+            this.propsPriceDoctor.forEach(props => {
+                const fieldWrapper = new Field(this.elements.fieldWrapperCom, props)
+                fieldWrapper.init();
+                const el = fieldWrapper.render();
+                this.elements.fieldWrapperCom.appendChild(el);
+            });
+        }
     }
 
     initEventListeners() {
@@ -87,7 +89,7 @@ class DoctorPrenotationWrapper {
     initFieldComponent() {
 
         const parser = new DOMParser();
-        const templateString =` 
+        const templateString = ` 
         <div class="wrapper-data-prenotation-doctor">
             ${this.initField()}
             ${this.initFieldPrezzoDoctor()}

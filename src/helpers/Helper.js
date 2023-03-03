@@ -8,8 +8,6 @@ const data = {
 
 };
 
-
-
 async function getPrenotationDoctor() {
     const doctorData = {};
 
@@ -18,11 +16,13 @@ async function getPrenotationDoctor() {
             const { status, data } = fetchResponse;
 
             if (status >= 200 && status < 300) {
-                data.forEach(props => {
-                    doctorData.time_start_prenotation = props.time_start_prenotation;
-                    doctorData.time_end_prenotation = props.time_end_prenotation;
-                    doctorData.name = props.name;
-                });
+                if (data) {
+                    data.forEach(props => {
+                        doctorData.time_start_prenotation = props.time_start_prenotation;
+                        doctorData.time_end_prenotation = props.time_end_prenotation;
+                        doctorData.name = props.name;
+                    });   
+                }
             } else {
                 console.error('Error in getParks fetch!');
                 console.error(fetchResponse);
