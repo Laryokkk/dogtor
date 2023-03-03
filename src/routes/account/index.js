@@ -36,7 +36,6 @@ let response;
 const jsonData = getCookie("login_id");
 await UtilFetch.postData('/src/utils/php/getUserPrenotations.php', jsonData)
     .then(fetchResponse => {
-        console.log(fetchResponse);
         const { status, data } = fetchResponse;
         if (status >= 200 && status < 300) {
             response = JSON.parse(JSON.stringify(data));

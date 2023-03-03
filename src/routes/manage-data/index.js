@@ -7,8 +7,6 @@ import ModelWindow from "../../lib/model-window/model-window.js";
 import { getParam } from "../../utils/util-params.js";
 import { Animal, Person, Description, PrenotationDoctor, PrenotationModalWindow } from "../../helpers/Helper.js";
 
-console.log(getParam(window, 'idx'));
-
 const wrapper = {
     header: document.querySelector('section#header'),
     menagerWrapper: document.querySelector('form.container'),
@@ -37,8 +35,6 @@ const handlerApply = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    console.log(animalComponent.props);
-
     const {
         0: { title: Nome, value: nomeAnimale, },
         1: { title: DatadiNascita, value: dataDiNascita, },
@@ -61,8 +57,6 @@ const handlerApply = async (e) => {
         0: { title: Describtion, value: describtion, },
         1: { title: Tipodisimptome, value: tipodisimptome, },
     } = descriptioComponent.props;
-
-    console.log(tipodisimptome);
 
     const fetchPropsAnimal = {
         nomeAnimale,
@@ -97,8 +91,6 @@ const handlerApply = async (e) => {
 
                 idxAnimal = data.new_animal_id;
 
-                console.log("This is idAnimal" + idxAnimal);
-
                 if (status >= 200 && status < 300) {
 
                 } else {
@@ -113,8 +105,6 @@ const handlerApply = async (e) => {
                 const { status, data } = fetchResponse;
 
                 idxPerson = data.new_person_id;
-
-                console.log("This is idAnimal" + idxPerson);
 
                 if (status >= 200 && status < 300) {
 
@@ -146,10 +136,6 @@ const handlerApply = async (e) => {
                 }
             });
 
-
-
-
-        console.log("Funziona");
     } else {
         const fiedsList = wrapper.menagerWrapper.querySelectorAll('.data-entry');
 
@@ -164,8 +150,6 @@ const handlerApply = async (e) => {
 };
 const handlerModalContent = (e) => {
     const { content } = e.detail;
-    console.log("Heeko");
-    console.log(content);
 
 
 };
