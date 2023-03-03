@@ -102,8 +102,7 @@ class Field {
     }
 
 
-    initSelect() {
-
+    initSelect() {n
         return `
         <select class="${this.props.className} animalType" ${this.props.required} required>
             ${createOptions(this.props.option, this.props.value)}
@@ -114,8 +113,6 @@ class Field {
     initAttributes() {
         const { maxLenght, inputType, key, value, minLength } = this.props;
         const { dataEntry } = this.elements;
-
-
 
         if (inputType === 'textarea') {
             dataEntry.innerHTML = value;

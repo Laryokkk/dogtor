@@ -7,8 +7,6 @@ import ModelWindow from "../../lib/model-window/model-window.js";
 import { getParam } from "../../utils/util-params.js";
 import { Animal, Person, Description, PrenotationDoctor, PrenotationModalWindow, descibtionDoctor, conclusionnDoctor, priceDoctor } from "../../helpers/Helper.js";
 
-console.log(getParam(window, 'idx'));
-
 const wrapper = {
     header: document.querySelector('section#header'),
     menagerWrapper: document.querySelector('form.container'),
@@ -39,7 +37,6 @@ if (result === 'doctor') {
 
     const handlerApply = async (e) => {
 
-
         if (checkBooleanArray(animalComponent.isValid()) && checkBooleanArray(personComponent.isValid()) && checkBooleanArray(descriptioComponent.isValid())) {
             let statusModalWindow = "cancel";
             const modelWindow = new ModelWindow(wrapper.menagerWrapper, PrenotationModalWindow, statusModalWindow)
@@ -47,6 +44,7 @@ if (result === 'doctor') {
         } else {
 
             const fiedsList = wrapper.menagerWrapper.querySelectorAll('.data-entry');
+
 
             fiedsList.forEach(filed => {
                 if (filed.classList.contains('data-wrong') && filed.value === null) {
@@ -392,6 +390,7 @@ if (result === 'user') {
 
     wrapper.menagerWrapper.addEventListener('content-data', (e) => { handlerModalContent(e) });
 }
+
 
 
 function checkBooleanArray(boolArray) {

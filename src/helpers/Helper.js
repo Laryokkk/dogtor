@@ -3,9 +3,6 @@ import UtilFetch from "/src/utils/util-fetch.js";
 import { getParam } from "../utils/util-params.js";
 
 
-console.log("IDX PERSON IS" + getParam(window, 'idx'));
-
-
 const data = {
     idPermission: 4
 
@@ -25,7 +22,6 @@ async function getPrenotationDoctor() {
                     doctorData.time_start_prenotation = props.time_start_prenotation;
                     doctorData.time_end_prenotation = props.time_end_prenotation;
                     doctorData.name = props.name;
-                  
                 });
             } else {
                 console.error('Error in getParks fetch!');
@@ -51,7 +47,6 @@ async function getDataAnimal() {
                     animalData.luogoDiResidenza = props.residenze_place_animal;
                     animalData.chipIdentificativo = props.chip_animal;
                     animalData.typeAnimal = props.idx_type_animal;
-                    
                 });
             } else {
                 console.error('Error in getParks fetch!');
@@ -77,7 +72,6 @@ async function getPersonData() {
                     personlData.tel_person = props.tel_person;
                     personlData.tel_2_person = props.tel_2_person;
                     personlData.email_person = props.email_person;
-                    
                 });
             } else {
                 console.error('Error in getParks fetch!');
@@ -97,10 +91,8 @@ async function getDescribtionData() {
 
             if (status >= 200 && status < 300) {
                 data.forEach(props => {
-                    
                     describtionData.description_visit = props.description_visit;
                     describtionData.idx_symptoms_visit = props.idx_symptoms_visit;
-                    console.log(describtionData);
                 });
             } else {
                 console.error('Error in getParks fetch!');
@@ -160,6 +152,7 @@ const getAnimalChipIdentificativo = array => {
 }
 
 const getAnimalTypeAnimal = array => {
+    console.log(array.typeAnimal);
     return array.typeAnimal
 }
 
@@ -466,7 +459,6 @@ const Animal = {
             inputType: 'selector',
             value: getAnimalTypeAnimal(await getDataAnimal()),
             option: await getAnimalType(),
-            value: '',
             className: 'data-entry selectType',
             required: 'required',
             validate: (value) => { return validateSelect(value) },

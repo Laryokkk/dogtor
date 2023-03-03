@@ -23,7 +23,6 @@ const fetchProps = {};
 let jsonData;
 await UtilFetch.postData('/src/utils/php/getDoctors.php', fetchProps)
     .then(fetchResponse => {
-        console.log(fetchResponse);
         const { status, data } = fetchResponse;
 
         if (status >= 200 && status < 300) {
@@ -49,7 +48,6 @@ wrapper.button.addEventListener('click', (e) => {
 
     UtilFetch.postData('/src/utils/php/insertVisitEvent.php', data)
         .then(fetchResponse => {
-            console.log(fetchResponse);
             const { status, data } = fetchResponse;
 
             if (status >= 200 && status < 300) {
@@ -58,6 +56,4 @@ wrapper.button.addEventListener('click', (e) => {
                 console.error(fetchResponse);
             }
         });
-
-    console.log(data);
 });
