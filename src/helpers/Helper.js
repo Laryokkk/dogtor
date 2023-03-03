@@ -25,7 +25,7 @@ async function getPrenotationDoctor() {
                     doctorData.time_start_prenotation = props.time_start_prenotation;
                     doctorData.time_end_prenotation = props.time_end_prenotation;
                     doctorData.name = props.name;
-                    console.log(doctorData);
+                  
                 });
             } else {
                 console.error('Error in getParks fetch!');
@@ -51,7 +51,7 @@ async function getDataAnimal() {
                     animalData.luogoDiResidenza = props.residenze_place_animal;
                     animalData.chipIdentificativo = props.chip_animal;
                     animalData.typeAnimal = props.idx_type_animal;
-                    console.log(animalData);
+                    
                 });
             } else {
                 console.error('Error in getParks fetch!');
@@ -77,7 +77,7 @@ async function getPersonData() {
                     personlData.tel_person = props.tel_person;
                     personlData.tel_2_person = props.tel_2_person;
                     personlData.email_person = props.email_person;
-                    console.log(props);
+                    
                 });
             } else {
                 console.error('Error in getParks fetch!');
@@ -97,7 +97,7 @@ async function getDescribtionData() {
 
             if (status >= 200 && status < 300) {
                 data.forEach(props => {
-                    console.log(props);
+                    
                     describtionData.description_visit = props.description_visit;
                     describtionData.idx_symptoms_visit = props.idx_symptoms_visit;
                     console.log(describtionData);
@@ -589,6 +589,64 @@ const PrenotationDoctor = {
     ]
 };
 
+const descibtionDoctor = {
+    title: 'Descrizione',
+    list: [
+        {
+            key: crypto.randomUUID(),
+            title: 'Descrizione',
+            inputType: 'textarea',
+            value: getDescribtion(await getDescribtionData()),
+            className: 'data-entry',
+            required: 'required',
+            validate: (value) => { return validateText(value) },
+        },
+    ]
+};
+
+const priceDoctor = {
+    title: 'Prezzo',
+    list: [
+        {
+            key: crypto.randomUUID(),
+            title: 'Prezzo',
+            inputType: 'number',
+            value: getDescribtion(await getDescribtionData()),
+            className: 'data-entry',
+            required: 'required',
+            validate: (value) => { return isValidPhoneNumber(value) },
+        },
+    ]
+};
+
+const conclusionnDoctor = {
+    title: 'Dottore',
+    list: [
+        {
+            key: crypto.randomUUID(),
+            title: 'Diagnosi',
+            inputType: 'textarea',
+            value: getDescribtion(await getDescribtionData()),
+            className: 'data-entry',
+            classNameSecond: 'conclusionnDoctor',
+            required: 'required',
+            validate: (value) => { return validateText(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Nota',
+            inputType: 'textarea',
+            value: getDescribtion(await getDescribtionData()),
+            className: 'data-entry',
+            classNameSecond: 'conclusionnDoctor',
+            required: 'required',
+            validate: (value) => { return validateText(value) },
+        },
+    ]
+};
+
+
+
 const PrenotationModalWindow = {
     title: '',
     modalType: 'confirm',
@@ -667,5 +725,5 @@ const initSourceCB = async () => {
     return response;
 };
 
-export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow, CancelModalWindow, initSourceCB, History };
+export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow, CancelModalWindow, initSourceCB, History ,descibtionDoctor,conclusionnDoctor,priceDoctor};
 

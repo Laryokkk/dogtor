@@ -18,10 +18,6 @@ $result = $stmt->get_result();
 
 
 if ($result != null) {
-    $records = array();
-    while ($row = $result->fetch_assoc()) {
-        $records[] = $row;
-    }
     $response = array(
         'data' => $records,
         'status' => 200,

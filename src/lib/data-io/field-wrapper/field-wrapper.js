@@ -58,7 +58,7 @@ class Field {
     }
 
     initEntry() {
-        const { key, title, className, placeHolder, inputType, value, required } = this.props;
+        const { key, title, className,classNameSecond, placeHolder, inputType, value, required } = this.props;
 
         let temp = `<h4 class="${(className) ? className : ''} ">${value}</h4>`;
 
@@ -86,18 +86,27 @@ class Field {
             </div>
         `;
         }
-        if (inputType === 'textarea') {
+        console.log(this.props);
+        if (inputType === 'textarea' && classNameSecond === 'conclusionnDoctor') {
             return `
+            <div class="conclussion-doctor">
+                <h5>${title}</h5>
+            </div>
             <textarea class="description-problem ${className}" ${required} cols="30" rows="10"></textarea>
         `;
         }
+        if (inputType === 'textarea') {
+            return `
+            <textarea class="description-problem ${className}" ${required} cols="30" rows="10"></textarea>`;
+        }
     }
 
+
     initSelect() {
-        console.log(this.props.value);
+
         return `
         <select class="${this.props.className} animalType" ${this.props.required} required>
-            ${createOptions(this.props.option,this.props.value)}
+            ${createOptions(this.props.option, this.props.value)}
         </select>
         `
     }
@@ -106,7 +115,7 @@ class Field {
         const { maxLenght, inputType, key, value, minLength } = this.props;
         const { dataEntry } = this.elements;
 
-        console.log(inputType);
+
 
         if (inputType === 'textarea') {
             dataEntry.innerHTML = value;
@@ -138,7 +147,9 @@ class Field {
             dataEntry.setAttribute('maxlength', maxLenght);
         }
     }
-
 }
+
+
+
 
 export default Field;

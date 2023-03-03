@@ -1,7 +1,8 @@
 class ModelWindow {
-    constructor(parent, props) {
+    constructor(parent, props,statusModalWindow) {
         this.parentElement = parent;
         this.props = props;
+        this.statusModalWindow = statusModalWindow,
 
         this.template;
         this.elements = {};
@@ -84,9 +85,9 @@ class ModelWindow {
         const parser = new DOMParser();
         let templateString;
 
-        if (this.props.modalType === 'confirm') {
+        if (this.statusModalWindow === 'confirm') {
             templateString = this.initTemplateConfirm();
-        } else if (this.props.modalType === 'cancel') {
+        } else if (this.statusModalWindow === 'cancel') {
             templateString = this.initTemplateCancel();
         }
 
