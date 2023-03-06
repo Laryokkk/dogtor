@@ -71,7 +71,7 @@
     padding-left: 1rem;
 }
 
-.conclussion-doctor{
+.conclussion-doctor {
     margin-bottom: 1rem;
 }
 
@@ -197,13 +197,20 @@ input[type=number]::-webkit-inner-spin-button {
 
 .first-line,
 .second-line,
-.third-line{
+.third-line {
     display: flex;
     flex-direction: row;
 }
 
-.wrapper-content-dottore{
+.wrapper-content-dottore {
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
+}
+
+.btn-doctor {
+    margin-left: 8.5rem;
 }

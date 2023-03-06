@@ -5,7 +5,7 @@ import DoctorPrenotationWrapper from "../../lib/data-io/doctor-prenotation-wrapp
 import DescriptionWrapper from "../../lib/data-io/description-wrapper/description-wrapper.js"
 import ModelWindow from "../../lib/model-window/model-window.js";
 import { getParam } from "../../utils/util-params.js";
-import { Animal, Person, Description, PrenotationDoctor, PrenotationModalWindow, descibtionDoctor, conclusionnDoctor, priceDoctor } from "../../helpers/Helper.js";
+import { Animal, Person, Description, PrenotationDoctor, PrenotationModalWindow, descibtionDoctor, conclusionnDoctor, priceDoctor, PersonGetData,DescriptionGetData,AnimalGetData } from "../../helpers/Helper.js";
 
 const wrapper = {
     header: document.querySelector('section#header'),
@@ -16,31 +16,89 @@ const props = {
     header: {},
 };
 
+const value = getParam(window, 'paramName');
+console.log(value);
+
 const result = checkPermission();
-console.log(result);
 
 if (result === 'doctor') {
-    const animalComponent = new ManageWrapper(wrapper.menagerWrapper, Animal.list, Animal.title);
+    const form = document.querySelector('form');
+    form.setAttribute('onsubmit', 'event.preventDefault();');
+
+    const animalComponent = new ManageWrapper(wrapper.menagerWrapper, AnimalGetData.list, AnimalGetData.title);
     animalComponent.init();
 
-    const personComponent = new ManageWrapper(wrapper.menagerWrapper, Person.list, Person.title);
+    const personComponent = new ManageWrapper(wrapper.menagerWrapper, PersonGetData.list, PersonGetData.title);
     personComponent.init();
 
 
-    const descriptioComponent = new DescriptionWrapper(wrapper.menagerWrapper, descibtionDoctor.list, descibtionDoctor.title);
+    const descriptioComponent = new DescriptionWrapper(wrapper.menagerWrapper, DescriptionGetData.list, DescriptionGetData.title);
     descriptioComponent.init();
 
     const prenotationDoctorComponent = new DoctorPrenotationWrapper(wrapper.menagerWrapper, conclusionnDoctor.list, conclusionnDoctor.title, priceDoctor.list, priceDoctor.title);
     prenotationDoctorComponent.init();
 
+    console.log(prenotationDoctorComponent.props);
+  /*   console.log(priceDoctor.list); */
+
+
     wrapper.menagerWrapper.addEventListener('apply-prenotation', (e) => handlerApply(e));
 
     const handlerApply = async (e) => {
 
-        if (checkBooleanArray(animalComponent.isValid()) && checkBooleanArray(personComponent.isValid()) && checkBooleanArray(descriptioComponent.isValid())) {
-            let statusModalWindow = "cancel";
-            const modelWindow = new ModelWindow(wrapper.menagerWrapper, PrenotationModalWindow, statusModalWindow)
+        if (true) {
+            let statusModalWindow = "confirm";
+            const modelWindow = new ModelWindow(wrapper.menagerWrapper, PrenotationModalWindow, statusModalWindow);
             modelWindow.init();
+
+            const {
+                0: { value: diagnosi, },
+                1: { value: nota, },
+            } = prenotationDoctorComponent.props;
+
+            const {
+                3: { value: prezzo, },
+            } = prenotationDoctorComponent.props;
+
+
+            const fetchPropsDoctor = {
+                diagnosi,
+                nota,
+                prezzo,
+            };
+
+
+            await UtilFetch.postData('/src/utils/php/updateDoctorData.php', fetchPropsDoctor)
+                .then(fetchResponse => {
+                    const { status, data } = fetchResponse;
+
+
+                    if (status >= 200 && status < 300) {
+
+                    } else {
+
+                        console.error(fetchResponse);
+                    }
+                });
+
+            const data = {
+                idx: getParam(window, 'idx'),
+                idxStatus: '2',
+            }
+
+            await UtilFetch.postData('/src/utils/php/updatePrenotationEventStatus.php', data)
+                .then(fetchResponse => {
+                    const { status, data } = fetchResponse;
+
+                    
+
+                    if (status >= 200 && status < 300) {
+
+                    } else {
+
+                        console.error(fetchResponse);
+                    }
+                });
         } else {
 
             const fiedsList = wrapper.menagerWrapper.querySelectorAll('.data-entry');
@@ -57,16 +115,30 @@ if (result === 'doctor') {
     };
     const handlerModalContent = (e) => {
         const { content } = e.detail;
-        console.log("Heeko");
-        console.log(content);
-
-
     };
     const cancelBtn = document.querySelector('.cancel');
 
 
     cancelBtn.addEventListener('click', () => {
-        location.href = "../index.html";
+        let statusModalWindow = "cancel";
+        const modelWindow = new ModelWindow(wrapper.menagerWrapper, PrenotationModalWindow, statusModalWindow)
+        modelWindow.init();
+
+        const data = {
+            idx: getParam(window, 'idx'),
+            idxStatus: '2',
+        }
+
+        UtilFetch.postData('/src/utils/php/updatePrenotationEventStatus.php', data)
+            .then(fetchResponse => {
+                const { status, data } = fetchResponse;
+                if (status >= 200 && status < 300) {
+
+                } else {
+
+                    console.error(fetchResponse);
+                }
+            });
     });
 
     wrapper.menagerWrapper.addEventListener('content-data', (e) => { handlerModalContent(e) });
@@ -76,14 +148,14 @@ if (result === 'doctor') {
 if (result === 'admin') {
 
     {
-        const animalComponent = new ManageWrapper(wrapper.menagerWrapper, Animal.list, Animal.title);
+        const animalComponent = new ManageWrapper(wrapper.menagerWrapper, AnimalGetData.list, AnimalGetData.title);
         animalComponent.init();
 
-        const personComponent = new ManageWrapper(wrapper.menagerWrapper, Person.list, Person.title);
+        const personComponent = new ManageWrapper(wrapper.menagerWrapper, PersonGetData.list, PersonGetData.title);
         personComponent.init();
 
 
-        const descriptioComponent = new DescriptionWrapper(wrapper.menagerWrapper, Description.list, Description.title);
+        const descriptioComponent = new DescriptionWrapper(wrapper.menagerWrapper, DescriptionGetData.list, DescriptionGetData.title);
         descriptioComponent.init();
 
         const prenotationDoctorComponent = new DoctorPrenotationWrapper(wrapper.menagerWrapper, PrenotationDoctor.list);
@@ -96,148 +168,59 @@ if (result === 'admin') {
             e.stopPropagation();
 
 
-            const {
-                0: { title: Nome, value: nomeAnimale, },
-                1: { title: DatadiNascita, value: dataDiNascita, },
-                2: { title: LuogodiNascita, value: luogoDiNascita, },
-                3: { title: LuogodiResidenza, value: luogoDiResodenza, },
-                4: { title: titChipIdentificativole4, value: chipIdentificativo, },
-                5: { title: Tipodianimale, value: tipoAnimale }
-            } = animalComponent.props;
+            let statusModalWindow = "confirm";
+            const modelWindow = new ModelWindow(wrapper.menagerWrapper, PrenotationModalWindow, statusModalWindow)
+            modelWindow.init();
 
-            const {
-                0: { title: nomePerson, value: nomePersona, },
-                1: { title: Cognome, value: cgnomePersona, },
-                2: { title: CodiceFiscale, value: codiceFiscale, },
-                3: { title: NumerodiTelefono, value: numerodiTelefono, },
-                4: { title: titlNumerodiTelefonoOptional, value: numerodiTelefonoOptionale, },
-                5: { title: Email, value: email }
-            } = personComponent.props;
+            const data = {
+                idx: getParam(window, 'idx'),
+                idxStatus: '3',
+            }
 
-            const {
-                0: { title: Describtion, value: describtion, },
-                1: { title: Tipodisimptome, value: tipodisimptome, },
-            } = descriptioComponent.props;
+            await UtilFetch.postData('/src/utils/php/updatePrenotationEventStatus.php', data)
+                .then(fetchResponse => {
+                    const { status, data } = fetchResponse;
+                    if (status >= 200 && status < 300) {
 
-
-            const fetchPropsAnimal = {
-                nomeAnimale,
-                dataDiNascita,
-                luogoDiNascita,
-                luogoDiResodenza,
-                chipIdentificativo,
-                tipoAnimale: parseInt(tipoAnimale) + 1,
-            };
-
-            const fetchPropsPerson = {
-                nomePersona,
-                cgnomePersona,
-                codiceFiscale,
-                numerodiTelefono,
-                numerodiTelefonoOptionale,
-                email
-            };
-
-            let diagnosiVisit;
-            let priceVisit;
-            let idxAnimal;
-            let idxPerson;
-
-            if (checkBooleanArray(animalComponent.isValid()) && checkBooleanArray(personComponent.isValid()) && checkBooleanArray(descriptioComponent.isValid())) {
-                let statusModalWindow = "confirm";
-                const modelWindow = new ModelWindow(wrapper.menagerWrapper, PrenotationModalWindow, statusModalWindow)
-                modelWindow.init();
-
-                await UtilFetch.postData('/src/utils/php/insertAnimal.php', fetchPropsAnimal)
-                    .then(fetchResponse => {
-                        const { status, data } = fetchResponse;
-
-                        idxAnimal = data.new_animal_id;
-
-                        console.log("This is idAnimal" + idxAnimal);
-
-                        if (status >= 200 && status < 300) {
-
-                        } else {
-
-                            console.error(fetchResponse);
-                        }
-                    });
-
-
-                await UtilFetch.postData('/src/utils/php/insertPerson.php', fetchPropsPerson)
-                    .then(fetchResponse => {
-                        const { status, data } = fetchResponse;
-
-                        idxPerson = data.new_person_id;
-
-                        console.log("This is idAnimal" + idxPerson);
-
-                        if (status >= 200 && status < 300) {
-
-                        } else {
-
-                            console.error(fetchResponse);
-                        }
-                    });
-
-                const fetchPropsDescribtion = {
-                    idxPrenotation: getParam(window, 'idx'),
-                    idxAnimal,
-                    idxPerson,
-                    tipodisimptome,
-                    describtion,
-                    diagnosiVisit,
-                    priceVisit,
-                };
-
-                await UtilFetch.postData('/src/utils/php/insertDescription.php', fetchPropsDescribtion)
-                    .then(fetchResponse => {
-                        const { status, data } = fetchResponse;
-
-                        if (status >= 200 && status < 300) {
-
-                        } else {
-
-                            console.error(fetchResponse);
-                        }
-                    });
-
-
-
-
-                console.log("Funziona");
-            } else {
-                const fiedsList = wrapper.menagerWrapper.querySelectorAll('.data-entry');
-
-                fiedsList.forEach(filed => {
-                    if (filed.classList.contains('data-wrong') && filed.value === null) {
-                        filed.classList.toggle('data-wrong', true);
-                    } else if (!(filed.classList.contains('data-wrong')) && !(filed.classList.contains('data-valid')) && !(filed.classList.contains('data-output')) && !(filed.classList.contains('optional'))) {
-                        filed.classList.toggle('data-wrong', true);
+                    } else {
+                        console.error(fetchResponse);
                     }
                 });
-            }
         };
         const handlerModalContent = (e) => {
             const { content } = e.detail;
-            console.log("Heeko");
             console.log(content);
-
-
         };
         const cancelBtn = document.querySelector('.cancel');
 
 
         cancelBtn.addEventListener('click', () => {
-            location.href = "../index.html";
+            let statusModalWindow = "cancel";
+            const modelWindow = new ModelWindow(wrapper.menagerWrapper, PrenotationModalWindow, statusModalWindow)
+            modelWindow.init();
+
+            const data = {
+                idx: getParam(window, 'idx'),
+                idxStatus: '2',
+            }
+
+            UtilFetch.postData('/src/utils/php/updatePrenotationEventStatus.php', data)
+                .then(fetchResponse => {
+                    const { status, data } = fetchResponse;
+                    if (status >= 200 && status < 300) {
+
+                    } else {
+
+                        console.error(fetchResponse);
+                    }
+                });
         });
 
         wrapper.menagerWrapper.addEventListener('content-data', (e) => { handlerModalContent(e) });
     }
 
 }
-if (result === 'user') {
+if (result === 'user' || !result) {
     const animalComponent = new ManageWrapper(wrapper.menagerWrapper, Animal.list, Animal.title);
     animalComponent.init();
 
@@ -288,7 +271,7 @@ if (result === 'user') {
             luogoDiNascita,
             luogoDiResodenza,
             chipIdentificativo,
-            tipoAnimale: parseInt(tipoAnimale) + 1,
+            tipoAnimale: parseInt(tipoAnimale) ,
         };
 
         const fetchPropsPerson = {
@@ -315,6 +298,7 @@ if (result === 'user') {
                     const { status, data } = fetchResponse;
 
                     idxAnimal = data.new_animal_id;
+                    console.log(idxAnimal);
 
                     if (status >= 200 && status < 300) {
 
@@ -330,6 +314,7 @@ if (result === 'user') {
                     const { status, data } = fetchResponse;
 
                     idxPerson = data.new_person_id;
+                    console.log(idxPerson);
 
                     if (status >= 200 && status < 300) {
 
@@ -346,8 +331,10 @@ if (result === 'user') {
                 tipodisimptome,
                 describtion,
                 diagnosiVisit,
-                priceVisit,
+                priceVisit
             };
+
+
 
             await UtilFetch.postData('/src/utils/php/insertDescription.php', fetchPropsDescribtion)
                 .then(fetchResponse => {
@@ -361,7 +348,21 @@ if (result === 'user') {
                     }
                 });
 
-            console.log("Funziona");
+            const data = {
+                idx: getParam(window, 'idx'),
+                idxStatus: '4',
+            }
+
+            await UtilFetch.postData('/src/utils/php/updatePrenotationEventStatus.php', data)
+                .then(fetchResponse => {
+                    const { status, data } = fetchResponse;
+                    if (status >= 200 && status < 300) {
+
+                    } else {
+
+                        console.error(fetchResponse);
+                    }
+                });
         } else {
             const fiedsList = wrapper.menagerWrapper.querySelectorAll('.data-entry');
 
@@ -376,21 +377,32 @@ if (result === 'user') {
     };
     const handlerModalContent = (e) => {
         const { content } = e.detail;
-        console.log("Heeko");
-        console.log(content);
-
-
     };
     const cancelBtn = document.querySelector('.cancel');
 
 
     cancelBtn.addEventListener('click', () => {
         location.href = "../index.html";
+        const data = {
+            idx: getParam(window, 'idx'),
+            idxStatus: '2',
+        }
+
+        UtilFetch.postData('/src/utils/php/updatePrenotationEventStatus.php', data)
+            .then(fetchResponse => {
+                const { status, data } = fetchResponse;
+                if (status >= 200 && status < 300) {
+
+                } else {
+
+                    console.error(fetchResponse);
+                }
+            });
     });
 
     wrapper.menagerWrapper.addEventListener('content-data', (e) => { handlerModalContent(e) });
-}
 
+}
 
 
 function checkBooleanArray(boolArray) {
@@ -432,7 +444,7 @@ function checkPermission() {
     }
 
     // Permission cookie not found
-    return 'Sorry, you do not have permission to access this page.';
+    return false;
 }
 
 const header = new Header(wrapper.header, props.header);

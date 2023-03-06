@@ -86,7 +86,6 @@ class Field {
             </div>
         `;
         }
-        console.log(this.props);
         if (inputType === 'textarea' && classNameSecond === 'conclusionnDoctor') {
             return `
             <div class="conclussion-doctor">
@@ -103,6 +102,7 @@ class Field {
 
 
     initSelect() {
+        
         return `
         <select class="${this.props.className} animalType" ${this.props.required} required>
             ${createOptions(this.props.option, this.props.value)}

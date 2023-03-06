@@ -1,10 +1,10 @@
 class ModelWindow {
-    constructor(parent, props,statusModalWindow) {
+    constructor(parent, props, statusModalWindow) {
         this.parentElement = parent;
         this.props = props;
         this.statusModalWindow = statusModalWindow,
 
-        this.template;
+            this.template;
         this.elements = {};
     }
 
@@ -19,7 +19,7 @@ class ModelWindow {
         this.elements = {
             btnConfirm: this.template.querySelector('button#confirm'),
             btnCancel: this.template.querySelector('button#cancel'),
-            content: this.template.querySelector('#content'),
+            content: this.template.querySelector('.content'),
             describtion: this.template.querySelector('.cancel-prenotation'),
         };
 
@@ -27,38 +27,36 @@ class ModelWindow {
     }
 
     getDescribtionData() {
-        this.elements.confirmPrenotation.addEventListener('click', () => {
-
-            if (!(this.elements.describtion.value)) {
-                this.elements.describtion.classList.toggle('data-wrong', true);
-            }
-            if (this.elements.describtion.value) {
-                this.elements.describtion.classList.toggle('data-wrong', false);
-            }
-        })
-
         return this.elements.describtion.value;
     }
 
     initEventListeners() {
+
         this.elements.btnConfirm && this.elements.btnConfirm.addEventListener('click', () => { this.handlerConfirm() });
         this.elements.btnCancel && this.elements.btnCancel.addEventListener('click', () => { this.handlerCancel() });
     }
 
     handlerConfirm() {
         let content;
+        let isValidate;
 
         if (this.elements.content) {
             content = this.elements.content.value;
+            this.elements.content.classList.toggle('data-wrong',false);
         }
 
         if (!this.elements.content) {
+            console.log("Close");
             this.clouse();
             return;
         }
 
+        this.elements.content.classList.toggle('data-valid',true);
+
         content = this.elements.content.value;
         if (!this.validateText(content)) {
+            console.log("VALIDATE");
+            this.elements.content.classList.toggle('data-wrong',true);
             return;
         }
 
@@ -142,7 +140,7 @@ class ModelWindow {
                         <div class="wrapper-data-prenotation-cancel">
                             <div> <h4>Motivazione: </h4></div>
                             <div>
-                                <textarea id="content" class="cancel-prenotation" cols="30" rows="10"></textarea>
+                                <textarea class="content" class="cancel-prenotation" cols="30" rows="10"></textarea>
                             </div>
                         </div>
                     </div>
@@ -161,6 +159,7 @@ class ModelWindow {
         let resp = '';
 
         this.props.list.forEach(element => {
+            
 
             if (element.title === 'Date') {
                 resp += `

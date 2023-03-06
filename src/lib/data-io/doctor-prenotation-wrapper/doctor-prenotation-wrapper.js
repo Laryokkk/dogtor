@@ -21,17 +21,19 @@ class DoctorPrenotationWrapper {
 
     initElements() {
         this.template = this.initTemplate(this.props);
-
+    
         this.elements = {
             applyBtn: this.template.querySelector('.apply'),
             cancelBtn: this.template.querySelector('.cancel'),
             fieldWrapperCom: this.template.querySelector('.wrapper-data-prenotation-doctor')
         };
-
+    
         this.parentElement.appendChild(this.template);
-
-        this.templateField = this.initFieldComponent();
+    
+        this.initField();
+        this.initFieldPrezzoDoctor();
     }
+    
 
     initField() {
         this.props.forEach(props => {
@@ -66,7 +68,9 @@ class DoctorPrenotationWrapper {
 
     initTemplate() {
         const parser = new DOMParser();
-        const templateString = `
+        let templateString;
+        if (this.doctorTittle) {
+            templateString = `
         <div class="prenotation-visit-doctor">
         <h4 class="text-accent">${this.doctorTittle}</h4>
             <div class="wrapper-content-dottore">
@@ -76,26 +80,61 @@ class DoctorPrenotationWrapper {
                     <button class="apply" type="submit">
                         <h4 class="see-visit-text">Apply</h4>
                     </button>
-                    <button class="cancel">
+                    <button class="cancel btn-doctor">
                         <h4 class="see-visit-text">Cancel</h4>
                     </button>
                 </div>
             </div>
         </div>`;
+        } else {
+            templateString = `
+            <div class="prenotation-visit-doctor">
+                <div class="wrapper-content-dottore">
+                    <div class="wrapper-data-prenotation-doctor">
+                    </div>
+                    <div class="wrapper-btns">
+                        <button class="apply" type="submit">
+                            <h4 class="see-visit-text">Apply</h4>
+                        </button>
+                        <button class="cancel">
+                            <h4 class="see-visit-text">Cancel</h4>
+                        </button>
+                    </div>
+                </div>
+            </div>`;
+        }
         const templateElement = parser.parseFromString(templateString, 'text/html');
         return templateElement.documentElement.querySelector("body> .prenotation-visit-doctor");
     }
 
     initFieldComponent() {
-
+        let templateString;
         const parser = new DOMParser();
-        const templateString = ` 
-        <div class="wrapper-data-prenotation-doctor">
-            ${this.initField()}
-            ${this.initFieldPrezzoDoctor()}
-        </div>`;
+        if (this.doctorTittle) {
+             templateString = ` 
+            <div class="wrapper-data-prenotation-doctor">
+                ${this.initField()}
+                ${this.initFieldPrezzoDoctor()}
+            </div>`;
+        }else{
+            templateString = ` 
+            <div class="wrapper-data-prenotation-doctor">
+                ${this.initField()}
+            </div>`;
+        }
         const templateElement = parser.parseFromString(templateString, 'text/html');
         return templateElement.documentElement.querySelector("body> .wrapper-data-prenotation-doctor");
+    }
+
+    isValid() {
+        const isValidArray = [];
+    
+        this.listFileds.forEach(filed => { 
+            
+            isValidArray.push(filed.isValid);
+        });
+    
+        return isValidArray;
     }
 }
 

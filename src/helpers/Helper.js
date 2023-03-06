@@ -3,10 +3,48 @@ import UtilFetch from "/src/utils/util-fetch.js";
 import { getParam } from "../utils/util-params.js";
 
 
-const data = {
-    idPermission: 4
+/*
+SELECT animal.name_animal,animal.birthday_animal ,animal.birthday_place_animal, animal.residenze_place_animal , animal.chip_animal, animal.idx_type_animal, person.name_person,person.lastname_person,person.codice_fiscale_person,person.tel_person,person.tel_2_person,person.email_person ,visit_event.description_visit,visit_event.diagnosis_visit,visit_event.note_visit,visit_event.price_visit, visit_event.idx_symptoms_visit FROM `visit_event` INNER JOIN animal ON visit_event.idx_animal = animal.idx INNER JOIN person ON visit_event.idx_person = person.idx WHERE visit_event.idx=8;
+*/
 
+
+const data = {
+    idPermission: getParam(window, "idx")
 };
+
+async function getPrenotationData() {
+    const prenotationData = {};
+
+    await UtilFetch.postData('/src/utils/php/getPrenotationData.php', data)
+        .then(fetchResponse => {
+            const { status, data } = fetchResponse;
+
+            if (status >= 200 && status < 300) {
+                
+                data.forEach(props => {
+                    prenotationData.birthday_animal = props.birthday_animal;
+                    prenotationData.birthday_place_animal = props.birthday_place_animal;
+                    prenotationData.chip_animal = props.chip_animal;
+                    prenotationData.codice_fiscale_person = props.codice_fiscale_person;
+                    prenotationData.description_visit = props.description_visit;
+                    prenotationData.email_person = props.email_person;
+                    prenotationData.idx_symptoms_visit = props.idx_symptoms_visit;
+                    prenotationData.idx_type_animal = props.idx_type_animal;
+                    prenotationData.lastname_person = props.lastname_person;
+                    prenotationData.name_animal = props.name_animal;
+                    prenotationData.name_person = props.name_person;
+                    prenotationData.residenze_place_animal = props.residenze_place_animal;
+                    prenotationData.tel_2_person = props.tel_2_person;
+                    prenotationData.tel_person = props.tel_person;
+                });
+            } else {
+                console.error('Error in getParks fetch!');
+                console.error(fetchResponse);
+            }
+        });
+
+    return prenotationData;
+}
 
 async function getPrenotationDoctor() {
     const doctorData = {};
@@ -16,13 +54,15 @@ async function getPrenotationDoctor() {
             const { status, data } = fetchResponse;
 
             if (status >= 200 && status < 300) {
-                if (data) {
-                    data.forEach(props => {
-                        doctorData.time_start_prenotation = props.time_start_prenotation;
-                        doctorData.time_end_prenotation = props.time_end_prenotation;
-                        doctorData.name = props.name;
-                    });   
-                }
+                
+                data.forEach(props => {
+
+                    
+
+                    doctorData.time_start_prenotation = props.time_start_prenotation;
+                    doctorData.time_end_prenotation = props.time_end_prenotation;
+                    doctorData.name = props.name;
+                });
             } else {
                 console.error('Error in getParks fetch!');
                 console.error(fetchResponse);
@@ -30,56 +70,6 @@ async function getPrenotationDoctor() {
         });
 
     return doctorData;
-}
-
-async function getDataAnimal() {
-    const animalData = {};
-
-    await UtilFetch.postData('/src/utils/php/getAnimalData.php', data)
-        .then(fetchResponse => {
-            const { status, data } = fetchResponse;
-
-            if (status >= 200 && status < 300) {
-                data.forEach(props => {
-                    animalData.name = props.name_animal;
-                    animalData.dataDiNascita = props.birthday_animal;
-                    animalData.luogoDiNascita = props.birthday_place_animal;
-                    animalData.luogoDiResidenza = props.residenze_place_animal;
-                    animalData.chipIdentificativo = props.chip_animal;
-                    animalData.typeAnimal = props.idx_type_animal;
-                });
-            } else {
-                console.error('Error in getParks fetch!');
-                console.error(fetchResponse);
-            }
-        });
-
-    return animalData;
-}
-
-async function getPersonData() {
-    const personlData = {};
-
-    await UtilFetch.postData('/src/utils/php/getPersonData.php', data)
-        .then(fetchResponse => {
-            const { status, data } = fetchResponse;
-
-            if (status >= 200 && status < 300) {
-                data.forEach(props => {
-                    personlData.name = props.name_person;
-                    personlData.lastname_person = props.lastname_person;
-                    personlData.codice_fiscale_person = props.codice_fiscale_person;
-                    personlData.tel_person = props.tel_person;
-                    personlData.tel_2_person = props.tel_2_person;
-                    personlData.email_person = props.email_person;
-                });
-            } else {
-                console.error('Error in getParks fetch!');
-                console.error(fetchResponse);
-            }
-        });
-
-    return personlData;
 }
 
 async function getDescribtionData() {
@@ -102,80 +92,6 @@ async function getDescribtionData() {
 
     return describtionData;
 }
-
-const getStartTime = array => {
-    const date = new Date(array.time_start_prenotation);
-    const formattedTime = date.toLocaleTimeString('eu-EU', { hour: '2-digit', minute: '2-digit' });
-    return formattedTime
-}
-
-const getEndtTime = array => {
-    const date = new Date(array.time_end_prenotation);
-    const formattedTime = date.toLocaleTimeString('eu-EU', { hour: '2-digit', minute: '2-digit' });
-    return formattedTime
-}
-
-const getNameDoctor = array => {
-    return array.name
-}
-
-const getDescribtion = array => {
-    return array.description_visit
-}
-
-const getSiptomi = array => {
-    return array.idx_symptoms_visit
-}
-
-const getAnimalName = array => {
-    return array.name
-}
-
-const getAnimalDataDiNascita = array => {
-    const date = new Date(array.dataDiNascita);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-};
-
-const getAnimalLuogoDiNascita = array => {
-    return array.luogoDiNascita
-}
-
-const getAnimalLuogoDiResidenza = array => {
-    return array.luogoDiResidenza
-}
-
-const getAnimalChipIdentificativo = array => {
-    return array.chipIdentificativo
-}
-
-const getAnimalTypeAnimal = array => {
-    console.log(array.typeAnimal);
-    return array.typeAnimal
-}
-
-const getPersonlTel_person = array => {
-    return array.tel_person
-}
-
-const getPersonlLastname_person = array => {
-    return array.lastname_person
-}
-
-const getPersonlCodice_fiscale_person = array => {
-    return array.codice_fiscale_person
-}
-
-const getPersonlTel_2_person = array => {
-    return array.tel_2_person
-}
-
-const getPersonlEmail_person = array => {
-    return array.email_person
-}
-
 
 async function getAnimalType() {
     const animalTypes = [];
@@ -221,6 +137,80 @@ async function getAnimalSick() {
     return animalTypes;
 }
 
+const getStartTime = array => {
+    const date = new Date(array.time_start_prenotation);
+    const formattedTime = date.toLocaleTimeString('eu-EU', { hour: '2-digit', minute: '2-digit' });
+    return formattedTime
+}
+
+const getEndtTime = array => {
+    const date = new Date(array.time_end_prenotation);
+    const formattedTime = date.toLocaleTimeString('eu-EU', { hour: '2-digit', minute: '2-digit' });
+    return formattedTime
+}
+
+const getNameDoctor = array => {
+    return array.name
+}
+
+const getDescribtion = array => {
+    return array.description_visit
+}
+
+const getSiptomi = array => {
+    return array.idx_symptoms_visit
+}
+
+
+const getAnimalName = array => {
+    return array.name_animal
+}
+
+const getAnimalDataDiNascita = array => {
+    const date = new Date(array.birthday_animal);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+};
+
+const getAnimalLuogoDiNascita = array => {
+    return array.birthday_place_animal
+}
+
+const getAnimalLuogoDiResidenza = array => {
+    return array.residenze_place_animal
+}
+
+const getAnimalChipIdentificativo = array => {
+    return array.chip_animal
+}
+
+const getAnimalTypeAnimal = array => {
+    return array.idx_type_animal
+}
+
+const getPersonlTel_person = array => {
+    return array.tel_person
+}
+
+const getPersonlLastname_person = array => {
+    return array.lastname_person
+}
+
+const getPersonlCodice_fiscale_person = array => {
+    return array.codice_fiscale_person
+}
+
+const getPersonlTel_2_person = array => {
+    return array.tel_2_person
+}
+
+const getPersonlEmail_person = array => {
+    return array.email_person
+}
+
+
 const validateSelect = selectElement => {
     if (selectElement.selectedIndex === 0) {
         return false;
@@ -228,6 +218,11 @@ const validateSelect = selectElement => {
 
     return true;
 };
+
+function validateNumberInput(input) {
+    const regex = /^[0-9]+$/;
+    return regex.test(input);
+  }
 
 const validateText = (text) => {
     const textToValidate = text.toString().replace(/^\s+/, '');
@@ -274,6 +269,14 @@ function isNumeric(str) {
     return regex.test(str);
 }
 
+function formatDateWithoutTime(dateTimeString) {
+    const date = new Date(dateTimeString.time_end_prenotation);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
 const History = {
     idx: 1,
     list: [
@@ -300,15 +303,14 @@ const History = {
     ],
 };
 
-const Person = {
+const PersonGetData={
     title: 'Accompagnatore',
     list: [
         {
             key: crypto.randomUUID(),
             title: 'Nome',
-
             inputType: 'text',
-            value: getPersonlLastname_person(await getPersonData()),
+            value: getPersonlLastname_person(await getPrenotationData()),
             maxLenght: 20,
             required: 'required',
             className: 'data-entry',
@@ -318,7 +320,7 @@ const Person = {
             key: crypto.randomUUID(),
             title: 'Cognome',
             inputType: 'text',
-            value: getPersonlLastname_person(await getPersonData()),
+            value: getPersonlLastname_person(await getPrenotationData()),
             maxLenght: 20,
             required: 'required',
             className: 'data-entry',
@@ -327,7 +329,7 @@ const Person = {
         {
             key: crypto.randomUUID(),
             title: 'Codice Fiscale',
-            value: getPersonlCodice_fiscale_person(await getPersonData()),
+            value: getPersonlCodice_fiscale_person(await getPrenotationData()),
             inputType: 'text',
             maxLenght: 16,
             minLenght: 16,
@@ -339,7 +341,7 @@ const Person = {
         {
             key: crypto.randomUUID(),
             title: 'Numero di Telefono',
-            value: getPersonlTel_person(await getPersonData()),
+            value: getPersonlTel_person(await getPrenotationData()),
             className: 'data-entry',
             inputType: 'tel',
             maxLenght: 10,
@@ -351,7 +353,7 @@ const Person = {
         {
             key: crypto.randomUUID(),
             title: 'Numero di Telefono',
-            value: getPersonlTel_2_person(await getPersonData()),
+            value: getPersonlTel_2_person(await getPrenotationData()),
             className: 'data-entry optional',
             inputType: 'tel',
             maxLenght: 10,
@@ -362,7 +364,172 @@ const Person = {
         },
         {
             key: crypto.randomUUID(),
-            value: getPersonlEmail_person(await getPersonData()),
+            value: getPersonlEmail_person(await getPrenotationData()),
+            className: 'data-entry',
+            title: 'Email',
+            maxLenght: 30,
+            placeHolder: 'topolino@gmail.com',
+            inputType: 'email',
+            required: 'required',
+            validate: (value) => { return validateEmail(value) },
+        },
+    ],
+}
+
+const DescriptionGetData = {
+    title: 'Description',
+    list: [
+        {
+            key: crypto.randomUUID(),
+            title: 'Descrizione',
+            inputType: 'textarea',
+            value: getDescribtion(await getPrenotationData()) ,
+            className: 'data-entry',
+            required: 'required',
+            validate: (value) => { return validateText(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Tipo di simptome',
+            inputType: 'selector',
+            option: await getAnimalSick(),
+            value:getSiptomi(await getPrenotationData()),
+            className: 'data-entry selectType',
+            required: 'required',
+            validate: (value) => { return validateSelect(value) },
+        },
+    ]
+};
+
+const AnimalGetData = {
+    title: 'Animal',
+    list: [
+        {
+            key: crypto.randomUUID(),
+            title: 'Nome',
+            value: getAnimalName(await getPrenotationData()),
+            maxLenght: 20,
+            className: 'data-entry',
+            inputType: 'text',
+            required: 'required',
+            validate: (value) => { return validateText(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Data di Nascita',
+            value: getAnimalDataDiNascita(await getPrenotationData()),
+            className: 'data-entry',
+            inputType: 'date',
+            required: 'required',
+            validate: (value) => { return isValidBirthdayDate(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Luogo di Nascita',
+            value: getAnimalLuogoDiNascita(await getPrenotationData()),
+            maxLenght: 20,
+            className: 'data-entry',
+            inputType: 'text',
+            required: 'required',
+            validate: (value) => { return validateText(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Luogo di Residenza',
+            value: getAnimalLuogoDiResidenza(await getPrenotationData()),
+            maxLenght: 20,
+            className: 'data-entry',
+            inputType: 'text',
+            required: 'required',
+            validate: (value) => { return validateText(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Chip Identificativo',
+            value: getAnimalChipIdentificativo(await getPrenotationData()),
+            maxLenght: 15,
+            className: 'data-entry',
+            inputType: 'number',
+            placeHolder: 'max 15 number',
+            required: 'required',
+            validate: (value) => { return isNumeric(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Tipo di animale',
+            inputType: 'selector',
+            value: getAnimalTypeAnimal(await getPrenotationData()),
+            option: await getAnimalType(),
+            className: 'data-entry selectType',
+            required: 'required',
+            validate: (value) => { return validateSelect(value) },
+        },
+    ],
+};
+
+
+const Person = {
+    title: 'Accompagnatore',
+    list: [
+        {
+            key: crypto.randomUUID(),
+            title: 'Nome',
+            inputType: 'text',
+            value:'',
+            maxLenght: 20,
+            required: 'required',
+            className: 'data-entry',
+            validate: (value) => { return validateText(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Cognome',
+            inputType: 'text',
+            value: '',
+            maxLenght: 20,
+            required: 'required',
+            className: 'data-entry',
+            validate: (value) => { return validateText(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Codice Fiscale',
+            value: '',
+            inputType: 'text',
+            maxLenght: 16,
+            minLenght: 16,
+            placeHolder: 'RSSMRA70A01H501W',
+            required: 'required',
+            className: 'data-entry',
+            validate: (value) => { return true },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Numero di Telefono',
+            value: '',
+            className: 'data-entry',
+            inputType: 'tel',
+            maxLenght: 10,
+            minLenght: 10,
+            required: 'required',
+            placeHolder: '+39 329 467 3745',
+            validate: (value) => { return isValidPhoneNumber(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Numero di Telefono',
+            value: '',
+            className: 'data-entry optional',
+            inputType: 'tel',
+            maxLenght: 10,
+            minLenght: 10,
+            required: '',
+            placeHolder: 'Facoltativo',
+            validate: (value) => { return isValidPhoneNumberOptional(value) },
+        },
+        {
+            key: crypto.randomUUID(),
+            value:'',
             className: 'data-entry',
             title: 'Email',
             maxLenght: 30,
@@ -381,7 +548,7 @@ const Description = {
             key: crypto.randomUUID(),
             title: 'Descrizione',
             inputType: 'textarea',
-            value: getDescribtion(await getDescribtionData()),
+            value: '',///* getDescribtion(await getDescribtionData()) */
             className: 'data-entry',
             required: 'required',
             validate: (value) => { return validateText(value) },
@@ -391,7 +558,7 @@ const Description = {
             title: 'Tipo di simptome',
             inputType: 'selector',
             option: await getAnimalSick(),
-            value: '',
+            value:'',// getSiptomi(await getDescribtionData())
             className: 'data-entry selectType',
             required: 'required',
             validate: (value) => { return validateSelect(value) },
@@ -399,14 +566,13 @@ const Description = {
     ]
 };
 
-
 const Animal = {
     title: 'Animal',
     list: [
         {
             key: crypto.randomUUID(),
             title: 'Nome',
-            value: getAnimalName(await getDataAnimal()),
+            value: '',//getAnimalName(await getDataAnimal())
             maxLenght: 20,
             className: 'data-entry',
             inputType: 'text',
@@ -416,7 +582,7 @@ const Animal = {
         {
             key: crypto.randomUUID(),
             title: 'Data di Nascita',
-            value: getAnimalDataDiNascita(await getDataAnimal()),
+            value: '',//getAnimalDataDiNascita(await getDataAnimal())
             className: 'data-entry',
             inputType: 'date',
             required: 'required',
@@ -425,7 +591,7 @@ const Animal = {
         {
             key: crypto.randomUUID(),
             title: 'Luogo di Nascita',
-            value: getAnimalLuogoDiNascita(await getDataAnimal()),
+            value: '',//getAnimalLuogoDiNascita(await getDataAnimal())
             maxLenght: 20,
             className: 'data-entry',
             inputType: 'text',
@@ -435,7 +601,7 @@ const Animal = {
         {
             key: crypto.randomUUID(),
             title: 'Luogo di Residenza',
-            value: getAnimalLuogoDiResidenza(await getDataAnimal()),
+            value: '',//getAnimalLuogoDiResidenza(await getDataAnimal())
             maxLenght: 20,
             className: 'data-entry',
             inputType: 'text',
@@ -445,7 +611,7 @@ const Animal = {
         {
             key: crypto.randomUUID(),
             title: 'Chip Identificativo',
-            value: getAnimalChipIdentificativo(await getDataAnimal()),
+            value: '',//getAnimalChipIdentificativo(await getDataAnimal())
             maxLenght: 15,
             className: 'data-entry',
             inputType: 'number',
@@ -457,7 +623,7 @@ const Animal = {
             key: crypto.randomUUID(),
             title: 'Tipo di animale',
             inputType: 'selector',
-            value: getAnimalTypeAnimal(await getDataAnimal()),
+            value: '',//getAnimalTypeAnimal(await getDataAnimal())
             option: await getAnimalType(),
             className: 'data-entry selectType',
             required: 'required',
@@ -603,10 +769,10 @@ const priceDoctor = {
             key: crypto.randomUUID(),
             title: 'Prezzo',
             inputType: 'number',
-            value: getDescribtion(await getDescribtionData()),
+            value: '',
             className: 'data-entry',
             required: 'required',
-            validate: (value) => { return isValidPhoneNumber(value) },
+            validate: (value) => { return validateNumberInput(value) },
         },
     ]
 };
@@ -618,7 +784,7 @@ const conclusionnDoctor = {
             key: crypto.randomUUID(),
             title: 'Diagnosi',
             inputType: 'textarea',
-            value: getDescribtion(await getDescribtionData()),
+            value: '',
             className: 'data-entry',
             classNameSecond: 'conclusionnDoctor',
             required: 'required',
@@ -628,7 +794,7 @@ const conclusionnDoctor = {
             key: crypto.randomUUID(),
             title: 'Nota',
             inputType: 'textarea',
-            value: getDescribtion(await getDescribtionData()),
+            value: '',
             className: 'data-entry',
             classNameSecond: 'conclusionnDoctor',
             required: 'required',
@@ -637,8 +803,6 @@ const conclusionnDoctor = {
     ]
 };
 
-
-
 const PrenotationModalWindow = {
     title: '',
     modalType: 'confirm',
@@ -646,7 +810,7 @@ const PrenotationModalWindow = {
         {
             key: crypto.randomUUID(),
             title: 'Date',
-            value: '27/04/2024',
+            value: formatDateWithoutTime(await getPrenotationDoctor()),
             className: 'prenotation-data',
         },
         {
@@ -658,7 +822,7 @@ const PrenotationModalWindow = {
         {
             key: crypto.randomUUID(),
             title: 'Time',
-            value: '15:00',
+            value: getStartTime(await getPrenotationDoctor()),
             className: 'prenotation-data',
         },
     ]
@@ -717,5 +881,5 @@ const initSourceCB = async () => {
     return response;
 };
 
-export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow, CancelModalWindow, initSourceCB, History ,descibtionDoctor,conclusionnDoctor,priceDoctor};
+export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow, CancelModalWindow, initSourceCB, History, descibtionDoctor, conclusionnDoctor, priceDoctor,PersonGetData ,AnimalGetData,DescriptionGetData};
 

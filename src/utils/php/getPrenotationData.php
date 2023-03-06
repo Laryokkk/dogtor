@@ -9,7 +9,7 @@ $data = json_decode($json);
 $permition = $data -> idPermission;
 
 // Call the stored procedure
-$stmt = $conn->prepare('CALL get_prenotation(?)');
+$stmt = $conn->prepare('CALL get_prenotation_data(?)');
 $stmt->bind_param('i', $permition);
 $stmt->execute();
 
