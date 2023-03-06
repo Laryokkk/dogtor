@@ -2,8 +2,11 @@
 $json = file_get_contents('php://input');
 $data = json_decode($json);
 
+$diagnosi = $data -> diagnosi;
+$nota = $data -> nota;
+$prezzo = $data -> prezzo;
 $idx = $data -> idx;
-$idx_status = $data -> idxStatus;
+
 
 $response = array();
 
@@ -17,7 +20,7 @@ if (!$stmt) {
     echo json_encode($response);
     exit;
 }
-$stmt->bind_param('ii', $idx, $idx_status);
+$stmt->bind_param('ssii', $diagnosi, $nota,$prezzo,$idx);
 $stmt->execute();
 
 $response = array(

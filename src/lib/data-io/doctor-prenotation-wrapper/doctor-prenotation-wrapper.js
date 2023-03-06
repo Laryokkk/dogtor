@@ -20,7 +20,9 @@ class DoctorPrenotationWrapper {
     }
 
     initElements() {
-        this.template = this.initTemplate(this.props);
+        this.template = this.initTemplate(this.props,this.propsPriceDoctor);
+
+        console.log(this.template);
     
         this.elements = {
             applyBtn: this.template.querySelector('.apply'),
@@ -36,24 +38,33 @@ class DoctorPrenotationWrapper {
     
 
     initField() {
+        this.listFileds = [];
+    
         this.props.forEach(props => {
             const fieldWrapper = new Field(this.elements.fieldWrapperCom, props)
             fieldWrapper.init();
             const el = fieldWrapper.render();
             this.elements.fieldWrapperCom.appendChild(el);
+    
+            this.listFileds.push(fieldWrapper);
         });
     }
-
+    
     initFieldPrezzoDoctor() {
+        this.listPriceFields = [];
+    
         if (this.propsPriceDoctor) {
             this.propsPriceDoctor.forEach(props => {
                 const fieldWrapper = new Field(this.elements.fieldWrapperCom, props)
                 fieldWrapper.init();
                 const el = fieldWrapper.render();
                 this.elements.fieldWrapperCom.appendChild(el);
+    
+                this.listPriceFields.push(fieldWrapper);
             });
         }
     }
+    
 
     initEventListeners() {
         this.elements.applyBtn.addEventListener('click', (e) => this.handlerApply(e));
@@ -68,6 +79,7 @@ class DoctorPrenotationWrapper {
 
     initTemplate() {
         const parser = new DOMParser();
+        console.log(this.propsPriceDoctor);
         let templateString;
         if (this.doctorTittle) {
             templateString = `
@@ -128,14 +140,20 @@ class DoctorPrenotationWrapper {
 
     isValid() {
         const isValidArray = [];
-    
-        this.listFileds.forEach(filed => { 
-            
-            isValidArray.push(filed.isValid);
+      
+        this.listFileds.forEach(field => {
+            isValidArray.push(field.isValid());
         });
+    
+        if (this.listPriceFields) {
+            this.listPriceFields.forEach(field => {
+                isValidArray.push(field.isValid());
+            });
+        }
     
         return isValidArray;
     }
+    
 }
 
 export default DoctorPrenotationWrapper;

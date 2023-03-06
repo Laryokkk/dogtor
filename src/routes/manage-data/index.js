@@ -39,6 +39,7 @@ if (result === 'doctor') {
     prenotationDoctorComponent.init();
 
     console.log(prenotationDoctorComponent.props);
+    console.log(prenotationDoctorComponent.propsPriceDoctor);
   /*   console.log(priceDoctor.list); */
 
 
@@ -57,22 +58,23 @@ if (result === 'doctor') {
             } = prenotationDoctorComponent.props;
 
             const {
-                3: { value: prezzo, },
-            } = prenotationDoctorComponent.props;
+                0: { value: prezzo, },
+            } = prenotationDoctorComponent.propsPriceDoctor;
 
 
             const fetchPropsDoctor = {
                 diagnosi,
                 nota,
                 prezzo,
+                idx: getParam(window, 'idx'),
             };
+
+            console.log(fetchPropsDoctor);
 
 
             await UtilFetch.postData('/src/utils/php/updateDoctorData.php', fetchPropsDoctor)
                 .then(fetchResponse => {
                     const { status, data } = fetchResponse;
-
-
                     if (status >= 200 && status < 300) {
 
                     } else {
