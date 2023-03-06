@@ -20,7 +20,7 @@ if (!$stmt) {
     echo json_encode($response);
     exit;
 }
-$stmt->bind_param('ssii', $diagnosi, $nota,$prezzo,$idx);
+$stmt->bind_param('isss', $idx, $diagnosi, $nota,$prezzo);
 $stmt->execute();
 
 $response = array(
