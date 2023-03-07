@@ -11,6 +11,8 @@ class DoctorPrenotationWrapper {
 
         this.template;
         this.elements = {};
+        this.listFileds = [];
+        this.listPriceFields = [];
         this.doctorTittle = doctorTittle
     }
 
@@ -20,51 +22,47 @@ class DoctorPrenotationWrapper {
     }
 
     initElements() {
-        this.template = this.initTemplate(this.props,this.propsPriceDoctor);
+        this.template = this.initTemplate(this.props, this.propsPriceDoctor);
 
         console.log(this.template);
-    
+
         this.elements = {
             applyBtn: this.template.querySelector('.apply'),
             cancelBtn: this.template.querySelector('.cancel'),
             fieldWrapperCom: this.template.querySelector('.wrapper-data-prenotation-doctor')
         };
-    
+
         this.parentElement.appendChild(this.template);
-    
+
         this.initField();
         this.initFieldPrezzoDoctor();
     }
-    
+
 
     initField() {
-        this.listFileds = [];
-    
         this.props.forEach(props => {
             const fieldWrapper = new Field(this.elements.fieldWrapperCom, props)
             fieldWrapper.init();
             const el = fieldWrapper.render();
             this.elements.fieldWrapperCom.appendChild(el);
-    
+
             this.listFileds.push(fieldWrapper);
         });
     }
-    
+
     initFieldPrezzoDoctor() {
-        this.listPriceFields = [];
-    
         if (this.propsPriceDoctor) {
             this.propsPriceDoctor.forEach(props => {
                 const fieldWrapper = new Field(this.elements.fieldWrapperCom, props)
                 fieldWrapper.init();
                 const el = fieldWrapper.render();
                 this.elements.fieldWrapperCom.appendChild(el);
-    
+
                 this.listPriceFields.push(fieldWrapper);
             });
         }
     }
-    
+
 
     initEventListeners() {
         this.elements.applyBtn.addEventListener('click', (e) => this.handlerApply(e));
@@ -79,7 +77,7 @@ class DoctorPrenotationWrapper {
 
     initTemplate() {
         const parser = new DOMParser();
-        console.log(this.propsPriceDoctor);
+        
         let templateString;
         if (this.doctorTittle) {
             templateString = `
@@ -91,9 +89,6 @@ class DoctorPrenotationWrapper {
                 <div class="wrapper-btns">
                     <button class="apply" type="submit">
                         <h4 class="see-visit-text">Apply</h4>
-                    </button>
-                    <button class="cancel btn-doctor">
-                        <h4 class="see-visit-text">Cancel</h4>
                     </button>
                 </div>
             </div>
@@ -123,12 +118,12 @@ class DoctorPrenotationWrapper {
         let templateString;
         const parser = new DOMParser();
         if (this.doctorTittle) {
-             templateString = ` 
+            templateString = ` 
             <div class="wrapper-data-prenotation-doctor">
                 ${this.initField()}
                 ${this.initFieldPrezzoDoctor()}
             </div>`;
-        }else{
+        } else {
             templateString = ` 
             <div class="wrapper-data-prenotation-doctor">
                 ${this.initField()}
@@ -140,20 +135,19 @@ class DoctorPrenotationWrapper {
 
     isValid() {
         const isValidArray = [];
-      
+
         this.listFileds.forEach(field => {
-            isValidArray.push(field.isValid());
+            isValidArray.push(field.isValid);
         });
-    
-        if (this.listPriceFields) {
-            this.listPriceFields.forEach(field => {
-                isValidArray.push(field.isValid());
-            });
-        }
-    
+
+        this.listPriceFields.forEach(field => {
+            isValidArray.push(field.isValid);
+        });
+
+        console.log(isValidArray);
         return isValidArray;
     }
-    
+
 }
 
 export default DoctorPrenotationWrapper;

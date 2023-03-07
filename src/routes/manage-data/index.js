@@ -34,19 +34,15 @@ if (result === 'doctor') {
     const prenotationDoctorComponent = new DoctorPrenotationWrapper(wrapper.menagerWrapper, conclusionnDoctor.list, conclusionnDoctor.title, priceDoctor.list, priceDoctor.title);
     prenotationDoctorComponent.init();
 
-    console.log(prenotationDoctorComponent.props);
-    console.log(prenotationDoctorComponent.propsPriceDoctor);
-    /*   console.log(priceDoctor.list); */
-
-
     wrapper.menagerWrapper.addEventListener('apply-prenotation', (e) => handlerApply(e));
 
     const handlerApply = async (e) => {
 
-        if (true) {
-            let statusModalWindow = "confirm";
-            const modelWindow = new ModelWindow(wrapper.menagerWrapper, PrenotationModalWindow, statusModalWindow);
-            modelWindow.init();
+        console.log(checkBooleanArray(prenotationDoctorComponent.isValid()));
+
+        debugger
+
+        if (checkBooleanArray(prenotationDoctorComponent.isValid())) {
 
             const {
                 0: { value: diagnosi, },
@@ -76,24 +72,28 @@ if (result === 'doctor') {
                     }
                 });
 
-            const data = {
-                idx: getParam(window, 'idx'),
-                idxStatus: '2',
-            }
+/*             let statusModalWindow = "confirm";
+            const modelWindow = new ModelWindow(wrapper.menagerWrapper, PrenotationModalWindow, statusModalWindow);
+            modelWindow.init(); */
 
-            await UtilFetch.postData('/src/utils/php/updatePrenotationEventStatus.php', data)
-                .then(fetchResponse => {
-                    const { status, data } = fetchResponse;
-
-
-
-                    if (status >= 200 && status < 300) {
-
-                    } else {
-
-                        console.error(fetchResponse);
-                    }
-                });
+            /*             const data = {
+                            idx: getParam(window, 'idx'),
+                            idxStatus: '2',
+                        }
+            
+                        await UtilFetch.postData('/src/utils/php/updatePrenotationEventStatus.php', data)
+                            .then(fetchResponse => {
+                                const { status, data } = fetchResponse;
+            
+            
+            
+                                if (status >= 200 && status < 300) {
+            
+                                } else {
+            
+                                    console.error(fetchResponse);
+                                }
+                            }); */
         } else {
 
             const fiedsList = wrapper.menagerWrapper.querySelectorAll('.data-entry');
@@ -111,30 +111,6 @@ if (result === 'doctor') {
     const handlerModalContent = (e) => {
         const { content } = e.detail;
     };
-    const cancelBtn = document.querySelector('.cancel');
-
-
-    cancelBtn.addEventListener('click', () => {
-        let statusModalWindow = "cancel";
-        const modelWindow = new ModelWindow(wrapper.menagerWrapper, PrenotationModalWindow, statusModalWindow)
-        modelWindow.init();
-
-        const data = {
-            idx: getParam(window, 'idx'),
-            idxStatus: '2',
-        }
-
-        UtilFetch.postData('/src/utils/php/updatePrenotationEventStatus.php', data)
-            .then(fetchResponse => {
-                const { status, data } = fetchResponse;
-                if (status >= 200 && status < 300) {
-
-                } else {
-
-                    console.error(fetchResponse);
-                }
-            });
-    });
 
     wrapper.menagerWrapper.addEventListener('content-data', (e) => { handlerModalContent(e) });
 
@@ -440,7 +416,6 @@ function checkPermission() {
         }
     }
 
-    // Permission cookie not found
     return false;
 }
 

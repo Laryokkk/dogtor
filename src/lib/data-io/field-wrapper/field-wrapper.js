@@ -6,7 +6,7 @@ class Field {
         this.template;
         this.elements = {};
 
-        this.isValid = false;
+        this.isValid = props.value !== '';
 
         this.typeAnimal;
     }
@@ -134,13 +134,10 @@ class Field {
         const substring = match ? match[1] : null;
 
         if (substring) {
-            console.log(substring);
+           
             this.isValid = true;
         }else {
             dataEntry.setAttribute('value', value);
-            //TO DO
-
-            this.isValid = false;
         }
 
         if (minLength !== undefined) {
