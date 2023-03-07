@@ -33,6 +33,7 @@ class Field {
     initEventListeners() {
         const { dataEntry } = this.elements;
 
+
         dataEntry.addEventListener('input', () => {
 
             const isValid = this.props.validate(dataEntry.value);
@@ -58,7 +59,7 @@ class Field {
     }
 
     initEntry() {
-        const { key, title, className,classNameSecond, placeHolder, inputType, value, required } = this.props;
+        const { key, title, className, classNameSecond, placeHolder, inputType, value, required } = this.props;
 
         let temp = `<h4 class="${(className) ? className : ''} ">${value}</h4>`;
 
@@ -102,7 +103,7 @@ class Field {
 
 
     initSelect() {
-        
+
         return `
         <select class="${this.props.className} animalType" ${this.props.required} required>
             ${createOptions(this.props.option, this.props.value)}
@@ -111,7 +112,7 @@ class Field {
     }
 
     initAttributes() {
-        const { maxLenght, inputType, key, value, minLength } = this.props;
+        const { maxLenght, inputType, key, value, minLength, className } = this.props;
         const { dataEntry } = this.elements;
 
         if (inputType === 'textarea') {
@@ -129,11 +130,17 @@ class Field {
             dataEntry.setAttribute('id', key);
         }
 
-        if (value !== undefined) {
+        const match = className.match(/data-entry\s+(\w+)/i);
+        const substring = match ? match[1] : null;
+
+        if (substring) {
+            console.log(substring);
+            this.isValid = true;
+        }else {
             dataEntry.setAttribute('value', value);
             //TO DO
 
-            this.isValid = true;
+            this.isValid = false;
         }
 
         if (minLength !== undefined) {

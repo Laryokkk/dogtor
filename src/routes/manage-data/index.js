@@ -5,7 +5,7 @@ import DoctorPrenotationWrapper from "../../lib/data-io/doctor-prenotation-wrapp
 import DescriptionWrapper from "../../lib/data-io/description-wrapper/description-wrapper.js"
 import ModelWindow from "../../lib/model-window/model-window.js";
 import { getParam } from "../../utils/util-params.js";
-import { Animal, Person, Description, PrenotationDoctor, PrenotationModalWindow, descibtionDoctor, conclusionnDoctor, priceDoctor, PersonGetData,DescriptionGetData,AnimalGetData } from "../../helpers/Helper.js";
+import { Animal, Person, Description, PrenotationDoctor, PrenotationModalWindow, descibtionDoctor, conclusionnDoctor, priceDoctor, PersonGetData, DescriptionGetData, AnimalGetData } from "../../helpers/Helper.js";
 
 const wrapper = {
     header: document.querySelector('section#header'),
@@ -15,10 +15,6 @@ const wrapper = {
 const props = {
     header: {},
 };
-
-const value = getParam(window, 'paramName');
-console.log(value);
-
 const result = checkPermission();
 
 if (result === 'doctor') {
@@ -40,7 +36,7 @@ if (result === 'doctor') {
 
     console.log(prenotationDoctorComponent.props);
     console.log(prenotationDoctorComponent.propsPriceDoctor);
-  /*   console.log(priceDoctor.list); */
+    /*   console.log(priceDoctor.list); */
 
 
     wrapper.menagerWrapper.addEventListener('apply-prenotation', (e) => handlerApply(e));
@@ -69,9 +65,6 @@ if (result === 'doctor') {
                 idx: getParam(window, 'idx'),
             };
 
-            console.log(fetchPropsDoctor);
-
-
             await UtilFetch.postData('/src/utils/php/updateDoctorData.php', fetchPropsDoctor)
                 .then(fetchResponse => {
                     const { status, data } = fetchResponse;
@@ -92,7 +85,7 @@ if (result === 'doctor') {
                 .then(fetchResponse => {
                     const { status, data } = fetchResponse;
 
-                    
+
 
                     if (status >= 200 && status < 300) {
 
@@ -273,7 +266,7 @@ if (result === 'user' || !result) {
             luogoDiNascita,
             luogoDiResodenza,
             chipIdentificativo,
-            tipoAnimale: parseInt(tipoAnimale) ,
+            tipoAnimale: parseInt(tipoAnimale),
         };
 
         const fetchPropsPerson = {
@@ -289,6 +282,7 @@ if (result === 'user' || !result) {
         let priceVisit;
         let idxAnimal;
         let idxPerson;
+
 
         if (checkBooleanArray(animalComponent.isValid()) && checkBooleanArray(personComponent.isValid()) && checkBooleanArray(descriptioComponent.isValid())) {
             let statusModalWindow = "confirm";
@@ -365,6 +359,7 @@ if (result === 'user' || !result) {
                         console.error(fetchResponse);
                     }
                 });
+
         } else {
             const fiedsList = wrapper.menagerWrapper.querySelectorAll('.data-entry');
 

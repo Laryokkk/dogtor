@@ -2,12 +2,6 @@ import { isValidBirthdayDate } from "../utils/util-date.js";
 import UtilFetch from "/src/utils/util-fetch.js";
 import { getParam } from "../utils/util-params.js";
 
-
-/*
-SELECT animal.name_animal,animal.birthday_animal ,animal.birthday_place_animal, animal.residenze_place_animal , animal.chip_animal, animal.idx_type_animal, person.name_person,person.lastname_person,person.codice_fiscale_person,person.tel_person,person.tel_2_person,person.email_person ,visit_event.description_visit,visit_event.diagnosis_visit,visit_event.note_visit,visit_event.price_visit, visit_event.idx_symptoms_visit FROM `visit_event` INNER JOIN animal ON visit_event.idx_animal = animal.idx INNER JOIN person ON visit_event.idx_person = person.idx WHERE visit_event.idx=8;
-*/
-
-
 const data = {
     idPermission: getParam(window, "idx")
 };
@@ -540,7 +534,6 @@ const Person = {
         },
     ],
 };
-
 const Description = {
     title: 'Description',
     list: [

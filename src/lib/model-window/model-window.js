@@ -38,15 +38,16 @@ class ModelWindow {
 
     handlerConfirm() {
         let content;
-        let isValidate;
 
         if (this.elements.content) {
             content = this.elements.content.value;
             this.elements.content.classList.toggle('data-wrong',false);
+            location.href = "../index.html";
         }
 
         if (!this.elements.content) {
             console.log("Close");
+            location.href = "../index.html";
             this.clouse();
             return;
         }
