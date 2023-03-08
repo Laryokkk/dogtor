@@ -136,7 +136,7 @@ class Field {
 
         if (substring) {
            
-            this.isValid = false;
+            this.isValid = true;
         }else {
             dataEntry.setAttribute('value', value);
         }

@@ -200,6 +200,7 @@ const getPersonlCodice_fiscale_person = array => {
 }
 
 const getPersonlTel_2_person = array => {
+    console.log(array.tel_2_person);
     return array.tel_2_person
 }
 
