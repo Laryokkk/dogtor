@@ -39,10 +39,6 @@ jsonData.forEach(element => {
     wrapper.selector.innerHTML += `<option value="${element.idx}">${element.name}</option>`
 });
 
-wrapper.form.addEventListener('submit', (e) => {
-    e.preventDefault();
-})
-
 wrapper.button.addEventListener('click', async (e) => {
     if (wrapper.start.value !== '' && wrapper.end.value !== '') {
         const data = {
@@ -60,8 +56,6 @@ wrapper.button.addEventListener('click', async (e) => {
             .then(fetchResponse => {
                 const { status, data } = fetchResponse;
 
-                console.log(fetchResponse);
-
                 if (status >= 200 && status < 300) {
                     jsonData = JSON.parse(JSON.stringify(data));
                 } else {
@@ -69,6 +63,4 @@ wrapper.button.addEventListener('click', async (e) => {
                 }
             });
     }
-
-    e.preventDefault()
 });

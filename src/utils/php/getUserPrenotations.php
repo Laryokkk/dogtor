@@ -9,7 +9,7 @@ $data = json_decode($json);
 $googleId = $data->google_id;
 
 // Call the stored procedure with input parameter
-$stmt = $conn->prepare('CALL get_user_prenotations(?)');
+$stmt = $conn->prepare('CALL get_prenotation_by_google_id(?)');
 $stmt->bind_param('s', $googleId);
 $stmt->execute();
 
