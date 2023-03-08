@@ -34,9 +34,11 @@ header.init();
 
 let response;
 const jsonData = getCookie("login_id");
-await UtilFetch.postData('/src/utils/php/getUserPrenotations.php', jsonData)
+
+await UtilFetch.postData('/src/utils/php/getUserPrenotations.php', { google_id: jsonData })
     .then(fetchResponse => {
         const { status, data } = fetchResponse;
+        console.log(fetchResponse);
         if (status >= 200 && status < 300) {
             response = JSON.parse(JSON.stringify(data));
         } else {
