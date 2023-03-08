@@ -371,7 +371,7 @@ if (result === 'user' || !result) {
         location.href = "../index.html";
         const data = {
             idx: getParam(window, 'idx'),
-            idxStatus: '2',
+            idxStatus: '1',
         }
 
         UtilFetch.postData('/src/utils/php/updatePrenotationEventStatus.php', data)
