@@ -8,12 +8,10 @@ $fetchPropsUser = json_decode($json);
 
 $idPermission = $fetchPropsUser->idPermission;
 
-// Call the stored procedure with input parameter
 $stmt = $conn->prepare('CALL get_user_idx(?)');
 $stmt->bind_param('s', $idPermission);
 $stmt->execute();
 
-// Get the results
 $result = $stmt->get_result();
 
 if ($result != null) {

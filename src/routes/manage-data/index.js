@@ -198,7 +198,6 @@ if (result === 'user' || !result) {
             if (status >= 200 && status < 300) {
                 data.forEach(el => {
                     isUser = el;
-                    console.log(isUser);
                 })
 
             } else {
@@ -223,7 +222,7 @@ if (result === 'user' || !result) {
 
         const prenotationDoctorComponent = new DoctorPrenotationWrapper(wrapper.menagerWrapper, conclusionnDoctorHystory.list, conclusionnDoctorHystory.title, priceDoctorHistory.list, priceDoctorHistory.title, userState);
         prenotationDoctorComponent.init();
-        console.log(isUser);
+
     } else if(isUser.idx_user === null) {
         const animalComponent = new ManageWrapper(wrapper.menagerWrapper, Animal.list, Animal.title);
         animalComponent.init();
@@ -443,7 +442,6 @@ function checkPermission() {
 
     for (let i = 0; i < cookies.length; i++) {
         const cookie = cookies[i].trim();
-        console.log(cookie);
 
         if (cookie.startsWith('permission=')) {
             const key = cookie.substring('permission='.length);

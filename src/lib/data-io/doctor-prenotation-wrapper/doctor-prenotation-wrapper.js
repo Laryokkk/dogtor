@@ -83,7 +83,6 @@ class DoctorPrenotationWrapper {
         let templateString;
         debugger
         if (this.doctorTittle) {
-            console.log(this.doctorTittle);
             templateString = `
         <div class="prenotation-visit-doctor">
         <h4 class="text-accent">${this.doctorTittle}</h4>
