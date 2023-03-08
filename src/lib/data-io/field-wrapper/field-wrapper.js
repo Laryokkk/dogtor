@@ -116,6 +116,9 @@ class Field {
         const { maxLenght, inputType, key, value, minLength, className } = this.props;
         const { dataEntry } = this.elements;
 
+        const arr = className.split(' ');
+        const dataDoctor = arr.filter(element => element.includes('data-doctor'))[0];
+
         if (inputType === 'textarea') {
             dataEntry.innerHTML = value;
         }
@@ -135,9 +138,9 @@ class Field {
         const substring = match ? match[1] : null;
 
         if (substring) {
-           
+
             this.isValid = true;
-        }else {
+        } else {
             dataEntry.setAttribute('value', value);
         }
 
@@ -147,6 +150,10 @@ class Field {
 
         if (maxLenght !== undefined) {
             dataEntry.setAttribute('maxlength', maxLenght);
+        }
+
+        if (dataDoctor === 'data-doctor') {
+            this.isValid = false;
         }
     }
 }

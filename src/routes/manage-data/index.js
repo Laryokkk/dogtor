@@ -21,6 +21,9 @@ if (result === 'doctor') {
     const form = document.querySelector('form');
     form.setAttribute('onsubmit', 'event.preventDefault();');
 
+
+    debugger
+
     const animalComponent = new ManageWrapper(wrapper.menagerWrapper, AnimalGetData.list, AnimalGetData.title);
     animalComponent.init();
 
@@ -70,11 +73,12 @@ if (result === 'doctor') {
                     }
                 });
 
-
             location.href = "/src/routes/index.html";
+
+
             const data = {
                 idx: getParam(window, 'idx'),
-                idxStatus: '1',
+                idxStatus: '2',
             }
 
             UtilFetch.postData('/src/utils/php/updatePrenotationEventStatus.php', data)
@@ -89,7 +93,7 @@ if (result === 'doctor') {
                 });
         } else {
 
-            const fiedsList = wrapper.menagerWrapper.querySelectorAll('.conclusionnDoctor');
+            const fiedsList = wrapper.menagerWrapper.querySelectorAll('.data-doctor');
 
 
             fiedsList.forEach(filed => {
@@ -334,9 +338,13 @@ if (result === 'user' || !result) {
                 google_id: checkId(),
             }
 
+            //             UPDATE prenotation_event
+            // SET `prenotation_event.idx_user` = (SELECT id FROM users WHERE google_id = 108181142824443223252)
+            // WHERE `prenotation_event.idx` = 2;
+
             console.log(dataEvent);
 
-                await UtilFetch.postData('/src/utils/php/updatePrenotationEventIdUser.php', dataEvent)
+            await UtilFetch.postData('/src/utils/php/updatePrenotationEventIdUser.php', dataEvent)
                 .then(fetchResponse => {
                     const { status, data } = fetchResponse;
                     if (status >= 200 && status < 300) {
@@ -346,9 +354,6 @@ if (result === 'user' || !result) {
                         console.error(fetchResponse);
                     }
                 });
-
-            console.log(checkId());
-
         } else {
             const fiedsList = wrapper.menagerWrapper.querySelectorAll('.data-entry');
 

@@ -99,7 +99,7 @@ class ModelWindow {
             <div class="wrapper-window-model">
                 <div class="modal-window">
                     <div class="logo-model-window">
-                        <h3>Prenotazione effetuatta<span class="text-accent">correttamente!</span></h3>
+                        <h3>Prenotazione effetuatta <span class="text-accent">correttamente!</span></h3>
                     </div>
 
                 <div class="wrapper-modal-content">
