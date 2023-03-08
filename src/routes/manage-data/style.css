@@ -71,10 +71,15 @@
     padding-left: 1rem;
 }
 
+.conclussion-doctor {
+    margin-bottom: 1rem;
+}
+
 .description-problem {
     border: 2px solid var(--background-inputs);
 
     padding: 0.5rem;
+    margin-bottom: 1rem;
 
     width: 25rem;
     height: 12rem;
@@ -124,12 +129,18 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .prenotation-visit-doctor {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: flex-start;
 }
 
 .wrapper-data-prenotation-doctor {
@@ -182,4 +193,24 @@ input[type=number]::-webkit-inner-spin-button {
 .wrapper-textarea {
     display: flex;
     flex-direction: column-reverse;
+}
+
+.first-line,
+.second-line,
+.third-line {
+    display: flex;
+    flex-direction: row;
+}
+
+.wrapper-content-dottore {
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.btn-doctor {
+    margin-left: 8.5rem;
 }

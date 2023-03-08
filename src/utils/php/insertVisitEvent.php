@@ -13,7 +13,7 @@ $idxStatus = $data->idxStatus;
 $timeStart = $data->timeStart;
 $timeEnd = $data->timeEnd;
 
-$stmt = $conn->prepare("CALL insert_prenotation_event(?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("CALL insert_prenotation(?, ?, ?, ?, ?, ?)");
 $stmt->bind_param("ssssss", $idxDoctor, $idxUser, $idxPermissions, $idxStatus, $timeStart, $timeEnd);
 
 if ($stmt->execute()) {

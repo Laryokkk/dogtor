@@ -6,7 +6,7 @@ class Field {
         this.template;
         this.elements = {};
 
-        this.isValid = false;
+        this.isValid = props.value !== '';
 
         this.typeAnimal;
     }
@@ -33,6 +33,7 @@ class Field {
     initEventListeners() {
         const { dataEntry } = this.elements;
 
+
         dataEntry.addEventListener('input', () => {
 
             const isValid = this.props.validate(dataEntry.value);
@@ -58,7 +59,7 @@ class Field {
     }
 
     initEntry() {
-        const { key, title, className, placeHolder, inputType, value, required } = this.props;
+        const { key, title, className, classNameSecond, placeHolder, inputType, value, required } = this.props;
 
         let temp = `<h4 class="${(className) ? className : ''} ">${value}</h4>`;
 
@@ -86,25 +87,36 @@ class Field {
             </div>
         `;
         }
+        if (inputType === 'textarea' && classNameSecond === 'conclusionnDoctor') {
+            return `
+            <div class="conclussion-doctor">
+                <h5>${title}</h5>
+            </div>
+            <textarea class="description-problem ${className} ${classNameSecond}" ${required} cols="30" rows="10"></textarea>
+        `;
+        }
         if (inputType === 'textarea') {
             return `
-            <textarea class="description-problem ${className}" ${required} cols="30" rows="10"></textarea>
-        `;
+            <textarea class="description-problem ${className}" ${required} cols="30" rows="10"></textarea>`;
         }
     }
 
+
     initSelect() {
+
         return `
         <select class="${this.props.className} animalType" ${this.props.required} required>
-            ${createOptions(this.props.option,this.props.value)}
+            ${createOptions(this.props.option, this.props.value)}
         </select>
         `
     }
 
     initAttributes() {
-        const { maxLenght, inputType, key, value, minLength } = this.props;
+        const { maxLenght, inputType, key, value, minLength, className } = this.props;
         const { dataEntry } = this.elements;
 
+        const arr = className.split(' ');
+        const dataDoctor = arr.filter(element => element.includes('data-doctor'))[0];
 
         if (inputType === 'textarea') {
             dataEntry.innerHTML = value;
@@ -121,11 +133,14 @@ class Field {
             dataEntry.setAttribute('id', key);
         }
 
-        if (value !== undefined) {
-            dataEntry.setAttribute('value', value);
-            //TO DO
+        const match = className.match(/data-entry\s+(\w+)/i);
+        const substring = match ? match[1] : null;
+
+        if (substring) {
 
             this.isValid = true;
+        } else {
+            dataEntry.setAttribute('value', value);
         }
 
         if (minLength !== undefined) {
@@ -135,8 +150,14 @@ class Field {
         if (maxLenght !== undefined) {
             dataEntry.setAttribute('maxlength', maxLenght);
         }
-    }
 
+        if (dataDoctor === 'data-doctor') {
+            this.isValid = false;
+        }
+    }
 }
+
+
+
 
 export default Field;

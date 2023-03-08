@@ -30,16 +30,23 @@ const getCurrentLastDay = () => {
     return date;
 };
 
-const isValidDate = (dateString) => {
-    const date = new Date(dateString);
-    const currentDate = new Date();
-    return !isNaN(date.getTime()) && date >= currentDate;
-};
-
 const isValidBirthdayDate = (dateString) => {
     const date = new Date(dateString);
-    const currentDate = new Date();
-    return !isNaN(date.getTime()) && date < currentDate;
-};
+    
+    if (isNaN(date.getTime())) {
+      return false;
+    }
+  
+    const components = dateString.split('-');
+    if (
+      date.getFullYear() !== Number(components[0]) ||
+      date.getMonth() !== Number(components[1]) - 1 ||
+      date.getDate() !== Number(components[2])
+    ) {
+      return false;
+    }
+  
+    return true;
+  };
 
-export { formatDate, getCurrentFirstDay, getCurrentLastDay, isValidDate, isValidBirthdayDate };
+export { formatDate, getCurrentFirstDay, getCurrentLastDay, isValidBirthdayDate };

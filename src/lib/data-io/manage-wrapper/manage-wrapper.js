@@ -77,7 +77,7 @@ class ManageWrapper {
             
             isValidArray.push(filed.isValid);
         });
-    
+
         return isValidArray;
     }
 }

@@ -1,9 +1,10 @@
 class ModelWindow {
-    constructor(parent, props) {
+    constructor(parent, props, statusModalWindow) {
         this.parentElement = parent;
         this.props = props;
+        this.statusModalWindow = statusModalWindow,
 
-        this.template;
+            this.template;
         this.elements = {};
     }
 
@@ -18,7 +19,7 @@ class ModelWindow {
         this.elements = {
             btnConfirm: this.template.querySelector('button#confirm'),
             btnCancel: this.template.querySelector('button#cancel'),
-            content: this.template.querySelector('#content'),
+            content: this.template.querySelector('.content'),
             describtion: this.template.querySelector('.cancel-prenotation'),
         };
 
@@ -26,20 +27,11 @@ class ModelWindow {
     }
 
     getDescribtionData() {
-        this.elements.confirmPrenotation.addEventListener('click', () => {
-
-            if (!(this.elements.describtion.value)) {
-                this.elements.describtion.classList.toggle('data-wrong', true);
-            }
-            if (this.elements.describtion.value) {
-                this.elements.describtion.classList.toggle('data-wrong', false);
-            }
-        })
-
         return this.elements.describtion.value;
     }
 
     initEventListeners() {
+
         this.elements.btnConfirm && this.elements.btnConfirm.addEventListener('click', () => { this.handlerConfirm() });
         this.elements.btnCancel && this.elements.btnCancel.addEventListener('click', () => { this.handlerCancel() });
     }
@@ -49,15 +41,21 @@ class ModelWindow {
 
         if (this.elements.content) {
             content = this.elements.content.value;
+            this.elements.content.classList.toggle('data-wrong',false);
+            location.href = "../index.html";
         }
 
         if (!this.elements.content) {
+            location.href = "../index.html";
             this.clouse();
             return;
         }
 
+        this.elements.content.classList.toggle('data-valid',true);
+
         content = this.elements.content.value;
         if (!this.validateText(content)) {
+            this.elements.content.classList.toggle('data-wrong',true);
             return;
         }
 
@@ -84,10 +82,12 @@ class ModelWindow {
         const parser = new DOMParser();
         let templateString;
 
-        if (this.props.modalType === 'confirm') {
+        if (this.statusModalWindow === 'confirm') {
             templateString = this.initTemplateConfirm();
-        } else if (this.props.modalType === 'cancel') {
+        } else if (this.statusModalWindow === 'cancel') {
             templateString = this.initTemplateCancel();
+        }else if (this.statusModalWindow === 'confirmAdmin') {
+            templateString = this.initTemplateConfirmAdmin();
         }
 
         const templateElement = parser.parseFromString(templateString, 'text/html');
@@ -99,7 +99,7 @@ class ModelWindow {
             <div class="wrapper-window-model">
                 <div class="modal-window">
                     <div class="logo-model-window">
-                        <h3>Prenotazione effetuatta<span class="text-accent">correttamente!</span></h3>
+                        <h3>Prenotazione effetuatta <span class="text-accent">correttamente!</span></h3>
                     </div>
 
                 <div class="wrapper-modal-content">
@@ -111,6 +111,33 @@ class ModelWindow {
                         <div class="wrapper-data-prenotation">
                             <div class="prenotation-data">
                                 ${this.initContentData()}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wrapper-buttons">
+                    <button id="confirm" class="apply prenotation-apply">OK!</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        `;
+    }
+
+    initTemplateConfirmAdmin() {
+        return `
+            <div class="wrapper-window-model">
+                <div class="modal-window">
+                    <div class="logo-model-window">
+                        <h3>Prenotazione è <span class="text-accent">Accettata!</span></h3>
+                    </div>
+
+                <div class="wrapper-modal-content">
+
+                    <div class="wrapper-prenotation-data">
+                        <div class="wrapper-data-prenotation">
+                            <div class="prenotation-data">
+                                ${this.initContentAdmin()}
                             </div>
                         </div>
                     </div>
@@ -141,7 +168,7 @@ class ModelWindow {
                         <div class="wrapper-data-prenotation-cancel">
                             <div> <h4>Motivazione: </h4></div>
                             <div>
-                                <textarea id="content" class="cancel-prenotation" cols="30" rows="10"></textarea>
+                                <textarea class="content" class="cancel-prenotation" cols="30" rows="10"></textarea>
                             </div>
                         </div>
                     </div>
@@ -160,6 +187,7 @@ class ModelWindow {
         let resp = '';
 
         this.props.list.forEach(element => {
+            
 
             if (element.title === 'Date') {
                 resp += `
@@ -178,6 +206,34 @@ class ModelWindow {
             if (element.title === 'Time') {
                 resp += `
                 <div class="prenotation-data">
+                    <h4> <span class="text-accent"> ${element.value}</span> </h4> 
+                </div>
+                `;
+            }
+        });
+
+        return resp;
+
+    }
+
+    initContentAdmin() {
+        let resp = '';
+
+        this.props.list.forEach(element => {
+            
+
+            if (element.title === 'Date') {
+                resp += `
+                <div class="prenotation-data">
+                    <h4>Data : </h4> 
+                    <h4>  <span class="text-accent"> ${element.value}</span> </h4> 
+                </div>
+                `;
+            }
+            if (element.title === 'Time') {
+                resp += `
+                <div class="prenotation-data">
+                    <h4>Ore : </h4> 
                     <h4> <span class="text-accent"> ${element.value}</span> </h4> 
                 </div>
                 `;

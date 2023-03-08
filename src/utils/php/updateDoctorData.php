@@ -2,13 +2,16 @@
 $json = file_get_contents('php://input');
 $data = json_decode($json);
 
+$diagnosi = $data -> diagnosi;
+$nota = $data -> nota;
+$prezzo = $data -> prezzo;
 $idx = $data -> idx;
-$idx_status = $data -> idxStatus;
+
 
 $response = array();
 
 require('./connectionMySQL.php');
-$stmt = $conn->prepare('CALL update_status_prenotation_event(?,?)');
+$stmt = $conn->prepare('CALL update_visit_event(?,?,?,?)');
 if (!$stmt) {
     $response = array(
         'data' => $conn->error,
@@ -17,7 +20,7 @@ if (!$stmt) {
     echo json_encode($response);
     exit;
 }
-$stmt->bind_param('ii', $idx, $idx_status);
+$stmt->bind_param('isss', $idx, $diagnosi, $nota,$prezzo);
 $stmt->execute();
 
 $response = array(
@@ -30,5 +33,3 @@ echo json_encode($response);
 $stmt->close();
 $conn->close();
 ?>
-
-

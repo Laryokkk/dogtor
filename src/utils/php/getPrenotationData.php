@@ -6,15 +6,16 @@ $response = array();
 $json = file_get_contents('php://input');
 $data = json_decode($json);
 
-$googleId = $data->google_id;
+$permition = $data -> idPermission;
 
-// Call the stored procedure with input parameter
-$stmt = $conn->prepare('CALL get_prenotation_by_google_id(?)');
-$stmt->bind_param('s', $googleId);
+// Call the stored procedure
+$stmt = $conn->prepare('CALL get_prenotation_data(?)');
+$stmt->bind_param('i', $permition);
 $stmt->execute();
 
 // Get the results
 $result = $stmt->get_result();
+
 
 if ($result != null) {
     $records = array();
@@ -36,5 +37,4 @@ echo json_encode($response);
 
 $stmt->close();
 $conn->close();
-
 ?>
