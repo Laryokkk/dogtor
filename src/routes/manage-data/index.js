@@ -434,7 +434,6 @@ function checkPermission() {
 
 
 function checkId() {
-    let coockieState;
     const cookieString = document.cookie;
     const cookies = cookieString.split(';');
 
@@ -443,7 +442,6 @@ function checkId() {
 
         if (cookie.startsWith('login_id=')) {
             const key = cookie.substring('login_id='.length);
-            console.log(key);
             return key;
         }
     }
