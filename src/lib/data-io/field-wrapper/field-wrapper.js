@@ -95,7 +95,6 @@ class Field {
             <textarea class="description-problem ${className} ${classNameSecond}" ${required} cols="30" rows="10"></textarea>
         `;
         }
-        console.log(classNameSecond);
         if (inputType === 'textarea') {
             return `
             <textarea class="description-problem ${className}" ${required} cols="30" rows="10"></textarea>`;

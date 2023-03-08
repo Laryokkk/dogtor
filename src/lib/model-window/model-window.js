@@ -46,7 +46,6 @@ class ModelWindow {
         }
 
         if (!this.elements.content) {
-            console.log("Close");
             location.href = "../index.html";
             this.clouse();
             return;
@@ -56,7 +55,6 @@ class ModelWindow {
 
         content = this.elements.content.value;
         if (!this.validateText(content)) {
-            console.log("VALIDATE");
             this.elements.content.classList.toggle('data-wrong',true);
             return;
         }

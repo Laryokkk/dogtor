@@ -37,9 +37,6 @@ if (result === 'doctor') {
     wrapper.menagerWrapper.addEventListener('apply-prenotation', (e) => handlerApply(e));
 
     const handlerApply = async (e) => {
-
-        console.log(checkBooleanArray(prenotationDoctorComponent.isValid()));
-
         if (checkBooleanArray(prenotationDoctorComponent.isValid())) {
 
             const {
@@ -154,7 +151,6 @@ if (result === 'admin') {
         };
         const handlerModalContent = (e) => {
             const { content } = e.detail;
-            console.log(content);
         };
         const cancelBtn = document.querySelector('.cancel');
 
@@ -264,7 +260,6 @@ if (result === 'user' || !result) {
                     const { status, data } = fetchResponse;
 
                     idxAnimal = data.new_animal_id;
-                    console.log(idxAnimal);
 
                     if (status >= 200 && status < 300) {
 
@@ -280,7 +275,6 @@ if (result === 'user' || !result) {
                     const { status, data } = fetchResponse;
 
                     idxPerson = data.new_person_id;
-                    console.log(idxPerson);
 
                     if (status >= 200 && status < 300) {
 
@@ -334,12 +328,6 @@ if (result === 'user' || !result) {
                 idx: getParam(window, 'idx'),
                 google_id: checkId(),
             }
-
-            //             UPDATE prenotation_event
-            // SET `prenotation_event.idx_user` = (SELECT id FROM users WHERE google_id = 108181142824443223252)
-            // WHERE `prenotation_event.idx` = 2;
-
-            console.log(dataEvent);
 
             await UtilFetch.postData('/src/utils/php/updatePrenotationEventIdUser.php', dataEvent)
                 .then(fetchResponse => {

@@ -24,8 +24,6 @@ class DoctorPrenotationWrapper {
     initElements() {
         this.template = this.initTemplate(this.props, this.propsPriceDoctor);
 
-        console.log(this.template);
-
         this.elements = {
             applyBtn: this.template.querySelector('.apply'),
             cancelBtn: this.template.querySelector('.cancel'),
@@ -137,7 +135,6 @@ class DoctorPrenotationWrapper {
         const isValidArray = [];
 
         this.listFileds.forEach(field => {
-            console.log(field.isValid);
             isValidArray.push(field.isValid);
         });
 
@@ -145,7 +142,6 @@ class DoctorPrenotationWrapper {
             isValidArray.push(field.isValid);
         });
 
-        console.log(isValidArray);
         return isValidArray;
     }
 

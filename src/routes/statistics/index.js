@@ -26,8 +26,6 @@ await UtilFetch.postData('/src/utils/php/getDoctors.php', fetchProps)
     .then(fetchResponse => {
         const { status, data } = fetchResponse;
 
-        console.log(data);
-
         if (status >= 200 && status < 300) {
             jsonData = JSON.parse(JSON.stringify(data));
         } else {
@@ -49,8 +47,6 @@ wrapper.button.addEventListener('click', async (e) => {
             timeStart: new Date(wrapper.start.value).toISOString().slice(0, 19).replace('T', ' '),
             timeEnd: new Date(wrapper.end.value).toISOString().slice(0, 19).replace('T', ' '),
         };
-
-        console.log(data);
 
         await UtilFetch.postData('/src/utils/php/insertVisitEvent.php', data)
             .then(fetchResponse => {

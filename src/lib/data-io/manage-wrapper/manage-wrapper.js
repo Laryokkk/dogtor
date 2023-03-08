@@ -78,8 +78,6 @@ class ManageWrapper {
             isValidArray.push(filed.isValid);
         });
 
-        console.log(isValidArray);
-    
         return isValidArray;
     }
 }
