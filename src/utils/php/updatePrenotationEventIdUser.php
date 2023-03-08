@@ -1,14 +1,14 @@
 <?php
 $json = file_get_contents('php://input');
-$data = json_decode($json);
+$dataEvent = json_decode($json);
 
-$idx = $data -> idx;
-$idx_status = $data -> idxStatus;
+$idx = $dataEvent->idx;
+$google_id = $dataEvent->google_id;
 
 $response = array();
 
 require('./connectionMySQL.php');
-$stmt = $conn->prepare('CALL update_status_prenotation_event(?,?)');
+$stmt = $conn->prepare('CALL update_prenotation_event_user_id(?,?)');
 if (!$stmt) {
     $response = array(
         'data' => $conn->error,
@@ -17,7 +17,7 @@ if (!$stmt) {
     echo json_encode($response);
     exit;
 }
-$stmt->bind_param('ii', $idx, $idx_status);
+$stmt->bind_param('is', $idx, $google_id);
 $stmt->execute();
 
 $response = array(
@@ -29,6 +29,5 @@ echo json_encode($response);
 
 $stmt->close();
 $conn->close();
+
 ?>
-
-

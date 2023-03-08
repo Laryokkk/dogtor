@@ -329,6 +329,26 @@ if (result === 'user' || !result) {
                     }
                 });
 
+            const dataEvent = {
+                idx: getParam(window, 'idx'),
+                google_id: checkId(),
+            }
+
+            console.log(dataEvent);
+
+                await UtilFetch.postData('/src/utils/php/updatePrenotationEventIdUser.php', dataEvent)
+                .then(fetchResponse => {
+                    const { status, data } = fetchResponse;
+                    if (status >= 200 && status < 300) {
+
+                    } else {
+
+                        console.error(fetchResponse);
+                    }
+                });
+
+            console.log(checkId());
+
         } else {
             const fiedsList = wrapper.menagerWrapper.querySelectorAll('.data-entry');
 
@@ -411,6 +431,26 @@ function checkPermission() {
 
     return false;
 }
+
+
+function checkId() {
+    let coockieState;
+    const cookieString = document.cookie;
+    const cookies = cookieString.split(';');
+
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+
+        if (cookie.startsWith('login_id=')) {
+            const key = cookie.substring('login_id='.length);
+            console.log(key);
+            return key;
+        }
+    }
+
+    return null;
+}
+
 
 const header = new Header(wrapper.header, props.header);
 header.init();
