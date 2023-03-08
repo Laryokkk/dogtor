@@ -59,4 +59,6 @@ wrapper.button.addEventListener('click', async (e) => {
                 }
             });
     }
+
+    window.location.href = `/`;
 });
