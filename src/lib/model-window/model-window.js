@@ -88,6 +88,8 @@ class ModelWindow {
             templateString = this.initTemplateConfirm();
         } else if (this.statusModalWindow === 'cancel') {
             templateString = this.initTemplateCancel();
+        }else if (this.statusModalWindow === 'confirmAdmin') {
+            templateString = this.initTemplateConfirmAdmin();
         }
 
         const templateElement = parser.parseFromString(templateString, 'text/html');
@@ -111,6 +113,33 @@ class ModelWindow {
                         <div class="wrapper-data-prenotation">
                             <div class="prenotation-data">
                                 ${this.initContentData()}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wrapper-buttons">
+                    <button id="confirm" class="apply prenotation-apply">OK!</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        `;
+    }
+
+    initTemplateConfirmAdmin() {
+        return `
+            <div class="wrapper-window-model">
+                <div class="modal-window">
+                    <div class="logo-model-window">
+                        <h3>Prenotazione è <span class="text-accent">Accettata!</span></h3>
+                    </div>
+
+                <div class="wrapper-modal-content">
+
+                    <div class="wrapper-prenotation-data">
+                        <div class="wrapper-data-prenotation">
+                            <div class="prenotation-data">
+                                ${this.initContentAdmin()}
                             </div>
                         </div>
                     </div>
@@ -179,6 +208,34 @@ class ModelWindow {
             if (element.title === 'Time') {
                 resp += `
                 <div class="prenotation-data">
+                    <h4> <span class="text-accent"> ${element.value}</span> </h4> 
+                </div>
+                `;
+            }
+        });
+
+        return resp;
+
+    }
+
+    initContentAdmin() {
+        let resp = '';
+
+        this.props.list.forEach(element => {
+            
+
+            if (element.title === 'Date') {
+                resp += `
+                <div class="prenotation-data">
+                    <h4>Data : </h4> 
+                    <h4>  <span class="text-accent"> ${element.value}</span> </h4> 
+                </div>
+                `;
+            }
+            if (element.title === 'Time') {
+                resp += `
+                <div class="prenotation-data">
+                    <h4>Ore : </h4> 
                     <h4> <span class="text-accent"> ${element.value}</span> </h4> 
                 </div>
                 `;

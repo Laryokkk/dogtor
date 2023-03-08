@@ -21,9 +21,6 @@ if (result === 'doctor') {
     const form = document.querySelector('form');
     form.setAttribute('onsubmit', 'event.preventDefault();');
 
-
-    debugger
-
     const animalComponent = new ManageWrapper(wrapper.menagerWrapper, AnimalGetData.list, AnimalGetData.title);
     animalComponent.init();
 
@@ -136,7 +133,7 @@ if (result === 'admin') {
             e.stopPropagation();
 
 
-            let statusModalWindow = "confirm";
+            let statusModalWindow = "confirmAdmin";
             const modelWindow = new ModelWindow(wrapper.menagerWrapper, PrenotationModalWindow, statusModalWindow)
             modelWindow.init();
 

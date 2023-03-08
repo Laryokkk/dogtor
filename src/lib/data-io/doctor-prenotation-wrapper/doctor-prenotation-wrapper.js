@@ -88,7 +88,7 @@ class DoctorPrenotationWrapper {
                 </div>
                 <div class="wrapper-btns">
                     <button class="apply" type="submit">
-                        <h4 class="see-visit-text">Apply</h4>
+                        <h4 class="see-visit-text">Finisci</h4>
                     </button>
                 </div>
             </div>
@@ -101,10 +101,10 @@ class DoctorPrenotationWrapper {
                     </div>
                     <div class="wrapper-btns">
                         <button class="apply" type="submit">
-                            <h4 class="see-visit-text">Apply</h4>
+                            <h4 class="see-visit-text">Accetta</h4>
                         </button>
                         <button class="cancel">
-                            <h4 class="see-visit-text">Cancel</h4>
+                            <h4 class="see-visit-text">Cancella</h4>
                         </button>
                     </div>
                 </div>
