@@ -80,10 +80,10 @@ class DoctorPrenotationWrapper {
     initTemplate() {
         const parser = new DOMParser();
 
-        console.log(this.userState);
-
         let templateString;
+        debugger
         if (this.doctorTittle) {
+            console.log(this.doctorTittle);
             templateString = `
         <div class="prenotation-visit-doctor">
         <h4 class="text-accent">${this.doctorTittle}</h4>
@@ -105,7 +105,7 @@ class DoctorPrenotationWrapper {
                     </div>
                 </div>
             </div>`;
-        } else {
+        } else if(!this.doctorTittle){
             templateString = `
             <div class="prenotation-visit-doctor">
                 <div class="wrapper-content-dottore">
