@@ -172,6 +172,9 @@ const getAnimalLuogoDiNascita = array => {
     return array.birthday_place_animal
 }
 
+const getPersonName_person = array => {
+    return array.name_person
+}
 const getAnimalLuogoDiResidenza = array => {
     return array.residenze_place_animal
 }
@@ -304,7 +307,7 @@ const PersonGetData={
             key: crypto.randomUUID(),
             title: 'Nome',
             inputType: 'text',
-            value: getPersonlLastname_person(await getPrenotationData()),
+            value: getPersonName_person(await getPrenotationData()),
             maxLenght: 20,
             required: 'required',
             className: 'data-entry',
@@ -519,7 +522,7 @@ const Person = {
             minLenght: 10,
             required: '',
             placeHolder: 'Facoltativo',
-            validate: (value) => { return isValidPhoneNumberOptional(value) },
+            validate: (value) => { return true },
         },
         {
             key: crypto.randomUUID(),
@@ -763,7 +766,8 @@ const priceDoctor = {
             title: 'Prezzo',
             inputType: 'number',
             value: '',
-            className: 'data-entry',
+            className: 'data-entry data-doctor',
+            classNameSecond: 'conclusionnDoctor',
             required: 'required',
             validate: (value) => { return validateNumberInput(value) },
         },
@@ -778,7 +782,7 @@ const conclusionnDoctor = {
             title: 'Diagnosi',
             inputType: 'textarea',
             value: '',
-            className: 'data-entry',
+            className: 'data-entry data-doctor',
             classNameSecond: 'conclusionnDoctor',
             required: 'required',
             validate: (value) => { return validateText(value) },
@@ -788,7 +792,7 @@ const conclusionnDoctor = {
             title: 'Nota',
             inputType: 'textarea',
             value: '',
-            className: 'data-entry',
+            className: 'data-entry data-doctor',
             classNameSecond: 'conclusionnDoctor',
             required: 'required',
             validate: (value) => { return validateText(value) },

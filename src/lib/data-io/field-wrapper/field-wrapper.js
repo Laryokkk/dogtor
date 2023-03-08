@@ -92,9 +92,10 @@ class Field {
             <div class="conclussion-doctor">
                 <h5>${title}</h5>
             </div>
-            <textarea class="description-problem ${className}" ${required} cols="30" rows="10"></textarea>
+            <textarea class="description-problem ${className} ${classNameSecond}" ${required} cols="30" rows="10"></textarea>
         `;
         }
+        console.log(classNameSecond);
         if (inputType === 'textarea') {
             return `
             <textarea class="description-problem ${className}" ${required} cols="30" rows="10"></textarea>`;
@@ -135,7 +136,7 @@ class Field {
 
         if (substring) {
            
-            this.isValid = true;
+            this.isValid = false;
         }else {
             dataEntry.setAttribute('value', value);
         }

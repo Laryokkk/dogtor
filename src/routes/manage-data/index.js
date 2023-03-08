@@ -40,8 +40,6 @@ if (result === 'doctor') {
 
         console.log(checkBooleanArray(prenotationDoctorComponent.isValid()));
 
-        debugger
-
         if (checkBooleanArray(prenotationDoctorComponent.isValid())) {
 
             const {
@@ -72,31 +70,26 @@ if (result === 'doctor') {
                     }
                 });
 
-/*             let statusModalWindow = "confirm";
-            const modelWindow = new ModelWindow(wrapper.menagerWrapper, PrenotationModalWindow, statusModalWindow);
-            modelWindow.init(); */
 
-            /*             const data = {
-                            idx: getParam(window, 'idx'),
-                            idxStatus: '2',
-                        }
-            
-                        await UtilFetch.postData('/src/utils/php/updatePrenotationEventStatus.php', data)
-                            .then(fetchResponse => {
-                                const { status, data } = fetchResponse;
-            
-            
-            
-                                if (status >= 200 && status < 300) {
-            
-                                } else {
-            
-                                    console.error(fetchResponse);
-                                }
-                            }); */
+            location.href = "/src/routes/index.html";
+            const data = {
+                idx: getParam(window, 'idx'),
+                idxStatus: '2',
+            }
+
+            UtilFetch.postData('/src/utils/php/updatePrenotationEventStatus.php', data)
+                .then(fetchResponse => {
+                    const { status, data } = fetchResponse;
+                    if (status >= 200 && status < 300) {
+
+                    } else {
+
+                        console.error(fetchResponse);
+                    }
+                });
         } else {
 
-            const fiedsList = wrapper.menagerWrapper.querySelectorAll('.data-entry');
+            const fiedsList = wrapper.menagerWrapper.querySelectorAll('.conclusionnDoctor');
 
 
             fiedsList.forEach(filed => {

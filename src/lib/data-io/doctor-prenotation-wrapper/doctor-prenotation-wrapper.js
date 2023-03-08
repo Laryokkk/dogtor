@@ -137,6 +137,7 @@ class DoctorPrenotationWrapper {
         const isValidArray = [];
 
         this.listFileds.forEach(field => {
+            console.log(field.isValid);
             isValidArray.push(field.isValid);
         });
 
