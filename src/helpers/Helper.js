@@ -29,6 +29,9 @@ async function getPrenotationData() {
                     prenotationData.name_person = props.name_person;
                     prenotationData.residenze_place_animal = props.residenze_place_animal;
                     prenotationData.tel_2_person = props.tel_2_person;
+                    prenotationData.price_visit = props.price_visit;
+                    prenotationData.note_visit = props.note_visit;
+                    prenotationData.diagnosis_visit = props.diagnosis_visit;
                     prenotationData.tel_person = props.tel_person;
                 });
             } else {
@@ -36,7 +39,6 @@ async function getPrenotationData() {
                 console.error(fetchResponse);
             }
         });
-
     return prenotationData;
 }
 
@@ -145,6 +147,16 @@ const getEndtTime = array => {
 
 const getNameDoctor = array => {
     return array.name
+}
+
+const getPrice_visit = array => {
+    return array.price_visit
+}
+const getNote_visit = array => {
+    return array.note_visit
+}
+const getDiagnosis_visit = array => {
+    return array.diagnosis_visit
 }
 
 const getDescribtion = array => {
@@ -299,6 +311,8 @@ const History = {
         }
     ],
 };
+
+
 
 const PersonGetData={
     title: 'Accompagnatore',
@@ -800,6 +814,51 @@ const conclusionnDoctor = {
     ]
 };
 
+const priceDoctorHistory = {
+    title: 'Prezzo',
+    list: [
+        {
+            key: crypto.randomUUID(),
+            title: 'Prezzo',
+            inputType: 'number',
+            value: getPrice_visit(await getPrenotationData()),
+            className: 'data-entry data-doctor',
+            classNameSecond: 'conclusionnDoctor',
+            required: 'required',
+            validate: (value) => { return true },
+        },
+    ]
+};
+
+priceDoctorHistory.list.forEach(el=>{
+})
+
+const conclusionnDoctorHystory = {
+    title: 'Dottore',
+    list: [
+        {
+            key: crypto.randomUUID(),
+            title: 'Diagnosi',
+            inputType: 'textarea',
+            value: getDiagnosis_visit(await getPrenotationData()),
+            className: 'data-entry data-doctor',
+            classNameSecond: 'conclusionnDoctor',
+            required: 'required',
+            validate: (value) => { return true },
+        },
+        {
+            key: crypto.randomUUID(),
+            title: 'Nota',
+            inputType: 'textarea',
+            value: getNote_visit(await getPrenotationData()),
+            className: 'data-entry data-doctor',
+            classNameSecond: 'conclusionnDoctor',
+            required: 'required',
+            validate: (value) => { return true },
+        },
+    ]
+};
+
 const PrenotationModalWindow = {
     title: '',
     modalType: 'confirm',
@@ -878,5 +937,5 @@ const initSourceCB = async () => {
     return response;
 };
 
-export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow, CancelModalWindow, initSourceCB, History, descibtionDoctor, conclusionnDoctor, priceDoctor,PersonGetData ,AnimalGetData,DescriptionGetData};
+export { Person, Animal, Doctor, Visit, Description, PrenotationDoctor, PrenotationModalWindow, CancelModalWindow, initSourceCB, History, descibtionDoctor, conclusionnDoctor, priceDoctor,PersonGetData ,AnimalGetData,DescriptionGetData,priceDoctorHistory,conclusionnDoctorHystory};
 

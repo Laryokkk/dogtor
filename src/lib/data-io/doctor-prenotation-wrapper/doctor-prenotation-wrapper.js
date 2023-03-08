@@ -1,11 +1,13 @@
 import Field from "../field-wrapper/field-wrapper.js";
 
 class DoctorPrenotationWrapper {
-    constructor(parent, props, doctorTittle, propsPriceDoctor, priceDoctorTittle) {
+    constructor(parent, props, doctorTittle, propsPriceDoctor, priceDoctorTittle, userState) {
         this.parentElement = parent;
         this.props = props;
         this.propsPriceDoctor = propsPriceDoctor;
         this.priceDoctorTittle = priceDoctorTittle;
+        this.userState = userState;
+
 
         this.templateField;
 
@@ -63,7 +65,9 @@ class DoctorPrenotationWrapper {
 
 
     initEventListeners() {
-        this.elements.applyBtn.addEventListener('click', (e) => this.handlerApply(e));
+        if (!this.userState) {
+            this.elements.applyBtn.addEventListener('click', (e) => this.handlerApply(e));
+        }
     }
 
     handlerApply() {
@@ -75,7 +79,9 @@ class DoctorPrenotationWrapper {
 
     initTemplate() {
         const parser = new DOMParser();
-        
+
+        console.log(this.userState);
+
         let templateString;
         if (this.doctorTittle) {
             templateString = `
@@ -91,6 +97,14 @@ class DoctorPrenotationWrapper {
                 </div>
             </div>
         </div>`;
+        } if (this.userState) {
+            templateString = `
+            <div class="prenotation-visit-doctor">
+                <div class="wrapper-content-dottore">
+                    <div class="wrapper-data-prenotation-doctor">
+                    </div>
+                </div>
+            </div>`;
         } else {
             templateString = `
             <div class="prenotation-visit-doctor">
