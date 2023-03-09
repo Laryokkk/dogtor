@@ -840,7 +840,7 @@ const conclusionnDoctorHystory = {
             key: crypto.randomUUID(),
             title: 'Diagnosi',
             inputType: 'textarea',
-            value: getDiagnosis_visit(await getPrenotationData()),
+            value: getDiagnosis_visit(await getPrenotationData()) === undefined ? '':getDiagnosis_visit(await getPrenotationData()),
             className: 'data-entry data-doctor',
             classNameSecond: 'conclusionnDoctor',
             required: 'required',

@@ -81,7 +81,6 @@ class DoctorPrenotationWrapper {
         const parser = new DOMParser();
 
         let templateString;
-        debugger
         if (this.doctorTittle) {
             templateString = `
         <div class="prenotation-visit-doctor">
