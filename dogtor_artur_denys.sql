@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost:8889
--- Время создания: Мар 08 2023 г., 20:28
+-- Время создания: Мар 09 2023 г., 09:10
 -- Версия сервера: 5.7.34
 -- Версия PHP: 7.4.21
 
@@ -111,6 +111,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_user_doctor` (IN `google_id` VA
   FROM user_doctor ua
   JOIN users u ON u.id = ua.idx_user
   WHERE u.google_id = google_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_user_idx` (IN `idPermission` INT(150))  BEGIN
+SELECT idx_user
+FROM prenotation_event
+WHERE idx = idPermission;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_animal` (IN `animal_name` TEXT, IN `animal_birthday` DATETIME, IN `animal_birthday_place` TEXT, IN `animal_residenze_place` TEXT, IN `animal_chip` TEXT, IN `animal_type_idx` INT)  BEGIN
@@ -275,8 +281,7 @@ CREATE TABLE `animal` (
 --
 
 INSERT INTO `animal` (`idx`, `name_animal`, `birthday_animal`, `birthday_place_animal`, `residenze_place_animal`, `chip_animal`, `idx_type_animal`) VALUES
-(1, 'Sobaka', '2022-11-11 00:00:00', 'Moscow', 'Moscow', '123123123321321', 1),
-(2, 'Bobik', '2023-01-19 00:00:00', 'Italia', 'Italia', '321123321123321', 3);
+(1, 'Sobaka', '2023-02-02 00:00:00', 'Moscow', 'Moscow', '123321123321321', 2);
 
 -- --------------------------------------------------------
 
@@ -299,8 +304,7 @@ CREATE TABLE `person` (
 --
 
 INSERT INTO `person` (`idx`, `name_person`, `lastname_person`, `codice_fiscale_person`, `tel_person`, `tel_2_person`, `email_person`) VALUES
-(1, 'Artur', 'Smirnov', 'asddsa123123', '1231231231', '', 'asdfds@gmail.com'),
-(2, 'Arturoo', 'Smirno', '32432sdfsd', '1233211233', '', 'asdfsagdsa@gmail.com');
+(1, 'Artur', 'Smirnov', 'asdasd332', '1231231231', '', 'asdsd@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -323,9 +327,8 @@ CREATE TABLE `prenotation_event` (
 --
 
 INSERT INTO `prenotation_event` (`idx`, `idx_doctor`, `idx_user`, `idx_permitions`, `idx_status`, `time_start_prenotation`, `time_end_prenotation`) VALUES
-(1, 5, NULL, 3, 1, '2023-03-10 10:15:00', '2023-03-10 11:25:00'),
-(2, 4, 5, 3, 2, '2023-03-14 10:15:00', '2023-03-14 11:25:00'),
-(3, 5, NULL, 3, 2, '2023-03-16 12:15:00', '2023-03-16 15:25:00');
+(1, 5, NULL, 3, 1, '2023-03-10 08:00:00', '2023-03-10 11:00:00'),
+(2, 4, 5, 3, 2, '2023-03-15 11:00:00', '2023-03-15 13:00:00');
 
 -- --------------------------------------------------------
 
@@ -494,8 +497,7 @@ CREATE TABLE `visit_event` (
 --
 
 INSERT INTO `visit_event` (`idx`, `idx_prenotaion_event`, `idx_animal`, `idx_person`, `idx_symptoms_visit`, `description_visit`, `diagnosis_visit`, `note_visit`, `price_visit`) VALUES
-(1, 3, 1, 1, 3, 'Deficenza', 'Veramente scemo', 'Non posso far nulla', '1000'),
-(2, 2, 2, 2, 2, 'Prof Sauli non e contento', 'Bho', 'Lol', '2000');
+(1, 2, 1, 1, 3, 'LOL', 'PADSJFPOJFDJOPSs', 'fsdklfsdlkfdsjk', '23432');
 
 --
 -- Индексы сохранённых таблиц
@@ -586,19 +588,19 @@ ALTER TABLE `visit_event`
 -- AUTO_INCREMENT для таблицы `animal`
 --
 ALTER TABLE `animal`
-  MODIFY `idx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `person`
 --
 ALTER TABLE `person`
-  MODIFY `idx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `prenotation_event`
 --
 ALTER TABLE `prenotation_event`
-  MODIFY `idx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `prenotation_status`
@@ -646,7 +648,7 @@ ALTER TABLE `user_doctor`
 -- AUTO_INCREMENT для таблицы `visit_event`
 --
 ALTER TABLE `visit_event`
-  MODIFY `idx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
