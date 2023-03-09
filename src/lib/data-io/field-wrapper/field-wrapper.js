@@ -44,6 +44,7 @@ class Field {
             this.isValid = isValid;
 
             this.props.value = dataEntry.value;
+
         });
     }
 
@@ -67,7 +68,7 @@ class Field {
             return `
                 <div class="wrapper-data" id="${key}">
                     <div> ${title} </div>
-                    <input class="value-data ${className}" placeholder="${(placeHolder) ? placeHolder : ''}" value="${required ? '' : ''}" ${(required) ? required : ''}>
+                    <input class="value-data ${className}" placeholder="${(placeHolder) ? placeHolder : ''}" value="${value ? value : ''}" ${(required) ? required : ''}>
                 </div>
             `;
         }
