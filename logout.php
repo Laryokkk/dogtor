@@ -8,6 +8,6 @@ if (isset($_SERVER['HTTP_COOKIE'])) {
         setcookie($name, '', time() - (60*60*24), '/');
     }
 }
-header("Location: /");
+header("Location: /classi/5e/vysotskyy/");
 exit;
 ?>

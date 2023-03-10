@@ -4,7 +4,7 @@ require_once 'config.php';
  
 $clientID = '162965303956-1imd1dlt9giopr764cu918m1fkcqr2lc.apps.googleusercontent.com';
 $clientSecret = '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';
-$redirectUri = 'http://localhost:8888/redirect.php';
+$redirectUri = 'http://localhost/classi/5e/vysotskyy/redirect.php';
   
 $client = new Google_Client();
 $client->setClientId($clientID);
@@ -55,7 +55,7 @@ if (isset($_GET['code'])) {
         $permition = 3;
         setcookie('permission', 'user', time() + (60*15), '/');
     }
-    header('Location: /');
+    header('Location: /classi/5e/vysotskyy/');
     exit;
   }
   else{
@@ -63,14 +63,14 @@ if (isset($_GET['code'])) {
       if($insert){
         setcookie('login_id', $id, time() + (60*15), '/');
         setcookie('permission', 'user', time() + (60*15), '/');
-          header('Location: /');
+          header('Location: /classi/5e/vysotskyy/');
           exit;
       }
       else{
           echo "Sign up failed!(Something went wrong).";
       }
   }
-  header('Location: /');
+  header('Location: /classi/5e/vysotskyy/');
 } else {
     header('Location: '.$client->createAuthUrl());
 }
