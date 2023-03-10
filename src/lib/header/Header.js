@@ -70,7 +70,7 @@ class Header {
         const parser = new DOMParser();
         const templateString = `<header>
             <a href="/">
-                <img class="logo" src="/assets/header_logo.svg" alt="logo of the 'Cani Sani'">
+                <img class="logo" src="/classi/5e/vysotskyy/assets/header_logo.svg" alt="logo of the 'Cani Sani'">
             </a>
             <div class="container-data">
             <div class="sign-in-up hidden">
@@ -87,14 +87,14 @@ class Header {
                 </a>
             </div>
             <div class="statistics hidden">
-                <a href="/src/routes/statistics/index.html">
+                <a href="/classi/5e/vysotskyy/src/routes/statistics/index.html">
                     <h4 class="text text-active">
                         <span class="text-heading text-accent">A</span>ggiungi <span class="text-heading text-accent">V</span>isita
                     </h4>
                 </a>
             </div>
             <div class="history hidden">
-                <a href="/src/routes/account/index.html">
+                <a href="/classi/5e/vysotskyy/src/routes/account/index.html">
                     <h4 class="text text-active">
                         <span class="text-heading text-accent">S</span>toria
                     </h4>

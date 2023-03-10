@@ -1,4 +1,4 @@
-import { formatDate, getCurrentFirstDay, getCurrentLastDay } from '/src/utils/util-date.js';
+import { formatDate, getCurrentFirstDay, getCurrentLastDay } from '/classi/5e/vysotskyy/src/utils/util-date.js';
 
 function calculateTopAndHeight(eventStartTime, eventEndTime, parentHeight) {
     const relativeDate = new Date(eventStartTime);

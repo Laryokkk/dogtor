@@ -1,6 +1,6 @@
-import { History } from "/src/helpers/Helper.js";
-import HistoryComponent from "/src/lib/history/HistoryComponent.js";
-import Header from "/src/lib/header/Header.js";
+import { History } from "/classi/5e/vysotskyy/src/helpers/Helper.js";
+import HistoryComponent from "/classi/5e/vysotskyy/src/lib/history/HistoryComponent.js";
+import Header from "/classi/5e/vysotskyy/src/lib/header/Header.js";
 import UtilFetch from "../../utils/util-fetch.js";
 
 function getCookie(username) {
@@ -35,7 +35,7 @@ header.init();
 let response;
 const jsonData = getCookie("login_id");
 
-await UtilFetch.postData('/src/utils/php/getUserPrenotations.php', { google_id: jsonData })
+await UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/getUserPrenotations.php', { google_id: jsonData })
     .then(fetchResponse => {
         const { status, data } = fetchResponse;
         if (status >= 200 && status < 300) {

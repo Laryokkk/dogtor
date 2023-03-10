@@ -1,11 +1,11 @@
 @font-face {
     font-family: "Rubik Light";
-    src: url("/font/Rubik-Light.ttf");
+    src: url("/classi/5e/vysotskyy/font/Rubik-Light.ttf");
 }
 
 @font-face {
     font-family: "Rubik SemiBold";
-    src: url("/font/Rubik-SemiBold.ttf");
+    src: url("/classi/5e/vysotskyy/font/Rubik-SemiBold.ttf");
 }
 
 *:not(br):not(hr):not(img) {

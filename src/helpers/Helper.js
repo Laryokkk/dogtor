@@ -1,5 +1,5 @@
 import { isValidBirthdayDate } from "../utils/util-date.js";
-import UtilFetch from "/src/utils/util-fetch.js";
+import UtilFetch from "/classi/5e/vysotskyy/src/utils/util-fetch.js";
 import { getParam } from "../utils/util-params.js";
 
 const data = {
@@ -9,7 +9,7 @@ const data = {
 async function getPrenotationData() {
     const prenotationData = {};
 
-    await UtilFetch.postData('/src/utils/php/getPrenotationData.php', data)
+    await UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/getPrenotationData.php', data)
         .then(fetchResponse => {
             const { status, data } = fetchResponse;
 
@@ -45,7 +45,7 @@ async function getPrenotationData() {
 async function getPrenotationDoctor() {
     const doctorData = {};
 
-    await UtilFetch.postData('/src/utils/php/getPrenotationDoctor.php', data)
+    await UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/getPrenotationDoctor.php', data)
         .then(fetchResponse => {
             const { status, data } = fetchResponse;
 
@@ -71,7 +71,7 @@ async function getPrenotationDoctor() {
 async function getDescribtionData() {
     const describtionData = {};
 
-    await UtilFetch.postData('/src/utils/php/getDescribtionData.php', data)
+    await UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/getDescribtionData.php', data)
         .then(fetchResponse => {
             const { status, data } = fetchResponse;
 
@@ -92,7 +92,7 @@ async function getDescribtionData() {
 async function getAnimalType() {
     const animalTypes = [];
 
-    await UtilFetch.postData('/src/utils/php/getAnimalType.php', {})
+    await UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/getAnimalType.php', {})
         .then(fetchResponse => {
             const { status, data } = fetchResponse;
 
@@ -114,7 +114,7 @@ async function getAnimalType() {
 async function getAnimalSick() {
     const animalTypes = [];
 
-    await UtilFetch.postData('/src/utils/php/getAnimalSick.php', {})
+    await UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/getAnimalSick.php', {})
         .then(fetchResponse => {
             const { status, data } = fetchResponse;
 
@@ -909,7 +909,7 @@ const initSourceCB = async () => {
     const fetchProps = { permission: 'user' };
     const response = sourceCB;
 
-    await UtilFetch.postData('/src/utils/php/getSourceCB.php', fetchProps)
+    await UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/getSourceCB.php', fetchProps)
         .then(fetchResponse => {
             const { status, data } = fetchResponse;
 

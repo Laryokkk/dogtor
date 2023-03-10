@@ -20,7 +20,7 @@ class HistoryComponent {
         const parser = new DOMParser();
         const templateString = `<div class="history-component">
             ${this.initFileds()}
-            <a href="/src/routes/manage-data/index.html?idx=${this.props.idx}">
+            <a href="/classi/5e/vysotskyy/src/routes/manage-data/index.html?idx=${this.props.idx}">
                 <button class="button-history">
                     <h4 class="text-extend">
                         Guarda

@@ -1,6 +1,6 @@
-import CalendarBox from '/src/lib/calendar/index.js';
-import { initSourceCB } from '/src/helpers/Helper.js';
-import Header from "/src/lib/header/Header.js";
+import CalendarBox from '/classi/5e/vysotskyy/src/lib/calendar/index.js';
+import { initSourceCB } from '/classi/5e/vysotskyy/src/helpers/Helper.js';
+import Header from "/classi/5e/vysotskyy/src/lib/header/Header.js";
 import UtilFetch from '../../utils/util-fetch.js';
 
 const wrapper = {
@@ -24,9 +24,9 @@ const handlerRule = async (e) => {
 
     const fetchProps = { idx: ruleIdx, idxStatus: 4 };
 
-    await UtilFetch.postData('/src/utils/php/updatePrenotationEventStatus.php', fetchProps)
+    await UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/updatePrenotationEventStatus.php', fetchProps)
         .then(fetchResponse => {
-            window.location.href = `/src/routes/manage-data/index.html?idx=${ruleIdx}`;
+            window.location.href = `/classi/5e/vysotskyy/src/routes/manage-data/index.html?idx=${ruleIdx}`;
         });
 };
 

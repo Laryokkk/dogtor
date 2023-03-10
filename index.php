@@ -1,4 +1,4 @@
 <?php
-Header("location: ./src/routes/index.html");
+Header("location: /classi/5e/vysotskyy/src/routes/index.html");
 die();
 ?>

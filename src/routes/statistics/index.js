@@ -1,4 +1,4 @@
-import Header from "/src/lib/header/Header.js";
+import Header from "/classi/5e/vysotskyy/src/lib/header/Header.js";
 import UtilFetch from "../../utils/util-fetch.js";
 
 const wrapper = {
@@ -22,7 +22,7 @@ header.init();
 const fetchProps = {};
 
 let jsonData;
-await UtilFetch.postData('/src/utils/php/getDoctors.php', fetchProps)
+await UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/getDoctors.php', fetchProps)
     .then(fetchResponse => {
         const { status, data } = fetchResponse;
 
@@ -48,7 +48,7 @@ wrapper.button.addEventListener('click', async (e) => {
             timeEnd: new Date(wrapper.end.value).toISOString().slice(0, 19).replace('T', ' '),
         };
 
-        await UtilFetch.postData('/src/utils/php/insertVisitEvent.php', data)
+        await UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/insertVisitEvent.php', data)
             .then(fetchResponse => {
                 const { status, data } = fetchResponse;
 

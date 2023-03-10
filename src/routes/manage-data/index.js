@@ -60,7 +60,7 @@ if (result === 'doctor') {
                 idx: getParam(window, 'idx'),
             };
 
-            await UtilFetch.postData('/src/utils/php/updateDoctorData.php', fetchPropsDoctor)
+            await UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/updateDoctorData.php', fetchPropsDoctor)
                 .then(fetchResponse => {
                     const { status, data } = fetchResponse;
                     if (status >= 200 && status < 300) {
@@ -71,7 +71,7 @@ if (result === 'doctor') {
                     }
                 });
 
-            location.href = "/src/routes/index.html";
+            location.href = "/classi/5e/vysotskyy/src/routes/index.html";
 
 
             const data = {
@@ -79,7 +79,7 @@ if (result === 'doctor') {
                 idxStatus: '2',
             }
 
-            UtilFetch.postData('/src/utils/php/updatePrenotationEventStatus.php', data)
+            UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/updatePrenotationEventStatus.php', data)
                 .then(fetchResponse => {
                     const { status, data } = fetchResponse;
                     if (status >= 200 && status < 300) {
@@ -143,7 +143,7 @@ if (result === 'admin') {
                 idxStatus: '3',
             }
 
-            await UtilFetch.postData('/src/utils/php/updatePrenotationEventStatus.php', data)
+            await UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/updatePrenotationEventStatus.php', data)
                 .then(fetchResponse => {
                     const { status, data } = fetchResponse;
                     if (status >= 200 && status < 300) {
@@ -169,7 +169,7 @@ if (result === 'admin') {
                 idxStatus: '2',
             }
 
-            UtilFetch.postData('/src/utils/php/updatePrenotationEventStatus.php', data)
+            UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/updatePrenotationEventStatus.php', data)
                 .then(fetchResponse => {
                     const { status, data } = fetchResponse;
                     if (status >= 200 && status < 300) {
@@ -192,7 +192,7 @@ if (result === 'user' || !result) {
         idPermission: getParam(window, 'idx'),
     }
 
-    await UtilFetch.postData('/src/utils/php/getUserIdx.php', fetchPropsUser)
+    await UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/getUserIdx.php', fetchPropsUser)
         .then(fetchResponse => {
             const { status, data } = fetchResponse;
             if (status >= 200 && status < 300) {
@@ -297,7 +297,7 @@ if (result === 'user' || !result) {
                 const modelWindow = new ModelWindow(wrapper.menagerWrapper, PrenotationModalWindow, statusModalWindow)
                 modelWindow.init();
 
-                await UtilFetch.postData('/src/utils/php/insertAnimal.php', fetchPropsAnimal)
+                await UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/insertAnimal.php', fetchPropsAnimal)
                     .then(fetchResponse => {
                         const { status, data } = fetchResponse;
 
@@ -312,7 +312,7 @@ if (result === 'user' || !result) {
                     });
 
 
-                await UtilFetch.postData('/src/utils/php/insertPerson.php', fetchPropsPerson)
+                await UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/insertPerson.php', fetchPropsPerson)
                     .then(fetchResponse => {
                         const { status, data } = fetchResponse;
 
@@ -338,7 +338,7 @@ if (result === 'user' || !result) {
 
 
 
-                await UtilFetch.postData('/src/utils/php/insertDescription.php', fetchPropsDescribtion)
+                await UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/insertDescription.php', fetchPropsDescribtion)
                     .then(fetchResponse => {
                         const { status, data } = fetchResponse;
 
@@ -355,7 +355,7 @@ if (result === 'user' || !result) {
                     idxStatus: '4',
                 }
 
-                await UtilFetch.postData('/src/utils/php/updatePrenotationEventStatus.php', data)
+                await UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/updatePrenotationEventStatus.php', data)
                     .then(fetchResponse => {
                         const { status, data } = fetchResponse;
                         if (status >= 200 && status < 300) {
@@ -371,7 +371,7 @@ if (result === 'user' || !result) {
                     google_id: checkId(),
                 }
 
-                await UtilFetch.postData('/src/utils/php/updatePrenotationEventIdUser.php', dataEvent)
+                await UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/updatePrenotationEventIdUser.php', dataEvent)
                     .then(fetchResponse => {
                         const { status, data } = fetchResponse;
                         if (status >= 200 && status < 300) {
@@ -406,7 +406,7 @@ if (result === 'user' || !result) {
                 idxStatus: '1',
             }
 
-            UtilFetch.postData('/src/utils/php/updatePrenotationEventStatus.php', data)
+            UtilFetch.postData('/classi/5e/vysotskyy/src/utils/php/updatePrenotationEventStatus.php', data)
                 .then(fetchResponse => {
                     const { status, data } = fetchResponse;
                     if (status >= 200 && status < 300) {

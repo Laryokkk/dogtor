@@ -18,7 +18,7 @@ function getCookie(username) {
 const permission = getCookie('permission');
 
 if (permission && permission !== 'user') {
-    window.location.href = `/src/routes/calendar/index.html`;
+    window.location.href = `/classi/5e/vysotskyy/src/routes/calendar/index.html`;
 }
 
 const wrapper = {
